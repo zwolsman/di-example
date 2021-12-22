@@ -66,7 +66,7 @@ class LocalGameService: GameService {
     }
 
     func create() {
-        let game = Game(status: true, secret: "secret", stake: 100, bet: 100, next: 15)
+        let game = Game(secret: "secret", stake: 100, bet: 100, next: 15)
         gameStore[game.id] = game
     }
 
