@@ -7,14 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FD09F005492A8178CB168300 /* RootViewAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F123C7D7D7651F1EB7EA /* RootViewAppearance.swift */; };
+		FD09F10CC14422D3B09D7845 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09FC8AE17427431090CCF3 /* Store.swift */; };
 		FD09F2E7DC3DF07244B1ADA5 /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09FFBF463C40BA727189E7 /* Tests_iOS.swift */; };
+		FD09F3E825C14F69DE3FC476 /* RootViewAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F123C7D7D7651F1EB7EA /* RootViewAppearance.swift */; };
 		FD09F4F5E85EE5F82BFEED92 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F12D2553D67254E3FE67 /* ContentView.swift */; };
 		FD09F4F9A53B09209750F657 /* Tests_iOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F837783029B66A2B64C6 /* Tests_iOSLaunchTests.swift */; };
 		FD09F53D3235392C9AA9555B /* Tests_macOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F417E47E501B07D37A1E /* Tests_macOSLaunchTests.swift */; };
 		FD09F55D94E42E1E537F4315 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F12D2553D67254E3FE67 /* ContentView.swift */; };
+		FD09F7962B77C09A1D4A1A1E /* InjectorsContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F490AAAE20198CB33A76 /* InjectorsContainer.swift */; };
+		FD09F85223E9052A8ADBB373 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09FCCD9F6776CFCA43EDCA /* AppState.swift */; };
+		FD09F8574C7F4946F9B928A7 /* DependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F1357A3572564D51AC76 /* DependencyInjector.swift */; };
 		FD09F88CEDD7265FDE9985EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD09F19B7A88FA15717F65D9 /* Assets.xcassets */; };
 		FD09F94C1DA3C286BF1C1338 /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09FE4E0FBB58BA95BCDC11 /* Tests_macOS.swift */; };
+		FD09FA0F1E7CF63519C5F59A /* DependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F1357A3572564D51AC76 /* DependencyInjector.swift */; };
+		FD09FB15D682CA726AAD8E14 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09FC8AE17427431090CCF3 /* Store.swift */; };
+		FD09FBA5B2D1081F2C261B5E /* InjectorsContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F490AAAE20198CB33A76 /* InjectorsContainer.swift */; };
 		FD09FC63D13AAB58151B0097 /* di_exampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09FF8766D634D9BA897217 /* di_exampleApp.swift */; };
+		FD09FD814EB03D64B1D1CDEE /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09FCCD9F6776CFCA43EDCA /* AppState.swift */; };
 		FD09FE7289543151FCD37202 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD09F19B7A88FA15717F65D9 /* Assets.xcassets */; };
 		FD09FE74AC0317663B25AB37 /* di_exampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09FF8766D634D9BA897217 /* di_exampleApp.swift */; };
 /* End PBXBuildFile section */
@@ -37,14 +47,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FD09F123C7D7D7651F1EB7EA /* RootViewAppearance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewAppearance.swift; sourceTree = "<group>"; };
 		FD09F12D2553D67254E3FE67 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		FD09F1357A3572564D51AC76 /* DependencyInjector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DependencyInjector.swift; sourceTree = "<group>"; };
 		FD09F19B7A88FA15717F65D9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FD09F23C6500FA4727D6264C /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
 		FD09F417E47E501B07D37A1E /* Tests_macOSLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOSLaunchTests.swift; sourceTree = "<group>"; };
 		FD09F44F1AC505FF5436D165 /* Tests macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FD09F490AAAE20198CB33A76 /* InjectorsContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InjectorsContainer.swift; sourceTree = "<group>"; };
 		FD09F837783029B66A2B64C6 /* Tests_iOSLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_iOSLaunchTests.swift; sourceTree = "<group>"; };
 		FD09F8907D9CE8177350BFEF /* di-example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "di-example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD09F90D59FC2234C9ED4100 /* di-example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "di-example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FD09FC8AE17427431090CCF3 /* Store.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
+		FD09FCCD9F6776CFCA43EDCA /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		FD09FE4E0FBB58BA95BCDC11 /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
 		FD09FF8766D634D9BA897217 /* di_exampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = di_exampleApp.swift; sourceTree = "<group>"; };
 		FD09FFB561E0CCBB9125B141 /* Tests iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -83,6 +98,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FD09F081654D65E36E4D5E26 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				FD09F123C7D7D7651F1EB7EA /* RootViewAppearance.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
 		FD09F4A9A4830D787EB925F0 /* Tests macOS */ = {
 			isa = PBXGroup;
 			children = (
@@ -98,8 +121,21 @@
 				FD09F19B7A88FA15717F65D9 /* Assets.xcassets */,
 				FD09FF8766D634D9BA897217 /* di_exampleApp.swift */,
 				FD09F12D2553D67254E3FE67 /* ContentView.swift */,
+				FD09F56F1D6F772555EE4A56 /* Injected */,
+				FD09F081654D65E36E4D5E26 /* UI */,
+				FD09FE6FF31B78D923C715D8 /* Utilities */,
 			);
 			path = Shared;
+			sourceTree = "<group>";
+		};
+		FD09F56F1D6F772555EE4A56 /* Injected */ = {
+			isa = PBXGroup;
+			children = (
+				FD09FCCD9F6776CFCA43EDCA /* AppState.swift */,
+				FD09F1357A3572564D51AC76 /* DependencyInjector.swift */,
+				FD09F490AAAE20198CB33A76 /* InjectorsContainer.swift */,
+			);
+			path = Injected;
 			sourceTree = "<group>";
 		};
 		FD09F719F0A552627C5BE88B /* macOS */ = {
@@ -139,6 +175,14 @@
 				FD09F9A1BF48AA7CEBD523EF /* Tests iOS */,
 				FD09F4A9A4830D787EB925F0 /* Tests macOS */,
 			);
+			sourceTree = "<group>";
+		};
+		FD09FE6FF31B78D923C715D8 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				FD09FC8AE17427431090CCF3 /* Store.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -288,6 +332,11 @@
 			files = (
 				FD09FC63D13AAB58151B0097 /* di_exampleApp.swift in Sources */,
 				FD09F55D94E42E1E537F4315 /* ContentView.swift in Sources */,
+				FD09F85223E9052A8ADBB373 /* AppState.swift in Sources */,
+				FD09FA0F1E7CF63519C5F59A /* DependencyInjector.swift in Sources */,
+				FD09F7962B77C09A1D4A1A1E /* InjectorsContainer.swift in Sources */,
+				FD09F005492A8178CB168300 /* RootViewAppearance.swift in Sources */,
+				FD09FB15D682CA726AAD8E14 /* Store.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,6 +346,11 @@
 			files = (
 				FD09FE74AC0317663B25AB37 /* di_exampleApp.swift in Sources */,
 				FD09F4F5E85EE5F82BFEED92 /* ContentView.swift in Sources */,
+				FD09FD814EB03D64B1D1CDEE /* AppState.swift in Sources */,
+				FD09F8574C7F4946F9B928A7 /* DependencyInjector.swift in Sources */,
+				FD09FBA5B2D1081F2C261B5E /* InjectorsContainer.swift in Sources */,
+				FD09F3E825C14F69DE3FC476 /* RootViewAppearance.swift in Sources */,
+				FD09F10CC14422D3B09D7845 /* Store.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
