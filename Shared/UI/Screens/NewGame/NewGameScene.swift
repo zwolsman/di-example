@@ -47,7 +47,14 @@ private extension NewGameScene {
                 }
             }
 
-            // TODO: stake
+            Section(footer: Text("You can adjust your stake in later versions")) {
+                Text("Stake: 100")
+            }
+
+            Button("Create game") {
+                viewModel.createGame()
+            }
+                    .disabled(!viewModel.canCreateGame)
         }
     }
 }

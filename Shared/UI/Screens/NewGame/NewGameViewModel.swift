@@ -23,6 +23,9 @@ extension NewGameScene {
         @Published var bombs: Bombs = .three
         @Published var bet: Int = 100
 
+        var canCreateGame: Bool {
+            true
+        }
 
         // Misc
         let container: DIContainer
@@ -41,6 +44,15 @@ extension NewGameScene {
                         .removeDuplicates()
                         .weakAssign(to: \.routingState, on: self)
             }
+        }
+
+        // MARK: - Side effects
+
+        func createGame() {
+            container
+                    .services
+                    .gameService
+                    .create(initialBet: bet, color: color, bombs: bombs.rawValue)
         }
     }
 }

@@ -4,13 +4,14 @@
 
 import Combine
 import Foundation
+import SwiftUI
 
 protocol GameService {
     func refreshGames() -> AnyPublisher<Void, Error>
     func loadGames()
     func load(game: LoadableSubject<Game>, gameId: String)
 
-    func create()
+    func create(initialBet: Int, color: Color, bombs: Int)
     func guess(game: LoadableSubject<Game>, gameId: String, tileId: Int)
 }
 
@@ -65,7 +66,7 @@ class LocalGameService: GameService {
                 .store(in: cancelBag)
     }
 
-    func create() {
+    func create(initialBet: Int, color: Color, bombs: Int) {
         let game = Game(secret: "secret", stake: 100, bet: 100, next: 15)
         gameStore[game.id] = game
     }
@@ -110,7 +111,7 @@ struct StubGamesInteractor: GameService {
 
     }
 
-    func create() {
+    func create(initialBet: Int, color: Color, bombs: Int) {
 
     }
 
