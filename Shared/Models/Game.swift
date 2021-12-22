@@ -6,6 +6,12 @@ import Foundation
 
 struct Game: Codable, Equatable, Identifiable {
     var id: String = UUID().uuidString
+
+    var status: Bool
+    var secret: String
+    var stake: Int
+    var bet: Int
+    var next: Int
 }
 
 extension Game {

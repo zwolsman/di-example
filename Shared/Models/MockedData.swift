@@ -6,6 +6,6 @@ import Foundation
 
 extension Game {
     static let mockedData = [
-        Game(id: "mock")
+        Game(status: true, secret: "secret", stake: 100, bet: 100, next: 15)
     ]
 }

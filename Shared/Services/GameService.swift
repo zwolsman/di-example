@@ -46,7 +46,7 @@ struct LocalGameService: GameService {
     }
 
     func create() {
-        let game = Game()
+        let game = Game(status: true, secret: "secret", stake: 100, bet: 100, next: 15)
         let cancelBag = CancelBag()
         appState[\.userData.games].setIsLoading(cancelBag: cancelBag)
         weak var weakAppState = appState
