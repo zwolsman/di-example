@@ -4,21 +4,24 @@
 
 import Combine
 
-protocol GamesInteractor {
-    func refreshGamesList() -> AnyPublisher<Void, Error>
+protocol GameService {
+    func refreshGames() -> AnyPublisher<Void, Error>
     func load(games: LoadableSubject<[Game]>)
     func load(game: LoadableSubject<Game>, id: String)
 }
 
-struct LocalGamesInteractor: GamesInteractor {
-    func refreshGamesList() -> AnyPublisher<Void, Error> {
+class LocalGameService: GameService {
+
+    var localGames: [Game] = []
+
+    func refreshGames() -> AnyPublisher<Void, Error> {
         Just<Void>.withErrorType(Error.self)
     }
 
     func load(games: LoadableSubject<[Game]>) {
         let cancelBag = CancelBag()
         games.wrappedValue.setIsLoading(cancelBag: cancelBag)
-        Just<[Game]>([Game(id: "test")])
+        Just<[Game]>(localGames)
                 .sinkToLoadable {
                     games.wrappedValue = $0
                 }.store(in: cancelBag)
@@ -27,15 +30,17 @@ struct LocalGamesInteractor: GamesInteractor {
     func load(game: LoadableSubject<Game>, id: String) {
         let cancelBag = CancelBag()
         game.wrappedValue.setIsLoading(cancelBag: cancelBag)
-        Just<Game>(Game(id: id))
+        let localGame = localGames.first(where: { $0.id == id })
+
+        Just(localGame!)
                 .sinkToLoadable {
                     game.wrappedValue = $0
                 }.store(in: cancelBag)
     }
 }
 
-struct StubGamesInteractor: GamesInteractor {
-    func refreshGamesList() -> AnyPublisher<Void, Error> {
+struct StubGamesInteractor: GameService {
+    func refreshGames() -> AnyPublisher<Void, Error> {
         Just<Void>.withErrorType(Error.self)
     }
 

@@ -46,7 +46,7 @@ extension GameScene {
         // MARK: - Side Effects
 
         func loadGame() {
-            container.interactors.gamesInteractor
+            container.interactors.gameService
                     .load(game: loadableSubject(\.game), id: id)
         }
     }

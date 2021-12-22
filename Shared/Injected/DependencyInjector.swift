@@ -11,13 +11,13 @@ struct DIContainer: EnvironmentKey {
     let appState: Store<AppState>
     let interactors: Interactors
 
-    init(appState: Store<AppState>, interactors: Interactors) {
+    init(appState: Store<AppState>, services: Interactors) {
         self.appState = appState
-        self.interactors = interactors
+        self.interactors = services
     }
 
     init(appState: AppState, interactors: Interactors) {
-        self.init(appState: Store<AppState>(appState), interactors: interactors)
+        self.init(appState: Store<AppState>(appState), services: interactors)
     }
 
     static var defaultValue: Self {

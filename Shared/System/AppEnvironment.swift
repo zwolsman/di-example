@@ -14,16 +14,16 @@ extension AppEnvironment {
 
     static func bootstrap() -> AppEnvironment {
         let appState = Store<AppState>(AppState())
-        let interactors = configuredInteractors(appState: appState)
+        let services = configuredServices(appState: appState)
 
-        let diContainer = DIContainer(appState: appState, interactors: interactors)
+        let diContainer = DIContainer(appState: appState, services: services)
         return AppEnvironment(container: diContainer)
     }
 
-    private static func configuredInteractors(appState: Store<AppState>) -> DIContainer.Interactors {
+    private static func configuredServices(appState: Store<AppState>) -> DIContainer.Interactors {
 
-        let gamesInteractor = LocalGamesInteractor()
+        let gameService = LocalGameService()
 
-        return .init(gamesInteractor: gamesInteractor)
+        return .init(gameService: gameService)
     }
 }
