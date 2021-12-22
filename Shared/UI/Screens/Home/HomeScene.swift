@@ -18,13 +18,15 @@ struct HomeScene: View {
         NavigationView {
             content
                     .navigationBarTitle("Home")
-                    .navigationViewStyle(.stack)
+
         }
+                .navigationViewStyle(.stack)
                 .onReceive(inspection.notice) {
                     inspection.visit(self, $0)
                 }
     }
     private var content: AnyView {
+        print(viewModel.games)
         switch viewModel.games {
         case .notRequested: return AnyView(notRequestedView)
         case let .isLoading(last, _): return AnyView(loadingView(last))

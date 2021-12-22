@@ -38,13 +38,15 @@ extension HomeScene {
                 appState.map(\.routing.homeScene)
                         .removeDuplicates()
                         .weakAssign(to: \.routingState, on: self)
+                appState.map(\.userData.games)
+                        .weakAssign(to: \.games, on: self)
             }
         }
 
         // MARK: - Side effects
 
         func loadGames() {
-            container.services.gameService.load(games: loadableSubject(\.games))
+            container.services.gameService.loadGames()
         }
 
         func createGame() {

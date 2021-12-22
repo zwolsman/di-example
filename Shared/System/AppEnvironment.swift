@@ -22,7 +22,7 @@ extension AppEnvironment {
 
     private static func configuredServices(appState: Store<AppState>) -> DIContainer.Interactors {
 
-        let gameService = LocalGameService()
+        let gameService = LocalGameService(appState: appState)
 
         return .init(gameService: gameService)
     }

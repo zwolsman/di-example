@@ -6,42 +6,58 @@ import Combine
 
 protocol GameService {
     func refreshGames() -> AnyPublisher<Void, Error>
-    func load(games: LoadableSubject<[Game]>)
+    func loadGames()
     func load(game: LoadableSubject<Game>, id: String)
 
     func create()
 }
 
-class LocalGameService: GameService {
-
-    var localGames: [Game] = []
+struct LocalGameService: GameService {
+    let appState: Store<AppState>
 
     func refreshGames() -> AnyPublisher<Void, Error> {
         Just<Void>.withErrorType(Error.self)
     }
 
-    func load(games: LoadableSubject<[Game]>) {
+    func loadGames() {
         let cancelBag = CancelBag()
-        games.wrappedValue.setIsLoading(cancelBag: cancelBag)
-        Just<[Game]>(localGames)
+        appState[\.userData.games].setIsLoading(cancelBag: cancelBag)
+        weak var weakAppState = appState
+
+        Just<[Game]>(appState[\.userData.games].value ?? [])
                 .sinkToLoadable {
-                    games.wrappedValue = $0
-                }.store(in: cancelBag)
+                    weakAppState?[\.userData.games] = $0
+                }
+                .store(in: cancelBag)
     }
 
     func load(game: LoadableSubject<Game>, id: String) {
         let cancelBag = CancelBag()
         game.wrappedValue.setIsLoading(cancelBag: cancelBag)
-        let localGame = localGames.first(where: { $0.id == id })
+        let games = appState[\.userData.games].value ?? []
 
-        Just(localGame!)
+        let localGame = games.first(where: { $0.id == id })!
+
+        Just(localGame)
                 .sinkToLoadable {
                     game.wrappedValue = $0
-                }.store(in: cancelBag)
+                }
+                .store(in: cancelBag)
     }
 
     func create() {
-        localGames.append(Game())
+        let game = Game()
+        let cancelBag = CancelBag()
+        appState[\.userData.games].setIsLoading(cancelBag: cancelBag)
+        weak var weakAppState = appState
+
+        var games = appState[\.userData.games].value ?? []
+        games.insert(game, at: 0)
+
+        Just(games)
+                .sinkToLoadable {
+                    weakAppState?[\.userData.games] = $0
+                }.store(in: cancelBag)
     }
 }
 
@@ -50,7 +66,7 @@ struct StubGamesInteractor: GameService {
         Just<Void>.withErrorType(Error.self)
     }
 
-    func load(games: LoadableSubject<[Game]>) {
+    func loadGames() {
 
     }
 
