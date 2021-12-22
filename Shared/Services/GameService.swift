@@ -8,6 +8,8 @@ protocol GameService {
     func refreshGames() -> AnyPublisher<Void, Error>
     func load(games: LoadableSubject<[Game]>)
     func load(game: LoadableSubject<Game>, id: String)
+
+    func create()
 }
 
 class LocalGameService: GameService {
@@ -37,6 +39,10 @@ class LocalGameService: GameService {
                     game.wrappedValue = $0
                 }.store(in: cancelBag)
     }
+
+    func create() {
+        localGames.append(Game())
+    }
 }
 
 struct StubGamesInteractor: GameService {
@@ -49,6 +55,10 @@ struct StubGamesInteractor: GameService {
     }
 
     func load(game: LoadableSubject<Game>, id: String) {
+
+    }
+
+    func create() {
 
     }
 }

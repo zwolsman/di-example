@@ -9,11 +9,11 @@ import Combine
 struct DIContainer: EnvironmentKey {
 
     let appState: Store<AppState>
-    let interactors: Interactors
+    let services: Interactors
 
     init(appState: Store<AppState>, services: Interactors) {
         self.appState = appState
-        self.interactors = services
+        self.services = services
     }
 
     init(appState: AppState, interactors: Interactors) {

@@ -68,6 +68,9 @@ private extension HomeScene {
                 }
             }
                     .id(games.count)
+            Button("Add game") {
+                viewModel.createGame()
+            }
         }
     }
 

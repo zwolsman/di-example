@@ -44,7 +44,12 @@ extension HomeScene {
         // MARK: - Side effects
 
         func loadGames() {
-            container.interactors.gameService.load(games: loadableSubject(\.games))
+            container.services.gameService.load(games: loadableSubject(\.games))
+        }
+
+        func createGame() {
+            container.services.gameService.create()
+            loadGames()
         }
     }
 }
