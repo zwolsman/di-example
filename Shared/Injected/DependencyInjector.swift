@@ -47,8 +47,7 @@ extension DIContainer {
 // MARK: - Injection in the view hierarchy
 extension View {
 
-    func inject(_ appState: AppState,
-                _ interactors: DIContainer.Interactors) -> some View {
+    func inject(_ appState: AppState, _ interactors: DIContainer.Interactors) -> some View {
         let container = DIContainer(appState: appState, interactors: interactors)
         return inject(container)
     }

@@ -14,7 +14,7 @@ extension Store {
             value[keyPath: keyPath]
         }
         set {
-            var value = self.value
+            var value = value
             if value[keyPath: keyPath] != newValue {
                 value[keyPath: keyPath] = newValue
                 self.value = value
@@ -23,23 +23,20 @@ extension Store {
     }
 
     func bulkUpdate(_ update: (inout Output) -> Void) {
-        var value = self.value
+        var value = value
         update(&value)
         self.value = value
     }
 
     func updates<Value>(for keyPath: KeyPath<Output, Value>) ->
             AnyPublisher<Value, Failure> where Value: Equatable {
-        return map(keyPath).removeDuplicates().eraseToAnyPublisher()
+        map(keyPath).removeDuplicates().eraseToAnyPublisher()
     }
 }
 
-// MARK: -
-
 extension Binding where Value: Equatable {
-    func dispatched<State>(to state: Store<State>,
-                           _ keyPath: WritableKeyPath<State, Value>) -> Self {
-        return onSet {
+    func dispatched<State>(to state: Store<State>, _ keyPath: WritableKeyPath<State, Value>) -> Self {
+        onSet {
             state[keyPath] = $0
         }
     }
@@ -49,10 +46,10 @@ extension Binding where Value: Equatable {
     typealias ValueClosure = (Value) -> Void
 
     func onSet(_ perform: @escaping ValueClosure) -> Self {
-        return .init(get: { () -> Value in
-            self.wrappedValue
+        .init(get: { () -> Value in
+            wrappedValue
         }, set: { value in
-            if self.wrappedValue != value {
+            if wrappedValue != value {
                 self.wrappedValue = value
             }
             perform(value)
