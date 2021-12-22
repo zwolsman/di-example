@@ -10,6 +10,7 @@ protocol GameService {
     func refreshGames() -> AnyPublisher<Void, Error>
     func loadGames()
     func load(game: LoadableSubject<Game>, gameId: String)
+    func load(gameDetails: LoadableSubject<Game.Details>, gameId: String)
 
     func create(initialBet: Int, color: Color, bombs: Int)
     func guess(game: LoadableSubject<Game>, gameId: String, tileId: Int)
@@ -66,8 +67,26 @@ class LocalGameService: GameService {
                 .store(in: cancelBag)
     }
 
+    func load(gameDetails: LoadableSubject<Game.Details>, gameId: String) {
+        let cancelBag = CancelBag()
+        gameDetails.wrappedValue.setIsLoading(cancelBag: cancelBag)
+
+        guard let game = gameStore[gameId] else {
+            gameDetails.wrappedValue = .failed(gameNotFoundError)
+            return
+        }
+
+        let details = Game.Details(initialStake: game.stake, stake: game.stake, bombs: game.bombs, color: game.color, secret: game.secret, plain: nil)
+
+        Just(details)
+                .sinkToLoadable {
+                    gameDetails.wrappedValue = $0
+                }
+                .store(in: cancelBag)
+    }
+
     func create(initialBet: Int, color: Color, bombs: Int) {
-        let game = Game(secret: "secret", stake: 100, bet: 100, next: 15)
+        let game = Game(secret: "secret", stake: 100, bet: 100, next: 15, color: color, bombs: bombs)
         gameStore[game.id] = game
     }
 
@@ -108,6 +127,10 @@ struct StubGamesInteractor: GameService {
     }
 
     func load(game: LoadableSubject<Game>, gameId: String) {
+
+    }
+
+    func load(gameDetails: LoadableSubject<Game.Details>, gameId: String) {
 
     }
 

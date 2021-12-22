@@ -5,18 +5,30 @@
 import Foundation
 import SwiftUI
 
-struct Game: Codable, Equatable, Identifiable {
+struct Game: Equatable, Identifiable {
     var id: String = UUID().uuidString
 
+    var tiles: [Tile] = Array(repeating: .open, count: 25)
     var secret: String
     var stake: Int
     var bet: Int
     var next: Int
+    var color: Color
+    var bombs: Int
 }
 
 extension Game {
-    struct Details: Codable, Equatable {
-        let tiles: [Int]
+    struct Details: Equatable {
+        var initialStake: Int
+        var stake: Int
+        var bombs: Int
+        var color: Color
+        var secret: String
+        var plain: String?
+    }
+
+    enum Tile {
+        case open
     }
 }
 
