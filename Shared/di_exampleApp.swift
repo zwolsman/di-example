@@ -10,9 +10,11 @@ import SwiftUI
 
 @main
 struct di_exampleApp: App {
+    let environment = AppEnvironment.bootstrap()
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(container: environment.container)
         }
     }
 }

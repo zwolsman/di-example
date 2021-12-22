@@ -4,6 +4,6 @@
 
 import Foundation
 
-struct Game {
-
+struct Game: Identifiable {
+    var id: String = UUID().uuidString
 }
