@@ -21,6 +21,7 @@ extension AppState {
     struct ViewRouting: Equatable {
         var homeScene = HomeScene.Routing()
         var gameScene = GameScene.Routing()
+        var newGameScene = NewGameScene.Routing()
     }
 }
 

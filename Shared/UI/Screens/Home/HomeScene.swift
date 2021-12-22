@@ -18,19 +18,30 @@ struct HomeScene: View {
         NavigationView {
             content
                     .navigationBarTitle("Home")
-
+                    .toolbar {
+                        newGameButton
+                    }
         }
                 .navigationViewStyle(.stack)
                 .onReceive(inspection.notice) {
                     inspection.visit(self, $0)
                 }
     }
+
     private var content: AnyView {
         switch viewModel.games {
         case .notRequested: return AnyView(notRequestedView)
         case let .isLoading(last, _): return AnyView(loadingView(last))
         case let .loaded(games): return AnyView(loadedView(games, showLoading: false))
         case let .failed(error): return AnyView(failedView(error))
+        }
+    }
+
+    private var newGameButton: some ToolbarContent {
+        ToolbarItem(placement: .navigationBarTrailing) {
+            NavigationLink(destination: NewGameScene(viewModel: .init(container: viewModel.container))) {
+                Label("Create game", systemImage: "plus")
+            }
         }
     }
 }
@@ -63,19 +74,20 @@ private extension HomeScene {
             if showLoading {
                 ActivityIndicatorView().padding()
             }
-            List(games) { game in
-                NavigationLink(destination: self.gamesView(game: game)) {
-                    VStack(alignment: .leading) {
-                        Text(game.id)
-                                .font(.headline)
-                        Text("Stake: \(game.stake)")
-                                .font(.subheadline)
+            if games.isEmpty {
+                Text("No games yet")
+            } else {
+                List(games) { game in
+                    NavigationLink(destination: self.gamesView(game: game)) {
+                        VStack(alignment: .leading) {
+                            Text(game.id)
+                                    .font(.headline)
+                            Text("Stake: \(game.stake)")
+                                    .font(.subheadline)
+                        }
                     }
                 }
-            }
-                    .id(games.count)
-            Button("Add game") {
-                viewModel.createGame()
+                        .id(games.count)
             }
         }
     }

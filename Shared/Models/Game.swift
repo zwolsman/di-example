@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct Game: Codable, Equatable, Identifiable {
     var id: String = UUID().uuidString
@@ -18,4 +19,21 @@ extension Game {
     struct Details: Codable, Equatable {
         let tiles: [Int]
     }
+}
+
+extension Game {
+    static var colors = [
+        Color.red,
+        Color.orange,
+        Color.yellow,
+        Color.green,
+        Color.mint,
+        Color.teal,
+        Color.cyan,
+        Color.blue,
+        Color.indigo,
+        Color.purple,
+        Color.pink,
+        Color.brown,
+    ]
 }
