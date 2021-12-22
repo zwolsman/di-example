@@ -76,7 +76,7 @@ class LocalGameService: GameService {
             return
         }
 
-        let details = Game.Details(initialStake: game.stake, stake: game.stake, bombs: game.bombs, color: game.color, secret: game.secret, plain: nil)
+        let details = Game.Details(initialStake: game.stake, stake: game.stake, bombs: game.bombs, color: game.color, secret: game.secret, plain: "plain")
 
         Just(details)
                 .sinkToLoadable {

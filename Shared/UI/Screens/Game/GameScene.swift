@@ -17,6 +17,9 @@ struct GameScene: View {
     var body: some View {
         content
                 .navigationBarTitle("Game", displayMode: .inline)
+                .toolbar {
+                    gameDetailsButton
+                }
                 .onReceive(inspection.notice) {
                     inspection.visit(self, $0)
                 }
@@ -28,6 +31,14 @@ struct GameScene: View {
         case .isLoading: return AnyView(loadingView)
         case let .loaded(gameDetails): return AnyView(loadedView(gameDetails))
         case let .failed(error): return AnyView(failedView(error))
+        }
+    }
+
+    private var gameDetailsButton: some ToolbarContent {
+        ToolbarItem(placement: .navigationBarTrailing) {
+            NavigationLink(destination: GameInfoScene(viewModel: .init(container: viewModel.container, gameId: viewModel.gameId))) {
+                Label("Game details", systemImage: "info.circle")
+            }
         }
     }
 }

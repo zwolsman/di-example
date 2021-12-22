@@ -18,6 +18,7 @@ struct HomeScene: View {
         NavigationView {
             content
                     .navigationBarTitle("Home")
+                    .listStyle(.grouped)
                     .toolbar {
                         newGameButton
                     }

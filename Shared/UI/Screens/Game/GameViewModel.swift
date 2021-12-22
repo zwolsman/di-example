@@ -23,14 +23,14 @@ extension GameScene {
         // Misc
         let container: DIContainer
         private var cancelBag = CancelBag()
-        private let id: String
+        let gameId: String
 
         init(container: DIContainer, id: String, game: Loadable<Game> = .notRequested) {
             self.container = container
             let appState = container.appState
             _routingState = .init(initialValue: appState.value.routing.gameScene)
             _game = .init(initialValue: game)
-            self.id = id
+            gameId = id
 
             cancelBag.collect {
                 $routingState
@@ -47,11 +47,11 @@ extension GameScene {
 
         func loadGame() {
             container.services.gameService
-                    .load(game: loadableSubject(\.game), gameId: id)
+                    .load(game: loadableSubject(\.game), gameId: gameId)
         }
 
         func guess(tileId: Int) {
-            container.services.gameService.guess(game: loadableSubject(\.game), gameId: id, tileId: tileId)
+            container.services.gameService.guess(game: loadableSubject(\.game), gameId: gameId, tileId: tileId)
         }
     }
 }
