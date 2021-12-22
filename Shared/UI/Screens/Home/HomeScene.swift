@@ -10,34 +10,22 @@ import SwiftUI
 import Combine
 
 struct HomeScene: View {
-    @Environment(\.injected) private var injected: DIContainer
-
-    @State private(set) var games: Loadable<[Game]>
-    @State private var routingState: Routing = .init()
-
-    private var routingBinding: Binding<Routing> {
-        $routingState.dispatched(to: injected.appState, \.routing.homeScene)
-    }
+    @ObservedObject private(set) var viewModel: ViewModel
 
     let inspection = Inspection<Self>()
-
-    init(games: Loadable<[Game]> = .notRequested) {
-        self._games = .init(initialValue: games)
-    }
 
     var body: some View {
         NavigationView {
             content
+                    .navigationBarTitle("Home")
+                    .navigationViewStyle(.stack)
         }
-                .onReceive(routingUpdate) {
-                    self.routingState = $0
-                }
                 .onReceive(inspection.notice) {
                     inspection.visit(self, $0)
                 }
     }
     private var content: AnyView {
-        switch games {
+        switch viewModel.games {
         case .notRequested: return AnyView(notRequestedView)
         case let .isLoading(last, _): return AnyView(loadingView(last))
         case let .loaded(games): return AnyView(loadedView(games, showLoading: false))
@@ -46,20 +34,11 @@ struct HomeScene: View {
     }
 }
 
-// MARK: - Side Effects
-
-private extension HomeScene {
-    func reloadGames() {
-        injected.interactors.gamesInteractor
-                .load(games: $games)
-    }
-}
-
 // MARK: - Loading Content
 
 private extension HomeScene {
     var notRequestedView: some View {
-        Text("").onAppear(perform: reloadGames)
+        Text("").onAppear(perform: viewModel.loadGames)
     }
 
     func loadingView(_ previouslyLoaded: [Game]?) -> some View {
@@ -93,30 +72,12 @@ private extension HomeScene {
     }
 
     func gamesView(game: Game) -> some View {
-        Text(game.id)
-    }
-}
-
-
-// MARK: - Routing
-
-extension HomeScene {
-    struct Routing: Equatable {
-        var gameDetails: String?
-    }
-}
-
-// MARK: - State Updates
-
-private extension HomeScene {
-
-    var routingUpdate: AnyPublisher<Routing, Never> {
-        injected.appState.updates(for: \.routing.homeScene)
+        GameScene(viewModel: .init(container: viewModel.container, id: game.id, game: .loaded(game)))
     }
 }
 
 struct HomeScene_Previews: PreviewProvider {
     static var previews: some View {
-        HomeScene()
+        HomeScene(viewModel: .init(container: .preview))
     }
 }

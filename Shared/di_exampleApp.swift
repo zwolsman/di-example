@@ -14,7 +14,7 @@ struct di_exampleApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView(container: environment.container)
+            ContentView(viewModel: .init(container: environment.container))
         }
     }
 }

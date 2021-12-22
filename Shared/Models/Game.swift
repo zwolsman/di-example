@@ -4,6 +4,12 @@
 
 import Foundation
 
-struct Game: Identifiable {
+struct Game: Codable, Equatable, Identifiable {
     var id: String = UUID().uuidString
+}
+
+extension Game {
+    struct Details: Codable, Equatable {
+        let tiles: [Int]
+    }
 }

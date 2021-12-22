@@ -44,7 +44,8 @@ extension Loadable {
             } else {
                 let error = NSError(
                         domain: NSCocoaErrorDomain, code: NSUserCancelledError,
-                        userInfo: [NSLocalizedDescriptionKey: NSLocalizedString("Canceled by user", comment: "")])
+                        userInfo: [NSLocalizedDescriptionKey: NSLocalizedString("Canceled by user",
+                                comment: "")])
                 self = .failed(error)
             }
         default: break
@@ -57,9 +58,7 @@ extension Loadable {
             case .notRequested: return .notRequested
             case let .failed(error): return .failed(error)
             case let .isLoading(value, cancelBag):
-                return .isLoading(last: try value.map {
-                    try transform($0)
-                },
+                return .isLoading(last: try value.map { try transform($0) },
                         cancelBag: cancelBag)
             case let .loaded(value):
                 return .loaded(try transform(value))
@@ -92,14 +91,12 @@ extension Optional: SomeOptional {
 
 extension Loadable where T: SomeOptional {
     func unwrap() -> Loadable<T.Wrapped> {
-        map {
-            try $0.unwrap()
-        }
+        map { try $0.unwrap() }
     }
 }
 
 extension Loadable: Equatable where T: Equatable {
-    static func ==(lhs: Loadable<T>, rhs: Loadable<T>) -> Bool {
+    static func == (lhs: Loadable<T>, rhs: Loadable<T>) -> Bool {
         switch (lhs, rhs) {
         case (.notRequested, .notRequested): return true
         case let (.isLoading(lhsV, _), .isLoading(rhsV, _)): return lhsV == rhsV
