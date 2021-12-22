@@ -3,17 +3,34 @@
 //
 
 import Combine
+import Foundation
 
 protocol GameService {
     func refreshGames() -> AnyPublisher<Void, Error>
     func loadGames()
-    func load(game: LoadableSubject<Game>, id: String)
+    func load(game: LoadableSubject<Game>, gameId: String)
 
     func create()
+    func guess(game: LoadableSubject<Game>, gameId: String, tileId: Int)
 }
 
-struct LocalGameService: GameService {
+class LocalGameService: GameService {
     let appState: Store<AppState>
+    private var gameStore: [String: Game] = [:] {
+        didSet {
+            let cancelBag = CancelBag()
+            weak var weakAppState = appState
+            Just(Array(gameStore.values))
+                    .sinkToLoadable {
+                        weakAppState?[\.userData.games] = $0
+                    }
+                    .store(in: cancelBag)
+        }
+    }
+
+    init(appState: Store<AppState>) {
+        self.appState = appState
+    }
 
     func refreshGames() -> AnyPublisher<Void, Error> {
         Just<Void>.withErrorType(Error.self)
@@ -24,19 +41,22 @@ struct LocalGameService: GameService {
         appState[\.userData.games].setIsLoading(cancelBag: cancelBag)
         weak var weakAppState = appState
 
-        Just<[Game]>(appState[\.userData.games].value ?? [])
+        Just(Array(gameStore.values))
+                .delay(for: 2, scheduler: RunLoop.main)
                 .sinkToLoadable {
                     weakAppState?[\.userData.games] = $0
                 }
                 .store(in: cancelBag)
     }
 
-    func load(game: LoadableSubject<Game>, id: String) {
+    func load(game: LoadableSubject<Game>, gameId: String) {
         let cancelBag = CancelBag()
         game.wrappedValue.setIsLoading(cancelBag: cancelBag)
-        let games = appState[\.userData.games].value ?? []
 
-        let localGame = games.first(where: { $0.id == id })!
+        guard let localGame = gameStore[gameId] else {
+            game.wrappedValue = .failed(gameNotFoundError)
+            return
+        }
 
         Just(localGame)
                 .sinkToLoadable {
@@ -47,17 +67,33 @@ struct LocalGameService: GameService {
 
     func create() {
         let game = Game(status: true, secret: "secret", stake: 100, bet: 100, next: 15)
+        gameStore[game.id] = game
+    }
+
+    func guess(game: LoadableSubject<Game>, gameId: String, tileId: Int) {
         let cancelBag = CancelBag()
-        appState[\.userData.games].setIsLoading(cancelBag: cancelBag)
-        weak var weakAppState = appState
+        game.wrappedValue.setIsLoading(cancelBag: cancelBag)
 
-        var games = appState[\.userData.games].value ?? []
-        games.insert(game, at: 0)
+        guard var currentGame = gameStore[gameId] else {
+            game.wrappedValue = .failed(gameNotFoundError)
+            return
+        }
 
-        Just(games)
-                .sinkToLoadable {
-                    weakAppState?[\.userData.games] = $0
-                }.store(in: cancelBag)
+        currentGame.stake *= 2
+        gameStore[gameId] = currentGame
+        game.wrappedValue = .loaded(currentGame)
+    }
+
+    private func findGame(gameId: String) -> Game? {
+        let games = appState[\.userData.games].value ?? []
+
+        return games.first(where: { $0.id == gameId })
+    }
+
+    private var gameNotFoundError: Error {
+        NSError(
+                domain: NSCocoaErrorDomain, code: NSUserCancelledError,
+                userInfo: [NSLocalizedDescriptionKey: NSLocalizedString("Game not found", comment: "")])
     }
 }
 
@@ -70,11 +106,15 @@ struct StubGamesInteractor: GameService {
 
     }
 
-    func load(game: LoadableSubject<Game>, id: String) {
+    func load(game: LoadableSubject<Game>, gameId: String) {
 
     }
 
     func create() {
+
+    }
+
+    func guess(game: LoadableSubject<Game>, gameId: String, tileId: Int) {
 
     }
 }

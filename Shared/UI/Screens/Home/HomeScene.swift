@@ -26,7 +26,6 @@ struct HomeScene: View {
                 }
     }
     private var content: AnyView {
-        print(viewModel.games)
         switch viewModel.games {
         case .notRequested: return AnyView(notRequestedView)
         case let .isLoading(last, _): return AnyView(loadingView(last))
@@ -66,7 +65,12 @@ private extension HomeScene {
             }
             List(games) { game in
                 NavigationLink(destination: self.gamesView(game: game)) {
-                    Text(game.id)
+                    VStack(alignment: .leading) {
+                        Text(game.id)
+                                .font(.headline)
+                        Text("Stake: \(game.stake)")
+                                .font(.subheadline)
+                    }
                 }
             }
                     .id(games.count)

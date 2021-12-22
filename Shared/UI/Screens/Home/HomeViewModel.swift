@@ -51,7 +51,6 @@ extension HomeScene {
 
         func createGame() {
             container.services.gameService.create()
-            loadGames()
         }
     }
 }

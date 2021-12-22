@@ -16,7 +16,7 @@ struct GameScene: View {
 
     var body: some View {
         content
-                .navigationBarTitle("Game")
+                .navigationBarTitle("Game", displayMode: .inline)
                 .onReceive(inspection.notice) {
                     inspection.visit(self, $0)
                 }
@@ -57,7 +57,18 @@ private extension GameScene {
 
 private extension GameScene {
     func loadedView(_ game: Game) -> some View {
-        Text("game tiles: here \(game.id)")
+        VStack {
+            Text("Game: \(game.id)")
+                    .font(.headline)
+
+            Text("Stake: \(game.stake)")
+                    .font(.subheadline)
+
+            Button("Double stake") {
+                viewModel.guess(tileId: 0)
+            }
+                    .buttonStyle(.bordered)
+        }
     }
 }
 

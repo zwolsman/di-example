@@ -47,7 +47,11 @@ extension GameScene {
 
         func loadGame() {
             container.services.gameService
-                    .load(game: loadableSubject(\.game), id: id)
+                    .load(game: loadableSubject(\.game), gameId: id)
+        }
+
+        func guess(tileId: Int) {
+            container.services.gameService.guess(game: loadableSubject(\.game), gameId: id, tileId: tileId)
         }
     }
 }
