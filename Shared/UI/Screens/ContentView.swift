@@ -17,13 +17,11 @@ struct ContentView: View {
     @ObservedObject private(set) var viewModel: ViewModel
 
     var body: some View {
-        Group {
-            if viewModel.isRunningTests {
-                Text("Running unit tests")
-            } else {
-                HomeScene(viewModel: .init(container: viewModel.container))
-                        .modifier(RootViewAppearance(viewModel: .init(container: viewModel.container)))
-            }
+        if viewModel.isRunningTests {
+            Text("Running unit tests")
+        } else {
+            HomeScene(viewModel: .init(container: viewModel.container))
+                    .modifier(RootViewAppearance(viewModel: .init(container: viewModel.container)))
         }
     }
 }
