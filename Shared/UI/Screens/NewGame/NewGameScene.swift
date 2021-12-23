@@ -23,8 +23,9 @@ struct NewGameScene: View {
                 }
     }
 
-    private var content: AnyView {
-        AnyView(loadedView())
+    @ViewBuilder
+    private var content: some View {
+        loadedView()
     }
 }
 

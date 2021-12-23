@@ -29,12 +29,13 @@ struct HomeScene: View {
                 }
     }
 
-    private var content: AnyView {
+    @ViewBuilder
+    private var content: some View {
         switch viewModel.games {
-        case .notRequested: return AnyView(notRequestedView)
-        case let .isLoading(last, _): return AnyView(loadingView(last))
-        case let .loaded(games): return AnyView(loadedView(games, showLoading: false))
-        case let .failed(error): return AnyView(failedView(error))
+        case .notRequested: notRequestedView
+        case let .isLoading(last, _): loadingView(last)
+        case let .loaded(games): loadedView(games, showLoading: false)
+        case let .failed(error): failedView(error)
         }
     }
 

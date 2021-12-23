@@ -22,12 +22,13 @@ struct GameInfoScene: View {
                 }
     }
 
-    private var content: AnyView {
+    @ViewBuilder
+    private var content: some View {
         switch viewModel.gameDetails {
-        case .notRequested: return AnyView(notRequestedView)
-        case .isLoading: return AnyView(loadingView)
-        case let .loaded(gameDetails): return AnyView(loadedView(gameDetails))
-        case let .failed(error): return AnyView(failedView(error))
+        case .notRequested: notRequestedView
+        case .isLoading: loadingView
+        case let .loaded(gameDetails): loadedView(gameDetails)
+        case let .failed(error): failedView(error)
         }
     }
 }
