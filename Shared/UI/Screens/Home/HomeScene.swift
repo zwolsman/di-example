@@ -55,11 +55,12 @@ private extension HomeScene {
         Text("").onAppear(perform: viewModel.loadGames)
     }
 
+    @ViewBuilder
     func loadingView(_ previouslyLoaded: [Game]?) -> some View {
         if let games = previouslyLoaded {
-            return AnyView(loadedView(games, showLoading: true))
+            loadedView(games, showLoading: true)
         } else {
-            return AnyView(ActivityIndicatorView().padding())
+            ActivityIndicatorView().padding()
         }
     }
 
