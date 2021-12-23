@@ -66,12 +66,12 @@ private extension GameInfoScene {
 
     private func basicInfo(details: Game.Details) -> some View {
         Section(header: Text("Info")) {
-            DetailRow(left: "Initial stake", right: "\(details.initialStake.formatted()) points")
-            DetailRow(left: "Stake", right: "\(details.stake.formatted()) points")
-            DetailRow(left: "Multiplier", right: "TODO")
-            DetailRow(left: "Bombs", right: "\(details.bombs) bombs")
-            DetailRow(left: "Revealed tiles", right: "TODO")
-            DetailRow(left: "Color", right: AnyView(ColorCell(color: details.color)))
+            DetailRow(left: Text("Initial stake"), right: Text("\(details.initialStake.formatted()) points"))
+            DetailRow(left: Text("Stake"), right: Text("\(details.stake.formatted()) points"))
+            DetailRow(left: Text("Multiplier"), right: Text("TODO"))
+            DetailRow(left: Text("Bombs"), right: Text("\(details.bombs)"))
+            DetailRow(left: Text("Revealed tiles"), right: Text("TODO"))
+            DetailRow(left: Text("Color"), right: ColorCell(color: details.color))
         }
     }
 
