@@ -9,22 +9,20 @@ import Combine
 struct DIContainer: EnvironmentKey {
 
     let appState: Store<AppState>
-    let services: Interactors
+    let services: Services
 
-    init(appState: Store<AppState>, services: Interactors) {
+    static var defaultValue: Self { Self.default }
+
+    private static let `default` = DIContainer(appState: AppState(), services: .stub)
+
+    init(appState: Store<AppState>, services: DIContainer.Services) {
         self.appState = appState
         self.services = services
     }
 
-    init(appState: AppState, interactors: Interactors) {
-        self.init(appState: Store<AppState>(appState), services: interactors)
+    init(appState: AppState, services: DIContainer.Services) {
+        self.init(appState: Store(appState), services: services)
     }
-
-    static var defaultValue: Self {
-        Self.default
-    }
-
-    private static let `default` = Self(appState: AppState(), interactors: .stub)
 }
 
 extension EnvironmentValues {
@@ -40,15 +38,15 @@ extension EnvironmentValues {
 
 extension DIContainer {
     static var preview: Self {
-        .init(appState: .preview, interactors: .stub)
+        .init(appState: .preview, services: .stub)
     }
 }
 
 // MARK: - Injection in the view hierarchy
 extension View {
 
-    func inject(_ appState: AppState, _ interactors: DIContainer.Interactors) -> some View {
-        let container = DIContainer(appState: appState, interactors: interactors)
+    func inject(_ appState: AppState, _ services: DIContainer.Services) -> some View {
+        let container = DIContainer(appState: appState, services: services)
         return inject(container)
     }
 

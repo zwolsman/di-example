@@ -41,7 +41,10 @@ struct HomeScene: View {
 
     private var newGameButton: some ToolbarContent {
         ToolbarItem(placement: .navigationBarTrailing) {
-            NavigationLink(destination: NewGameScene(viewModel: .init(container: viewModel.container))) {
+            NavigationLink(
+                    destination: NewGameScene(viewModel: .init(container: viewModel.container)),
+                    isActive: $viewModel.routingState.showNewGameScene
+            ) {
                 Label("Create game", systemImage: "plus")
             }
         }
@@ -79,23 +82,27 @@ private extension HomeScene {
             }
             if games.isEmpty {
                 Text("No games yet")
-            } else {
-                List(games) { game in
-                    NavigationLink(destination: self.gamesView(game: game)) {
-                        VStack(alignment: .leading) {
-                            Text(game.id)
-                                    .font(.headline)
-                            Text("Stake: \(game.stake)")
-                                    .font(.subheadline)
-                        }
+            }
+            List(games) { game in
+                NavigationLink(
+                        destination: self.gameView(game: game),
+                        tag: game.id,
+                        selection: $viewModel.routingState.gameId
+                ) {
+                    VStack(alignment: .leading) {
+                        Text(game.id)
+                                .font(.headline)
+                        Text("Stake: \(game.stake)")
+                                .font(.subheadline)
                     }
                 }
-                        .id(games.count)
+// TODO: find out what's up .id(games.count)
             }
         }
     }
 
-    func gamesView(game: Game) -> some View {
+
+    func gameView(game: Game) -> some View {
         GameScene(viewModel: .init(container: viewModel.container, id: game.id, game: .loaded(game)))
     }
 }

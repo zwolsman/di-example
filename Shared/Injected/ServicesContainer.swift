@@ -3,11 +3,11 @@
 //
 
 extension DIContainer {
-    struct Interactors {
+    struct Services {
         let gameService: GameService
 
         static var stub: Self {
-            .init(gameService: StubGamesInteractor())
+            .init(gameService: StubGameService())
         }
     }
 }

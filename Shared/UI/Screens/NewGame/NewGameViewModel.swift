@@ -49,10 +49,15 @@ extension NewGameScene {
         // MARK: - Side effects
 
         func createGame() {
-            container
+            let id = container
                     .services
                     .gameService
                     .create(initialBet: bet, color: color, bombs: bombs.rawValue)
+            print("created game with id: \(id)")
+            container.appState.bulkUpdate {
+                $0.routing.homeScene.showNewGameScene = false
+                $0.routing.homeScene.gameId = id
+            }
         }
     }
 }

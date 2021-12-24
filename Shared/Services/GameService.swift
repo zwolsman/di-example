@@ -12,7 +12,7 @@ protocol GameService {
     func load(game: LoadableSubject<Game>, gameId: String)
     func load(gameDetails: LoadableSubject<Game.Details>, gameId: String)
 
-    func create(initialBet: Int, color: Color, bombs: Int)
+    func create(initialBet: Int, color: Color, bombs: Int) -> String
     func guess(game: LoadableSubject<Game>, gameId: String, tileId: Int)
 }
 
@@ -85,9 +85,10 @@ class LocalGameService: GameService {
                 .store(in: cancelBag)
     }
 
-    func create(initialBet: Int, color: Color, bombs: Int) {
+    func create(initialBet: Int, color: Color, bombs: Int) -> String {
         let game = Game(secret: "secret", stake: 100, bet: 100, next: 15, color: color, bombs: bombs)
         gameStore[game.id] = game
+        return game.id
     }
 
     func guess(game: LoadableSubject<Game>, gameId: String, tileId: Int) {
@@ -104,12 +105,6 @@ class LocalGameService: GameService {
         game.wrappedValue = .loaded(currentGame)
     }
 
-    private func findGame(gameId: String) -> Game? {
-        let games = appState[\.userData.games].value ?? []
-
-        return games.first(where: { $0.id == gameId })
-    }
-
     private var gameNotFoundError: Error {
         NSError(
                 domain: NSCocoaErrorDomain, code: NSUserCancelledError,
@@ -117,7 +112,7 @@ class LocalGameService: GameService {
     }
 }
 
-struct StubGamesInteractor: GameService {
+struct StubGameService: GameService {
     func refreshGames() -> AnyPublisher<Void, Error> {
         Just<Void>.withErrorType(Error.self)
     }
@@ -134,8 +129,8 @@ struct StubGamesInteractor: GameService {
 
     }
 
-    func create(initialBet: Int, color: Color, bombs: Int) {
-
+    func create(initialBet: Int, color: Color, bombs: Int) -> String {
+        ""
     }
 
     func guess(game: LoadableSubject<Game>, gameId: String, tileId: Int) {

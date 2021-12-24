@@ -7,7 +7,6 @@ import Combine
 
 struct AppEnvironment {
     let container: DIContainer
-//    let systemEventsHandler: SystemEventsHandler
 }
 
 extension AppEnvironment {
@@ -20,7 +19,7 @@ extension AppEnvironment {
         return AppEnvironment(container: diContainer)
     }
 
-    private static func configuredServices(appState: Store<AppState>) -> DIContainer.Interactors {
+    private static func configuredServices(appState: Store<AppState>) -> DIContainer.Services {
 
         let gameService = LocalGameService(appState: appState)
 

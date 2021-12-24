@@ -8,7 +8,8 @@ import Foundation
 
 extension HomeScene {
     struct Routing: Equatable {
-        var gameDetails: String?
+        var gameId: String?
+        var showNewGameScene: Bool = false
     }
 }
 
@@ -32,6 +33,7 @@ extension HomeScene {
 
             cancelBag.collect {
                 $routingState
+                        .removeDuplicates()
                         .sink {
                             appState[\.routing.homeScene] = $0
                         }
@@ -39,6 +41,7 @@ extension HomeScene {
                         .removeDuplicates()
                         .weakAssign(to: \.routingState, on: self)
                 appState.map(\.userData.games)
+                        .removeDuplicates()
                         .weakAssign(to: \.games, on: self)
             }
         }
