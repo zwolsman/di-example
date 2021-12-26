@@ -57,14 +57,70 @@ private extension ProfileScene {
 
 private extension ProfileScene {
     func loadedView(_ profile: Profile) -> some View {
-        VStack {
-            Text("Profile")
-        }
+        List {
+            Section {
+                    VStack {
+                        ZStack {
+                            Circle()
+                                .foregroundColor(.secondary.opacity(0.2))
+                            Image(systemName: "person.crop.circle")
+                                .resizable()
+                                .frame(width: 48, height: 48)
+                                .padding()
+                        }
+                        Text(profile.name)
+                            .font(.headline)
+                        
+                        Label("bombastic.dev/murfzw", systemImage: "link")
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                            .padding(8)
+                            .background(.ultraThinMaterial)
+                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                    }.padding()
+                    .frame(maxWidth: .infinity)
+                
+                LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]) {
+                    VStack {
+                        Text("\(profile.points.formatted())")
+                            .fontWeight(.bold)
+                        Text("Points")
+                            .font(.caption)
+                    }
+                    VStack {
+                        Text("\(profile.games.formatted())")
+                            .fontWeight(.bold)
+                        Text("Games")
+                            .font(.caption)
+                    }
+                    
+                    VStack {
+                        Text("\(profile.totalEarnings.formatted())")
+                            .fontWeight(.bold)
+                        Text("Total earnings")
+                            .font(.caption)
+                    }
+                    
+                }
+            }.listRowSeparator(.hidden)
+            
+            Section(header: Text("Highlights")) {
+                Text("A game")
+            }
+            
+            Section(header: Text("Achievements")) {
+                Text("An achievement")
+            }
+        }.listStyle(.insetGrouped)
     }
+    
+    
 }
 
 struct ProfileScene_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileScene(viewModel: .init(container: .preview, profileType: .`self`, profile: .loaded(Profile.mock)))
+        NavigationView {
+            ProfileScene(viewModel: .init(container: .preview, profileType: .`self`, profile: .loaded(Profile.mock)))
+        }
     }
 }

@@ -6,4 +6,7 @@ import Foundation
 
 struct Profile {
     var name: String
+    var points: Int
+    var games: Int
+    var totalEarnings: Int
 }
