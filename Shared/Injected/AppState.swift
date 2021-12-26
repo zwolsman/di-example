@@ -23,6 +23,7 @@ extension AppState {
         var gameScene = GameScene.Routing()
         var gameDetailsScene = GameInfoScene.Routing()
         var newGameScene = NewGameScene.Routing()
+        var profileScene = ProfileScene.Routing()
     }
 }
 
