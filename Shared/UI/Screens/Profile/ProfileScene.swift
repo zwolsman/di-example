@@ -16,9 +16,9 @@ struct ProfileScene: View {
     var body: some View {
         content
                 .navigationBarTitle("Profile")
-        onReceive(inspection.notice) {
-            inspection.visit(self, $0)
-        }
+                .onReceive(inspection.notice) {
+                    inspection.visit(self, $0)
+                }
     }
 
     @ViewBuilder
@@ -65,6 +65,6 @@ private extension ProfileScene {
 
 struct ProfileScene_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileScene(viewModel: .init(container: .preview, profileType: .`self`))
+        ProfileScene(viewModel: .init(container: .preview, profileType: .`self`, profile: .loaded(Profile.mock)))
     }
 }

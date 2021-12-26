@@ -80,30 +80,82 @@ private extension HomeScene {
             if showLoading {
                 ActivityIndicatorView().padding()
             }
-            if games.isEmpty {
-                Text("No games yet")
-            }
-            List(games) { game in
-                NavigationLink(
-                        destination: self.gameView(game: game),
-                        tag: game.id,
-                        selection: $viewModel.routingState.gameId
-                ) {
-                    VStack(alignment: .leading) {
-                        Text(game.id)
-                                .font(.headline)
-                        Text("Stake: \(game.stake)")
-                                .font(.subheadline)
+
+            List {
+                profileSection()
+                if games.isEmpty {
+                    VStack(alignment: .center) {
+                        Text("You have not created any game yet. Start by tapping the button below.")
+                                .multilineTextAlignment(.center)
+                                .fixedSize(horizontal: false, vertical: true)
+                        Button("Create game") {
+                            viewModel.routingState.showNewGameScene.toggle()
+                        }
+                                .buttonStyle(.bordered)
                     }
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                } else {
+                    gamesSection(games)
                 }
-// TODO: find out what's up .id(games.count)
+            }
+        }
+    }
+
+    func gamesSection(_ games: [Game]) -> some View {
+        func gameView(game: Game) -> some View {
+            GameScene(viewModel: .init(container: viewModel.container, id: game.id, game: .loaded(game)))
+        }
+
+        func gameRow(_ game: Game) -> some View {
+            NavigationLink(
+                    destination: gameView(game: game),
+                    tag: game.id,
+                    selection: $viewModel.routingState.gameId
+            ) {
+                VStack(alignment: .leading) {
+                    Text(game.id)
+                            .font(.headline)
+                    Text("Stake: \(game.stake)")
+                            .font(.subheadline)
+                }
+            }
+        }
+
+        return Section {
+            ForEach(games) { game in
+                gameRow(game)
             }
         }
     }
 
 
-    func gameView(game: Game) -> some View {
-        GameScene(viewModel: .init(container: viewModel.container, id: game.id, game: .loaded(game)))
+    func profileSection() -> some View {
+        func profileView() -> some View {
+            ProfileScene(viewModel: .init(container: viewModel.container, profileType: .`self`))
+        }
+
+        func profileRow() -> some View {
+            HStack {
+                Circle()
+                        .frame(maxWidth: 48, maxHeight: 48)
+                        .aspectRatio(1.0, contentMode: .fill)
+                        .padding(.trailing, 8)
+
+                VStack(alignment: .leading) {
+                    Text("Marvin Zwolsman")
+                            .foregroundColor(.primary)
+                    Text("You have \(1000.formatted()) points")
+                            .foregroundColor(.secondary)
+                }
+            }
+        }
+
+        return Section {
+            NavigationLink(destination: profileView()) {
+                profileRow()
+            }
+        }
     }
 }
 

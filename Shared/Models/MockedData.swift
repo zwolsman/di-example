@@ -9,3 +9,7 @@ extension Game {
         Game(secret: "secret", stake: 100, bet: 100, next: 15, color: .red, bombs: 3)
     ]
 }
+
+extension Profile {
+    static let mock = Profile(name: "Marvin Zwolsman")
+}

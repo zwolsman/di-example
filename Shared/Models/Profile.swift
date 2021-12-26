@@ -5,5 +5,5 @@
 import Foundation
 
 struct Profile {
-
+    var name: String
 }
