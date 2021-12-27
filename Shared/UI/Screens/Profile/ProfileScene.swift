@@ -71,10 +71,11 @@ private extension ProfileScene {
                         Text(profile.name)
                             .font(.headline)
                         
-                        Label("bombastic.dev/murfzw", systemImage: "link")
+                        Label("https://bombastic.dev/1738", systemImage: "link")
                             .font(.subheadline)
                             .foregroundColor(.secondary)
                             .padding(8)
+                            .padding(.trailing, 8)
                             .background(.ultraThinMaterial)
                             .clipShape(RoundedRectangle(cornerRadius: 8))
                     }.padding()
@@ -85,23 +86,23 @@ private extension ProfileScene {
                         Text("\(profile.points.formatted())")
                             .fontWeight(.bold)
                         Text("Points")
-                            .font(.caption)
                     }
                     VStack {
                         Text("\(profile.games.formatted())")
                             .fontWeight(.bold)
                         Text("Games")
-                            .font(.caption)
+                            
                     }
                     
                     VStack {
                         Text("\(profile.totalEarnings.formatted())")
                             .fontWeight(.bold)
-                        Text("Total earnings")
-                            .font(.caption)
+                        Text("Earned")
+                            
                     }
                     
                 }
+                .padding(.bottom)
             }.listRowSeparator(.hidden)
             
             Section(header: Text("Highlights")) {
