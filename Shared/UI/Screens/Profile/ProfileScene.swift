@@ -102,46 +102,94 @@ private extension ProfileScene {
                         Text("\(profile.games.formatted())")
                                 .fontWeight(.bold)
                         Text("Games")
-
                     }
 
                     VStack {
                         Text("\(profile.totalEarnings.formatted())")
                                 .fontWeight(.bold)
                         Text("Earned")
-
                     }
 
                 }
                         .padding(.bottom)
             }.listRowSeparator(.hidden)
 
-            Section(header: Text("Highlights")) {
-                Text("A game")
-            }
+            highlightSection(profile.highlights)
 
-            Section(header: Text("Achievements")) {
-                Text("An achievement")
-            }
+            achievementSection(profile.achievements)
 
-            if (viewModel.profileType == .`self`) {
-                Section {
-                    Button("Sign out", role: .destructive) {
-                        viewModel.signOut()
-                    }
-                            .frame(maxWidth: .infinity)
-                }
-            }
+            signoutButton()
+
+
         }.listStyle(.insetGrouped)
     }
 
+    
+    func editableSection(text: String, editAction: @escaping () -> ()) -> some View {
+        HStack {
+            Text(text)
+            Spacer()
+            if (viewModel.profileType == .`self`) {
+                Button("Edit", action: editAction)
+            }
+        }
+    }
 
+    @ViewBuilder
+    func highlightSection(_ highlights: [Game]) -> some View {
+        if (viewModel.profileType == .`self` || !highlights.isEmpty) {
+            Section(header: editableSection(text: "Highlights", editAction: {})) {
+                if (highlights.isEmpty) {
+                    Text("Show off your highlights here.")
+                        .foregroundColor(.secondary)
+                        .frame(maxWidth: .infinity)
+                } else {
+                    ForEach(highlights) { game in
+                        Text(game.id)
+                    }
+                }
+            }
+        }
+    }
+
+    @ViewBuilder
+    func achievementSection(_ achievements: [String]) -> some View {
+        if (viewModel.profileType == .`self` || !achievements.isEmpty) {
+            Section(header: editableSection(text: "Achievements", editAction: {})) {
+                if (achievements.isEmpty) {
+                    Text("Show off your achievements here.")
+                        .foregroundColor(.secondary)
+                        .frame(maxWidth: .infinity)
+                } else {
+                    ForEach(achievements, id: \.self) { achievement in
+                        Text(achievement)
+                    }
+                }
+            }
+        }
+    }
+
+    @ViewBuilder
+    func signoutButton() -> some View {
+        if (viewModel.profileType == .`self`) {
+            Section {
+                Button("Sign out", role: .destructive) {
+                    viewModel.signOut()
+                }
+                        .frame(maxWidth: .infinity)
+            }
+        }
+    }
 }
 
 struct ProfileScene_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             ProfileScene(viewModel: .init(container: .preview, profileType: .`self`, profile: .loaded(Profile.mock)))
+        }
+
+        NavigationView {
+            ProfileScene(viewModel: .init(container: .preview, profileType: .other("id"), profile: .loaded(Profile.mockWithHighlights)))
         }
     }
 }

@@ -10,4 +10,7 @@ struct Profile {
     var games: Int
     var totalEarnings: Int
     var link: String
+
+    var highlights: [Game] = []
+    var achievements: [String] = []
 }
