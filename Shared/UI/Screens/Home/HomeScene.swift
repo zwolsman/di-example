@@ -85,13 +85,8 @@ private extension HomeScene {
                 profileSection()
                 if games.isEmpty {
                     VStack(alignment: .center) {
-                        Text("You have not created any game yet. Start by tapping the button below.")
-                                .multilineTextAlignment(.center)
-                                .fixedSize(horizontal: false, vertical: true)
-                        Button("Create game") {
-                            viewModel.routingState.showNewGameScene.toggle()
-                        }
-                                .buttonStyle(.bordered)
+                        Text("No games to show right now.")
+                                .foregroundColor(.secondary)
                     }
                             .frame(maxWidth: .infinity)
                             .padding()
@@ -132,7 +127,7 @@ private extension HomeScene {
 
     func profileSection() -> some View {
         func profileView() -> some View {
-            ProfileScene(viewModel: .init(container: viewModel.container, profileType: .`self`))
+            ProfileScene(viewModel: .init(container: viewModel.container, profileType: .`self`, profile: .loaded(Profile.mock)))
         }
 
         func profileRow() -> some View {

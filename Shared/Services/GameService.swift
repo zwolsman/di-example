@@ -44,7 +44,7 @@ class LocalGameService: GameService {
         weak var weakAppState = appState
 
         Just(Array(gameStore.values))
-                .delay(for: 2, scheduler: RunLoop.main)
+//                .delay(for: 2, scheduler: RunLoop.main)
                 .sinkToLoadable {
                     weakAppState?[\.userData.games] = $0
                 }

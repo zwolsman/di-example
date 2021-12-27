@@ -434,11 +434,19 @@
 /* Begin PBXProject section */
 		FD09F94687A38A846B4C9E48 /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				TargetAttributes = {
+					FD09FE725958D65B92244C46 = {
+						DevelopmentTeam = UV7YH72NQ8;
+					};
+				};
+			};
 			buildConfigurationList = FD09F11595DC3048B4FC8742 /* Build configuration list for PBXProject "di-example" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = FD09FD82250F6AC72F5A86AF;
@@ -774,8 +782,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 			};
 			name = Release;
 		};
@@ -799,6 +806,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = UV7YH72NQ8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -839,6 +847,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = UV7YH72NQ8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -878,6 +887,7 @@
 				FD09F78B22040BE28BF9C016 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		FD09F9623605D0D520065418 /* Build configuration list for PBXNativeTarget "di-example (iOS)" */ = {
 			isa = XCConfigurationList;
@@ -886,6 +896,7 @@
 				FD09FF9400DADE9CD99D3472 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		FD09FAC29746558FC26B8EB3 /* Build configuration list for PBXNativeTarget "Tests iOS" */ = {
 			isa = XCConfigurationList;
@@ -894,6 +905,7 @@
 				FD09FF37C00684184F6AC0F5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		FD09FDE99A27E29187304FE8 /* Build configuration list for PBXNativeTarget "Tests macOS" */ = {
 			isa = XCConfigurationList;
@@ -902,6 +914,7 @@
 				FD09F4FC0B1DF50D6EE602CC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
