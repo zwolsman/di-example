@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 // MARK: - Routing
 
@@ -48,11 +49,23 @@ extension ProfileScene {
         func loadProfile() {
 
         }
+
+        func signOut() {
+
+        }
+
+        func shareProfile() {
+            guard  let link = profile.value?.link, let data = URL(string: link) else {
+                return
+            }
+            let av = UIActivityViewController(activityItems: [data], applicationActivities: nil)
+            UIApplication.shared.windows.first?.rootViewController?.present(av, animated: true, completion: nil)
+        }
     }
 }
 
 extension ProfileScene {
-    enum ProfileType {
+    enum ProfileType: Equatable {
         case `self`
         case other(String)
     }

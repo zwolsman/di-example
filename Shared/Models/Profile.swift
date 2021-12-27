@@ -9,4 +9,5 @@ struct Profile {
     var points: Int
     var games: Int
     var totalEarnings: Int
+    var link: String
 }

@@ -16,6 +16,9 @@ struct ProfileScene: View {
     var body: some View {
         content
                 .navigationBarTitle("Profile")
+                .toolbar {
+                    shareProfileButton
+                }
                 .onReceive(inspection.notice) {
                     inspection.visit(self, $0)
                 }
@@ -28,6 +31,14 @@ struct ProfileScene: View {
         case .isLoading: loadingView
         case let .loaded(profile): loadedView(profile)
         case let .failed(error): failedView(error)
+        }
+    }
+
+    private var shareProfileButton: some ToolbarContent {
+        ToolbarItem(placement: .navigationBarTrailing) {
+            Button(action: viewModel.shareProfile) {
+                Label("Share", systemImage: "square.and.arrow.up")
+            }
         }
     }
 }
@@ -59,63 +70,72 @@ private extension ProfileScene {
     func loadedView(_ profile: Profile) -> some View {
         List {
             Section {
-                    VStack {
-                        ZStack {
-                            Circle()
+                VStack {
+                    ZStack {
+                        Circle()
                                 .foregroundColor(.secondary.opacity(0.2))
-                            Image(systemName: "person.crop.circle")
+                        Image(systemName: "person.crop.circle")
                                 .resizable()
                                 .frame(width: 48, height: 48)
                                 .padding()
-                        }
-                        Text(profile.name)
+                    }
+                    Text(profile.name)
                             .font(.headline)
-                        
-                        Label("https://bombastic.dev/1738", systemImage: "link")
+
+                    Label(profile.link, systemImage: "link")
                             .font(.subheadline)
                             .foregroundColor(.secondary)
                             .padding(8)
                             .padding(.trailing, 8)
                             .background(.ultraThinMaterial)
                             .clipShape(RoundedRectangle(cornerRadius: 8))
-                    }.padding()
-                    .frame(maxWidth: .infinity)
-                
+                }.padding()
+                        .frame(maxWidth: .infinity)
+
                 LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]) {
                     VStack {
                         Text("\(profile.points.formatted())")
-                            .fontWeight(.bold)
+                                .fontWeight(.bold)
                         Text("Points")
                     }
                     VStack {
                         Text("\(profile.games.formatted())")
-                            .fontWeight(.bold)
+                                .fontWeight(.bold)
                         Text("Games")
-                            
+
                     }
-                    
+
                     VStack {
                         Text("\(profile.totalEarnings.formatted())")
-                            .fontWeight(.bold)
+                                .fontWeight(.bold)
                         Text("Earned")
-                            
+
                     }
-                    
+
                 }
-                .padding(.bottom)
+                        .padding(.bottom)
             }.listRowSeparator(.hidden)
-            
+
             Section(header: Text("Highlights")) {
                 Text("A game")
             }
-            
+
             Section(header: Text("Achievements")) {
                 Text("An achievement")
             }
+
+            if (viewModel.profileType == .`self`) {
+                Section {
+                    Button("Sign out", role: .destructive) {
+                        viewModel.signOut()
+                    }
+                            .frame(maxWidth: .infinity)
+                }
+            }
         }.listStyle(.insetGrouped)
     }
-    
-    
+
+
 }
 
 struct ProfileScene_Previews: PreviewProvider {
