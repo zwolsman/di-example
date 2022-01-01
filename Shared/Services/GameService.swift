@@ -99,7 +99,13 @@ class LocalGameService: GameService {
             game.wrappedValue = .failed(gameNotFoundError)
             return
         }
-
+        
+        guard currentGame.tiles[tileId] == nil else {
+            print("tile already guessed")
+            return
+        }
+        
+        currentGame.tiles[tileId] = .revealed(currentGame.stake)
         currentGame.stake *= 2
         gameStore[gameId] = currentGame
         game.wrappedValue = .loaded(currentGame)

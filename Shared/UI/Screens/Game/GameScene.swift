@@ -68,24 +68,39 @@ private extension GameScene {
 // MARK: - Displaying Content
 
 private extension GameScene {
+    private static let BOARD_RANGE = 1...25
+    private static let COLUMNS = Array(repeating: GridItem(.flexible()), count: 5)
+    
     func loadedView(_ game: Game) -> some View {
         VStack {
+            LazyVGrid(columns: GameScene.COLUMNS, spacing: 8) {
+                ForEach(GameScene.BOARD_RANGE, id: \.self) { tileId in
+                    TileButton(game: game, id: tileId) {
+                        viewModel.guess(tileId: tileId)
+                    }
+                    
+                }
+            }
+            .aspectRatio(1, contentMode: .fit)
+            .padding(8)
+            .layoutPriority(1)
+            
+
             Text("Game: \(game.id)")
                     .font(.headline)
 
             Text("Stake: \(game.stake)")
                     .font(.subheadline)
-
-            Button("Double stake") {
-                viewModel.guess(tileId: 0)
-            }
-                    .buttonStyle(.bordered)
         }
     }
+    
+    
 }
 
 struct GameDetailScene_Previews: PreviewProvider {
     static var previews: some View {
         GameScene(viewModel: .init(container: .preview, id: Game.mockedData[0].id))
+        
+        GameScene(viewModel: .init(container: .preview, id: Game.mockedData[0].id, game: .loaded(Game.mockedData[0])))
     }
 }
