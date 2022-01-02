@@ -39,14 +39,18 @@ extension GameRow {
         private let color: Color
         
         init(game: Game, id: Int) {
-            let state = game.tiles[id] ?? .hidden
-            switch state {
-            case .hidden, .bomb(false):
+            guard let state = game.tiles[id] else {
                 color = .secondary.opacity(0.2)
-            case .revealed(_):
-                color = game.color.opacity(0.2)
+                return
+            }
+
+            switch state {
+            case .bomb(false):
+                color = .secondary.opacity(0.2)
             case .bomb(true):
                 color = .secondary
+            case .points(_):
+                color = game.color.opacity(0.2)
             }
         }
         

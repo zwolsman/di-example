@@ -9,6 +9,37 @@ import Foundation
 
 protocol GameRepository {
     func createGame(initialStake: Int, bombs: Int, colorId: Int) async -> RemoteGame
+    func guess(tileId: Int, gameId: String) async throws -> RemoteGame
+}
+
+struct InternalGame {
+    var id: String
+
+    var secret: String
+    var plain: String
+    var bombs: [Int]
+
+    var stake: Int {
+        initialBet + tiles.values.map { tile in
+            switch tile {
+            case .points(let amount):
+                return amount
+            default:
+                return 0
+            }
+        }.reduce(0, +)
+    }
+
+    var next: Int?
+    var initialBet: Int
+
+    var colorId: Int
+    var tiles = [Int: Tile]()
+    var state = State.InGame
+
+    func toRemoteGame() -> RemoteGame {
+        RemoteGame(id: id, secret: secret, plain: plain, tiles: tiles, state: state, stake: stake, next: next, initialBet: initialBet, colorId: colorId)
+    }
 }
 
 struct RemoteGame {
@@ -16,7 +47,8 @@ struct RemoteGame {
 
     var secret: String
     var plain: String?
-    var bombs: [Int] // Normally private
+    var tiles: [Int: Tile]
+    var state: State
 
     var stake: Int
     var next: Int?
@@ -25,7 +57,29 @@ struct RemoteGame {
     var colorId: Int
 }
 
-struct LocalGameRepository: GameRepository {
+// TODO: leaky
+enum Tile: Equatable {
+    case bomb(revealedByUser: Bool)
+    case points(amount: Int)
+}
+
+enum State {
+    case InGame
+    case GameOver(reason: Reason)
+
+    enum Reason {
+        case HitBomb
+        case CashedOut
+    }
+}
+
+class LocalGameRepository: GameRepository {
+
+    enum APIErrors: Error {
+        case gameNotFound(gameId: String)
+    }
+
+    private(set) var games: [String: InternalGame] = [:]
 
     func createGame(initialStake: Int, bombs: Int, colorId: Int) async -> RemoteGame {
         let bombLocations = generateBombs(amount: bombs)
@@ -33,15 +87,36 @@ struct LocalGameRepository: GameRepository {
         let secret = plain.sha256()
         let next = try! calculateReward(emptyTiles: 25, bombs: bombs, stake: initialStake)
 
-        return RemoteGame(id: UUID().uuidString,
+        let game = InternalGame(id: UUID().uuidString,
                 secret: secret,
-                plain: nil,
+                plain: plain,
                 bombs: bombLocations,
-                stake: initialStake,
                 next: next,
                 initialBet: initialStake,
                 colorId: colorId
         )
+
+        games[game.id] = game
+        return game.toRemoteGame()
+    }
+
+    func guess(tileId: Int, gameId: String) async throws -> RemoteGame {
+        guard var internalGame = games[gameId] else {
+            throw APIErrors.gameNotFound(gameId: gameId)
+        }
+
+        if internalGame.bombs.contains(tileId) {
+            for bombTile in internalGame.bombs {
+                internalGame.tiles[bombTile] = .bomb(revealedByUser: bombTile == tileId)
+            }
+            internalGame.state = .GameOver(reason: .HitBomb)
+        } else {
+            internalGame.tiles[tileId] = .points(amount: internalGame.next!)
+            internalGame.next = try calculateReward(emptyTiles: 25 - internalGame.tiles.count, bombs: internalGame.bombs.count, stake: internalGame.stake)
+        }
+        games[internalGame.id] = internalGame
+
+        return internalGame.toRemoteGame()
     }
 
     private func generateBombs(amount: Int) -> [Int] {
@@ -92,8 +167,12 @@ struct LocalGameRepository: GameRepository {
 }
 
 struct StubGameRepository: GameRepository {
+    func guess(tileId: Int, gameId: String) async -> RemoteGame {
+        RemoteGame(id: "", secret: "", plain: nil, tiles: [:], state: .InGame, stake: 0, next: 0, initialBet: 0, colorId: 0)
+    }
+
     func createGame(initialStake: Int, bombs: Int, colorId: Int) async -> RemoteGame {
-        RemoteGame(id: "", secret: "", plain: nil, bombs: [], stake: 0, next: 0, initialBet: 0, colorId: 0)
+        RemoteGame(id: "", secret: "", plain: nil, tiles: [:], state: .InGame, stake: 0, next: 0, initialBet: 0, colorId: 0)
     }
 
 

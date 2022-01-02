@@ -9,29 +9,35 @@ import SwiftUI
 
 struct TileButton: View {
     private let action: () -> ()
-    private let state: Game.Tile
+    private let tile: Tile?
     private let gameColor: Color
-    
+
     init(config: Configuration) {
-        self.action = config.action
-        self.state = config.state
-        self.gameColor = config.color
+        action = config.action
+        tile = config.tile
+        gameColor = config.color
     }
-    
+
     private var tileColor: Color {
-        switch state {
-        case .hidden, .bomb(_):
+        guard let tile = tile else {
             return .secondary.opacity(0.2)
-        case .revealed(_):
+        }
+
+        switch tile {
+        case .bomb(_):
+            return .secondary.opacity(0.2)
+        case .points(_):
             return gameColor.opacity(0.2)
         }
     }
-    
+
     private var textColor: Color {
-        switch state {
-        case .hidden:
+        guard let tile = tile else {
             return .clear
-        case .revealed(_):
+        }
+
+        switch tile {
+        case .points(_):
             return gameColor
         case .bomb(true):
             return .primary
@@ -39,59 +45,60 @@ struct TileButton: View {
             return .secondary
         }
     }
-    
+
     private var isDisabled: Bool {
-        switch state {
-        case .hidden:
-            return false
-        default:
-            return true
-        }
+        tile == nil
     }
-    
+
     private var text: String {
-        switch state {
-        case .hidden:
+        guard let tile = tile else {
             return ""
+        }
+
+        switch tile {
         case .bomb(_):
             return "BOMB"
-        case let .revealed(points):
-            return points.abbr()
+        case let .points(amount):
+            return amount.abbr()
         }
     }
-    
+
     var body: some View {
         Button(action: action) {
             Rectangle()
-                .foregroundColor(tileColor)
-                .overlay {
-                    Text(text)
-                        .foregroundColor(textColor)
-                }
-                .aspectRatio(1, contentMode: .fit)
-                .allowsHitTesting(!isDisabled)
+                    .foregroundColor(tileColor)
+                    .overlay {
+                        Text(text)
+                                .foregroundColor(textColor)
+                    }
+                    .aspectRatio(1, contentMode: .fit)
+                    .allowsHitTesting(!isDisabled)
         }
     }
 }
 
 struct TileButton_Previews: PreviewProvider {
     private static let COLUMNS = Array(repeating: GridItem(.flexible()), count: 5)
-    
+
     static var previews: some View {
         ScrollView {
             LazyVGrid(columns: COLUMNS) {
                 ForEach(Game.colors, id: \.self) { color in
                     ForEach(1...5, id: \.self) { i in
-                        let points = Int(truncating: pow(10, i) as NSNumber)
-                        let config = TileButton.Configuration(id: 0, state: .revealed(points), color: color) { }
+                        let amount = Int(truncating: pow(10, i) as NSNumber)
+                        let config = TileButton.Configuration(id: 0, tile: .points(amount: amount), color: color) {
+                        }
                         TileButton(config: config)
                     }
                 }
-                
-                TileButton(config: TileButton.Configuration(id: 0, state: .bomb(true), color: .clear) { })
-                TileButton(config: TileButton.Configuration(id: 0, state: .bomb(false), color: .clear) { })
-                TileButton(config: TileButton.Configuration(id: 0, state: .hidden, color: .clear) { })
-                
+
+                TileButton(config: TileButton.Configuration(id: 0, tile: .bomb(revealedByUser: true), color: .clear) {
+                })
+                TileButton(config: TileButton.Configuration(id: 0, tile: .bomb(revealedByUser: false), color: .clear) {
+                })
+                TileButton(config: TileButton.Configuration(id: 0, tile: nil, color: .clear) {
+                })
+
             }.padding()
         }
     }

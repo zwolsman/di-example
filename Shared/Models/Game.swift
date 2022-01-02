@@ -8,7 +8,7 @@ import SwiftUI
 struct Game: Equatable, Identifiable {
     var id: String = UUID().uuidString
 
-    var tiles: [Int:Tile] = [:]
+    var tiles: [Int: Tile]
     var secret: String
     var stake: Int
     var bet: Int
@@ -24,12 +24,6 @@ extension Game {
         var color: Color
         var secret: String
         var plain: String?
-    }
-
-    enum Tile: Equatable {
-        case hidden
-        case revealed(Int)
-        case bomb(Bool)
     }
 }
 
@@ -48,6 +42,6 @@ extension Game {
         Color.pink,
         Color.brown,
     ]
-    
+
     static let TILE_RANGE = 1...25
 }

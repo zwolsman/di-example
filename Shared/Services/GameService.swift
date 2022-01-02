@@ -13,7 +13,7 @@ protocol GameService {
     func load(gameDetails: LoadableSubject<Game.Details>, gameId: String)
 
     func create(initialBet: Int, color: Color, bombs: Int) async -> String
-    func guess(game: LoadableSubject<Game>, gameId: String, tileId: Int)
+    func guess(game: LoadableSubject<Game>, gameId: String, tileId: Int) async
 }
 
 class LocalGameService: GameService {
@@ -97,24 +97,16 @@ class LocalGameService: GameService {
         return game.id
     }
 
-    func guess(game: LoadableSubject<Game>, gameId: String, tileId: Int) {
-//        let cancelBag = CancelBag()
-//        game.wrappedValue.setIsLoading(cancelBag: cancelBag)
-//
-//        guard var currentGame = gameStore[gameId] else {
-//            game.wrappedValue = .failed(gameNotFoundError)
-//            return
-//        }
-//
-//        guard currentGame.tiles[tileId] == nil else {
-//            print("tile already guessed")
-//            return
-//        }
-//
-//        currentGame.tiles[tileId] = .revealed(currentGame.stake)
-//        currentGame.stake *= 2
-//        gameStore[gameId] = currentGame
-//        game.wrappedValue = .loaded(currentGame)
+    func guess(game: LoadableSubject<Game>, gameId: String, tileId: Int) async {
+        do {
+            let remoteGame = try await repo.guess(tileId: tileId, gameId: gameId)
+
+            gameStore[gameId] = remoteGame
+            game.wrappedValue = .loaded(remoteGame.toGame())
+        } catch {
+            game.wrappedValue = .failed(gameNotFoundError)
+            return
+        }
     }
 
     private var gameNotFoundError: Error {
@@ -126,11 +118,11 @@ class LocalGameService: GameService {
 
 private extension RemoteGame {
     func toGame() -> Game {
-        Game(id: id, secret: secret, stake: stake, bet: initialBet, next: next, color: Game.colors[colorId])
+        Game(id: id, tiles: tiles, secret: secret, stake: stake, bet: initialBet, next: next, color: Game.colors[colorId])
     }
 
     func toDetails() -> Game.Details {
-        Game.Details(initialStake: initialBet, stake: stake, bombs: bombs.count, color: Game.colors[colorId], secret: secret, plain: plain)
+        Game.Details(initialStake: initialBet, stake: stake, bombs: 0, color: Game.colors[colorId], secret: secret, plain: plain)
     }
 }
 
