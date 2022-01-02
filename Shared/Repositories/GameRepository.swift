@@ -82,6 +82,7 @@ class LocalGameRepository: GameRepository {
 
     enum APIErrors: Error {
         case gameNotFound(gameId: String)
+        case tileAlreadyGuessed(tileId: Int)
     }
 
     private(set) var games: [String: InternalGame] = [:]
@@ -108,6 +109,10 @@ class LocalGameRepository: GameRepository {
     func guess(tileId: Int, gameId: String) async throws -> (Tile, RemoteGame) {
         guard var internalGame = games[gameId] else {
             throw APIErrors.gameNotFound(gameId: gameId)
+        }
+
+        guard internalGame.tiles.index(forKey: tileId) == nil else {
+            throw APIErrors.tileAlreadyGuessed(tileId: tileId)
         }
 
         if internalGame.bombs.contains(tileId) {
