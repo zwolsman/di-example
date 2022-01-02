@@ -48,15 +48,25 @@ extension NewGameScene {
 
         // MARK: - Side effects
 
-        func createGame() async {
-            let id = await container
-                    .services
-                    .gameService
-                    .create(initialBet: bet, color: color, bombs: bombs.rawValue)
-            print("created game with id: \(id)")
-            container.appState.bulkUpdate {
-                $0.routing.homeScene.showNewGameScene = false
-                $0.routing.homeScene.gameId = id
+        func createGame() {
+            Task {
+                let id = await container
+                        .services
+                        .gameService
+                        .create(initialBet: bet, color: color, bombs: bombs.rawValue)
+                print("created game with id: \(id)")
+
+                container.appState.bulkUpdate { state in
+                    state.routing.homeScene.showNewGameScene = false
+                    state.routing.homeScene.gameId = id
+
+                    // TODO: make this pretty :)
+                    guard var profile = state.userData.profile.value else {
+                        return
+                    }
+                    profile.points -= bet
+                    state.userData.profile = .loaded(profile)
+                }
             }
         }
     }

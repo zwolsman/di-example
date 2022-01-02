@@ -36,9 +36,7 @@ private extension NewGameScene {
         Form {
             Section {
                 Picker("Color", selection: $viewModel.color) {
-                    ForEach(Game.colors, id: \.self) {
-                        ColorCell(color: $0)
-                    }
+                    ForEach(Game.colors, content: ColorCell.init)
                 }
 
                 Picker("Bombs", selection: $viewModel.bombs) {
@@ -52,13 +50,15 @@ private extension NewGameScene {
                 Text("Stake: 100")
             }
 
-            Button("Create game") {
-                Task {
-                    await viewModel.createGame()
-                }
-            }
+            Button("Create game", action: viewModel.createGame)
                     .disabled(!viewModel.canCreateGame)
         }
+    }
+}
+
+extension Color: Identifiable {
+    public var id: Color {
+        self
     }
 }
 
