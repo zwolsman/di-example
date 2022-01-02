@@ -9,7 +9,7 @@ import Foundation
 
 protocol GameRepository {
     func createGame(initialStake: Int, bombs: Int, colorId: Int) async -> RemoteGame
-    func guess(tileId: Int, gameId: String) async throws -> RemoteGame
+    func guess(tileId: Int, gameId: String) async throws -> (Tile, RemoteGame)
 }
 
 struct InternalGame {
@@ -100,7 +100,7 @@ class LocalGameRepository: GameRepository {
         return game.toRemoteGame()
     }
 
-    func guess(tileId: Int, gameId: String) async throws -> RemoteGame {
+    func guess(tileId: Int, gameId: String) async throws -> (Tile, RemoteGame) {
         guard var internalGame = games[gameId] else {
             throw APIErrors.gameNotFound(gameId: gameId)
         }
@@ -116,7 +116,7 @@ class LocalGameRepository: GameRepository {
         }
         games[internalGame.id] = internalGame
 
-        return internalGame.toRemoteGame()
+        return (internalGame.tiles[tileId]!, internalGame.toRemoteGame())
     }
 
     private func generateBombs(amount: Int) -> [Int] {
@@ -167,13 +167,13 @@ class LocalGameRepository: GameRepository {
 }
 
 struct StubGameRepository: GameRepository {
-    func guess(tileId: Int, gameId: String) async -> RemoteGame {
-        RemoteGame(id: "", secret: "", plain: nil, tiles: [:], state: .InGame, stake: 0, next: 0, initialBet: 0, colorId: 0)
-    }
 
     func createGame(initialStake: Int, bombs: Int, colorId: Int) async -> RemoteGame {
         RemoteGame(id: "", secret: "", plain: nil, tiles: [:], state: .InGame, stake: 0, next: 0, initialBet: 0, colorId: 0)
     }
 
+    func guess(tileId: Int, gameId: String) async -> (Tile, RemoteGame) {
+        (.points(amount: 1), RemoteGame(id: "", secret: "", plain: nil, tiles: [:], state: .InGame, stake: 0, next: 0, initialBet: 0, colorId: 0))
+    }
 
 }

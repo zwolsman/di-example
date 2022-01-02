@@ -13,7 +13,7 @@ protocol GameService {
     func load(gameDetails: LoadableSubject<Game.Details>, gameId: String)
 
     func create(initialBet: Int, color: Color, bombs: Int) async -> String
-    func guess(game: LoadableSubject<Game>, gameId: String, tileId: Int) async
+    func guess(game: LoadableSubject<Game>, gameId: String, tileId: Int) async -> Tile?
 }
 
 class LocalGameService: GameService {
@@ -97,15 +97,17 @@ class LocalGameService: GameService {
         return game.id
     }
 
-    func guess(game: LoadableSubject<Game>, gameId: String, tileId: Int) async {
+    func guess(game: LoadableSubject<Game>, gameId: String, tileId: Int) async -> Tile? {
         do {
-            let remoteGame = try await repo.guess(tileId: tileId, gameId: gameId)
+            let (result, remoteGame) = try await repo.guess(tileId: tileId, gameId: gameId)
 
             gameStore[gameId] = remoteGame
             game.wrappedValue = .loaded(remoteGame.toGame())
+
+            return result
         } catch {
             game.wrappedValue = .failed(gameNotFoundError)
-            return
+            return nil
         }
     }
 
@@ -147,7 +149,7 @@ struct StubGameService: GameService {
         ""
     }
 
-    func guess(game: LoadableSubject<Game>, gameId: String, tileId: Int) {
-
+    func guess(game: LoadableSubject<Game>, gameId: String, tileId: Int) async -> Tile? {
+        nil
     }
 }

@@ -57,7 +57,16 @@ extension GameScene {
 
         func guess(tileId: Int) {
             Task {
-                await container.services.gameService.guess(game: loadableSubject(\.game), gameId: gameId, tileId: tileId)
+                guard let result = await container.services.gameService.guess(game: loadableSubject(\.game), gameId: gameId, tileId: tileId) else {
+                    return
+                }
+
+                switch result {
+                case .bomb(_):
+                    await UINotificationFeedbackGenerator().notificationOccurred(.error)
+                case .points(_):
+                    await UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                }
             }
         }
 
