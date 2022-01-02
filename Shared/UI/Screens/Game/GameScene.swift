@@ -80,7 +80,7 @@ private extension GameScene {
             .layoutPriority(1)
             
             PointsGrid(items: [
-                .init("Next", amount: game.next),
+                .init("Next", amount: game.next ?? 0),
                 .init("Stake", amount: game.stake),
                 .init("Multiplier", amount: 1.5),
             ])

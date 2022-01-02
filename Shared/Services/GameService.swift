@@ -12,26 +12,30 @@ protocol GameService {
     func load(game: LoadableSubject<Game>, gameId: String)
     func load(gameDetails: LoadableSubject<Game.Details>, gameId: String)
 
-    func create(initialBet: Int, color: Color, bombs: Int) -> String
+    func create(initialBet: Int, color: Color, bombs: Int) async -> String
     func guess(game: LoadableSubject<Game>, gameId: String, tileId: Int)
 }
 
 class LocalGameService: GameService {
     let appState: Store<AppState>
-    private var gameStore: [String: Game] = [:] {
+    private var gameStore: [String: RemoteGame] = [:] {
         didSet {
             let cancelBag = CancelBag()
             weak var weakAppState = appState
-            Just(Array(gameStore.values))
+            Just(gameStore.values.map {
+                $0.toGame()
+            })
                     .sinkToLoadable {
                         weakAppState?[\.userData.games] = $0
                     }
                     .store(in: cancelBag)
         }
     }
+    private var repo: GameRepository
 
-    init(appState: Store<AppState>) {
+    init(appState: Store<AppState>, repo: GameRepository) {
         self.appState = appState
+        self.repo = repo
     }
 
     func refreshGames() -> AnyPublisher<Void, Error> {
@@ -43,8 +47,9 @@ class LocalGameService: GameService {
         appState[\.userData.games].setIsLoading(cancelBag: cancelBag)
         weak var weakAppState = appState
 
-        Just(Array(gameStore.values))
-//                .delay(for: 2, scheduler: RunLoop.main)
+        Just(gameStore.values.map {
+            $0.toGame()
+        })
                 .sinkToLoadable {
                     weakAppState?[\.userData.games] = $0
                 }
@@ -55,7 +60,7 @@ class LocalGameService: GameService {
         let cancelBag = CancelBag()
         game.wrappedValue.setIsLoading(cancelBag: cancelBag)
 
-        guard let localGame = gameStore[gameId] else {
+        guard let localGame = gameStore[gameId]?.toGame() else {
             game.wrappedValue = .failed(gameNotFoundError)
             return
         }
@@ -71,12 +76,12 @@ class LocalGameService: GameService {
         let cancelBag = CancelBag()
         gameDetails.wrappedValue.setIsLoading(cancelBag: cancelBag)
 
-        guard let game = gameStore[gameId] else {
+        guard let remoteGame = gameStore[gameId] else {
             gameDetails.wrappedValue = .failed(gameNotFoundError)
             return
         }
 
-        let details = Game.Details(initialStake: game.stake, stake: game.stake, bombs: game.bombs, color: game.color, secret: game.secret, plain: "plain")
+        let details = remoteGame.toDetails()
 
         Just(details)
                 .sinkToLoadable {
@@ -85,36 +90,47 @@ class LocalGameService: GameService {
                 .store(in: cancelBag)
     }
 
-    func create(initialBet: Int, color: Color, bombs: Int) -> String {
-        let game = Game(secret: "secret", stake: 100, bet: 100, next: 15, color: color, bombs: bombs)
+    func create(initialBet: Int, color: Color, bombs: Int) async -> String {
+        let game = await repo.createGame(initialStake: initialBet, bombs: bombs, colorId: Game.colors.firstIndex(of: color)!)
+
         gameStore[game.id] = game
         return game.id
     }
 
     func guess(game: LoadableSubject<Game>, gameId: String, tileId: Int) {
-        let cancelBag = CancelBag()
-        game.wrappedValue.setIsLoading(cancelBag: cancelBag)
-
-        guard var currentGame = gameStore[gameId] else {
-            game.wrappedValue = .failed(gameNotFoundError)
-            return
-        }
-        
-        guard currentGame.tiles[tileId] == nil else {
-            print("tile already guessed")
-            return
-        }
-        
-        currentGame.tiles[tileId] = .revealed(currentGame.stake)
-        currentGame.stake *= 2
-        gameStore[gameId] = currentGame
-        game.wrappedValue = .loaded(currentGame)
+//        let cancelBag = CancelBag()
+//        game.wrappedValue.setIsLoading(cancelBag: cancelBag)
+//
+//        guard var currentGame = gameStore[gameId] else {
+//            game.wrappedValue = .failed(gameNotFoundError)
+//            return
+//        }
+//
+//        guard currentGame.tiles[tileId] == nil else {
+//            print("tile already guessed")
+//            return
+//        }
+//
+//        currentGame.tiles[tileId] = .revealed(currentGame.stake)
+//        currentGame.stake *= 2
+//        gameStore[gameId] = currentGame
+//        game.wrappedValue = .loaded(currentGame)
     }
 
     private var gameNotFoundError: Error {
         NSError(
                 domain: NSCocoaErrorDomain, code: NSUserCancelledError,
                 userInfo: [NSLocalizedDescriptionKey: NSLocalizedString("Game not found", comment: "")])
+    }
+}
+
+private extension RemoteGame {
+    func toGame() -> Game {
+        Game(id: id, secret: secret, stake: stake, bet: initialBet, next: next, color: Game.colors[colorId])
+    }
+
+    func toDetails() -> Game.Details {
+        Game.Details(initialStake: initialBet, stake: stake, bombs: bombs.count, color: Game.colors[colorId], secret: secret, plain: plain)
     }
 }
 
@@ -135,7 +151,7 @@ struct StubGameService: GameService {
 
     }
 
-    func create(initialBet: Int, color: Color, bombs: Int) -> String {
+    func create(initialBet: Int, color: Color, bombs: Int) async -> String {
         ""
     }
 

@@ -21,7 +21,7 @@ extension AppEnvironment {
 
     private static func configuredServices(appState: Store<AppState>) -> DIContainer.Services {
 
-        let gameService = LocalGameService(appState: appState)
+        let gameService = LocalGameService(appState: appState, repo: LocalGameRepository())
 
         return .init(gameService: gameService)
     }

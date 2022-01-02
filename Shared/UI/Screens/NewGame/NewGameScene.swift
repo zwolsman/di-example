@@ -53,7 +53,9 @@ private extension NewGameScene {
             }
 
             Button("Create game") {
-                viewModel.createGame()
+                Task {
+                    await viewModel.createGame()
+                }
             }
                     .disabled(!viewModel.canCreateGame)
         }

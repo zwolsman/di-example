@@ -48,8 +48,8 @@ extension NewGameScene {
 
         // MARK: - Side effects
 
-        func createGame() {
-            let id = container
+        func createGame() async {
+            let id = await container
                     .services
                     .gameService
                     .create(initialBet: bet, color: color, bombs: bombs.rawValue)
