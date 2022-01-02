@@ -108,12 +108,7 @@ private extension HomeScene {
                     tag: game.id,
                     selection: $viewModel.routingState.gameId
             ) {
-                VStack(alignment: .leading) {
-                    Text(game.id)
-                            .font(.headline)
-                    Text("Stake: \(game.stake)")
-                            .font(.subheadline)
-                }
+                GameRow(game: game)
             }
         }
 
