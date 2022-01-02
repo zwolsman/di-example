@@ -68,18 +68,12 @@ private extension GameScene {
 // MARK: - Displaying Content
 
 private extension GameScene {
-    private static let BOARD_RANGE = 1...25
     private static let COLUMNS = Array(repeating: GridItem(.flexible()), count: 5)
     
     func loadedView(_ game: Game) -> some View {
         VStack {
             LazyVGrid(columns: GameScene.COLUMNS, spacing: 8) {
-                ForEach(GameScene.BOARD_RANGE, id: \.self) { tileId in
-                    TileButton(game: game, id: tileId) {
-                        viewModel.guess(tileId: tileId)
-                    }
-                    
-                }
+                ForEach(viewModel.tiles, content: TileButton.init(config:))
             }
             .aspectRatio(1, contentMode: .fit)
             .padding(8)

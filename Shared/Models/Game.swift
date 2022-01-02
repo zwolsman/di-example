@@ -49,4 +49,6 @@ extension Game {
         Color.pink,
         Color.brown,
     ]
+    
+    static let TILE_RANGE = 1...25
 }

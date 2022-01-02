@@ -11,13 +11,13 @@ struct TileButton: View {
     private let action: () -> ()
     private let state: Game.Tile
     private let gameColor: Color
-
-    init(game: Game, id: Int, action: @escaping () -> ()) {
-        self.action = action
-        self.state = game.tiles[id] ?? .hidden
-        self.gameColor = game.color
+    
+    init(config: Configuration) {
+        self.action = config.action
+        self.state = config.state
+        self.gameColor = config.color
     }
-
+    
     private var tileColor: Color {
         switch state {
         case .hidden, .bomb(_):
@@ -26,7 +26,7 @@ struct TileButton: View {
             return gameColor.opacity(0.2)
         }
     }
-
+    
     private var textColor: Color {
         switch state {
         case .hidden:
@@ -39,7 +39,7 @@ struct TileButton: View {
             return .secondary
         }
     }
-
+    
     private var isDisabled: Bool {
         switch state {
         case .hidden:
@@ -48,7 +48,7 @@ struct TileButton: View {
             return true
         }
     }
-
+    
     private var text: String {
         switch state {
         case .hidden:
@@ -59,52 +59,39 @@ struct TileButton: View {
             return points.abbr()
         }
     }
-
+    
     var body: some View {
         Button(action: action) {
-            ZStack {
-                Rectangle()
-                        .foregroundColor(tileColor)
-                        .cornerRadius(8)
-                        .overlay {
-                            Text(text)
-                                    .foregroundColor(textColor)
-                        }
-            }
-                    .aspectRatio(1, contentMode: .fit)
-                    .allowsHitTesting(!isDisabled)
+            Rectangle()
+                .foregroundColor(tileColor)
+                .overlay {
+                    Text(text)
+                        .foregroundColor(textColor)
+                }
+                .aspectRatio(1, contentMode: .fit)
+                .allowsHitTesting(!isDisabled)
         }
     }
 }
 
 struct TileButton_Previews: PreviewProvider {
-
-    static func createGame(color: Color, state: Game.Tile) -> Game {
-        Game(id: "", tiles: [1: state], secret: "", stake: 0, bet: 0, next: 0, color: color, bombs: 0)
-    }
-
     private static let COLUMNS = Array(repeating: GridItem(.flexible()), count: 5)
-
+    
     static var previews: some View {
         ScrollView {
-            LazyVGrid(columns: TileButton_Previews.COLUMNS) {
+            LazyVGrid(columns: COLUMNS) {
                 ForEach(Game.colors, id: \.self) { color in
-
                     ForEach(1...5, id: \.self) { i in
-                        let g = TileButton_Previews.createGame(color: color, state: .revealed(Int(truncating: pow(10, i) as NSNumber)))
-                        TileButton(game: g, id: 1, action: {})
+                        let points = Int(truncating: pow(10, i) as NSNumber)
+                        let config = TileButton.Configuration(id: 0, state: .revealed(points), color: color) { }
+                        TileButton(config: config)
                     }
                 }
-
-                TileButton(game: Game.mockedData[0], id: 1, action: {})
-                let bomb = TileButton_Previews.createGame(color: .clear, state: .bomb(true))
-
-                TileButton(game: bomb, id: 1, action: {})
-
-                let revealedBomb = TileButton_Previews.createGame(color: .clear, state: .bomb(false))
-
-                TileButton(game: revealedBomb, id: 1, action: {})
-
+                
+                TileButton(config: TileButton.Configuration(id: 0, state: .bomb(true), color: .clear) { })
+                TileButton(config: TileButton.Configuration(id: 0, state: .bomb(false), color: .clear) { })
+                TileButton(config: TileButton.Configuration(id: 0, state: .hidden, color: .clear) { })
+                
             }.padding()
         }
     }
