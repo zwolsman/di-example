@@ -14,7 +14,7 @@ protocol GameService {
 
     func create(initialBet: Int, color: Color, bombs: Int) async -> String
     func guess(game: LoadableSubject<Game>, gameId: String, tileId: Int) async -> Tile?
-    func cashOut(game: LoadableSubject<Game>, gameId: String) async -> Int
+    func cashOut(game: LoadableSubject<Game>, gameId: String) async -> (totalStake: Int, earning: Int)
 }
 
 class LocalGameService: GameService {
@@ -112,16 +112,16 @@ class LocalGameService: GameService {
         }
     }
 
-    func cashOut(game: LoadableSubject<Game>, gameId: String) async -> Int {
+    func cashOut(game: LoadableSubject<Game>, gameId: String) async -> (totalStake: Int, earning: Int) {
         do {
             let remoteGame = try await repo.cashOut(gameId: gameId)
             gameStore[gameId] = remoteGame
             game.wrappedValue = .loaded(remoteGame.toGame())
 
-            return remoteGame.stake
+            return (remoteGame.stake, remoteGame.stake - remoteGame.initialBet)
         } catch {
             game.wrappedValue = .failed(error)
-            return 0
+            return (0, 0)
         }
     }
 
@@ -167,7 +167,7 @@ struct StubGameService: GameService {
         nil
     }
 
-    func cashOut(game: LoadableSubject<Game>, gameId: String) async -> Int {
-        0
+    func cashOut(game: LoadableSubject<Game>, gameId: String) async -> (totalStake: Int, earning: Int) {
+        (0, 0)
     }
 }
