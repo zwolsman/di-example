@@ -68,7 +68,7 @@ private extension GameScene {
 // MARK: - Displaying Content
 
 private extension GameScene {
-    private static let COLUMNS = Array(repeating: GridItem(.flexible()), count: 5)
+    private static let COLUMNS = Array(repeating: GridItem(.flexible(), spacing: 8), count: 5)
 
     func loadedView(_ game: Game) -> some View {
         VStack {
@@ -95,9 +95,7 @@ private extension GameScene {
 
             Divider().padding([.top, .leading, .trailing])
 
-            Button("Collect points") {
-                print("Collect points")
-            }
+            Button("Collect points", action: viewModel.cashOut)
                     .frame(maxWidth: .infinity)
                     .padding(.top)
                     .disabled(!viewModel.canPlay)

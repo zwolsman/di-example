@@ -62,6 +62,23 @@ extension GameScene {
                     .load(game: loadableSubject(\.game), gameId: gameId)
         }
 
+        func cashOut() {
+            Task {
+                let points = await container.services.gameService
+                        .cashOut(game: loadableSubject(\.game), gameId: gameId)
+
+                container.appState.bulkUpdate { state in
+                    // TODO: make this pretty :)
+                    guard var profile = state.userData.profile.value else {
+                        return
+                    }
+                    profile.points += points
+                    state.userData.profile = .loaded(profile)
+                }
+                await UINotificationFeedbackGenerator().notificationOccurred(.success)
+            }
+        }
+
         func guess(tileId: Int) {
             Task {
                 guard let result = await container.services.gameService.guess(game: loadableSubject(\.game), gameId: gameId, tileId: tileId) else {

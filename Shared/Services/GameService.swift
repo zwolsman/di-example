@@ -14,6 +14,7 @@ protocol GameService {
 
     func create(initialBet: Int, color: Color, bombs: Int) async -> String
     func guess(game: LoadableSubject<Game>, gameId: String, tileId: Int) async -> Tile?
+    func cashOut(game: LoadableSubject<Game>, gameId: String) async -> Int
 }
 
 class LocalGameService: GameService {
@@ -111,6 +112,19 @@ class LocalGameService: GameService {
         }
     }
 
+    func cashOut(game: LoadableSubject<Game>, gameId: String) async -> Int {
+        do {
+            let remoteGame = try await repo.cashOut(gameId: gameId)
+            gameStore[gameId] = remoteGame
+            game.wrappedValue = .loaded(remoteGame.toGame())
+
+            return remoteGame.stake
+        } catch {
+            game.wrappedValue = .failed(error)
+            return 0
+        }
+    }
+
     private var gameNotFoundError: Error {
         NSError(
                 domain: NSCocoaErrorDomain, code: NSUserCancelledError,
@@ -151,5 +165,9 @@ struct StubGameService: GameService {
 
     func guess(game: LoadableSubject<Game>, gameId: String, tileId: Int) async -> Tile? {
         nil
+    }
+
+    func cashOut(game: LoadableSubject<Game>, gameId: String) async -> Int {
+        0
     }
 }

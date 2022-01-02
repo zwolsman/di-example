@@ -10,6 +10,7 @@ import Foundation
 protocol GameRepository {
     func createGame(initialStake: Int, bombs: Int, colorId: Int) async -> RemoteGame
     func guess(tileId: Int, gameId: String) async throws -> (Tile, RemoteGame)
+    func cashOut(gameId: String) async throws -> RemoteGame
 }
 
 struct InternalGame {
@@ -83,6 +84,7 @@ class LocalGameRepository: GameRepository {
     enum APIErrors: Error {
         case gameNotFound(gameId: String)
         case tileAlreadyGuessed(tileId: Int)
+        case illegalAction(reason: String)
     }
 
     private(set) var games: [String: InternalGame] = [:]
@@ -129,6 +131,22 @@ class LocalGameRepository: GameRepository {
         return (internalGame.tiles[tileId]!, internalGame.toRemoteGame())
     }
 
+    func cashOut(gameId: String) async throws -> RemoteGame {
+        guard var internalGame = games[gameId] else {
+            throw APIErrors.gameNotFound(gameId: gameId)
+        }
+
+        guard internalGame.state == .inGame else {
+            throw APIErrors.illegalAction(reason: "Game is already finished")
+        }
+
+        internalGame.state = .gameOver(reason: .cashedOut)
+        games[internalGame.id] = internalGame
+
+        return internalGame.toRemoteGame()
+    }
+
+    // MARK: - Create game logic
     private func generateBombs(amount: Int) -> [Int] {
         switch amount {
         case 1:
@@ -183,7 +201,11 @@ struct StubGameRepository: GameRepository {
     }
 
     func guess(tileId: Int, gameId: String) async -> (Tile, RemoteGame) {
-        (.points(amount: 1), RemoteGame(id: "", secret: "", plain: nil, tiles: [:], state: .inGame, initialBet: 0, stake: 0, next: 0,multiplier: 0, colorId: 0))
+        (.points(amount: 1), RemoteGame(id: "", secret: "", plain: nil, tiles: [:], state: .inGame, initialBet: 0, stake: 0, next: 0, multiplier: 0, colorId: 0))
+    }
+
+    func cashOut(gameId: String) async throws -> RemoteGame {
+        RemoteGame(id: "", secret: "", plain: nil, tiles: [:], state: .inGame, initialBet: 0, stake: 0, next: 0, multiplier: 0, colorId: 0)
     }
 
 }
