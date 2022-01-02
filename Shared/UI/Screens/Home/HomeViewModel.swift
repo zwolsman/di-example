@@ -60,7 +60,7 @@ extension HomeScene {
         }
 
         func loadProfile() {
-
+            container.services.profileService.loadProfile(token: "fake-token")
         }
 
     }

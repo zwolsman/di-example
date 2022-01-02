@@ -42,8 +42,10 @@
 		FD09F51FDB21C670BA60103D /* GameInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09FE7D99454B46AE0D953F /* GameInfoViewModel.swift */; };
 		FD09F53D3235392C9AA9555B /* Tests_macOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F417E47E501B07D37A1E /* Tests_macOSLaunchTests.swift */; };
 		FD09F54AE485069265570C3C /* GameInfoScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09FD68F5134FFA25684DC0 /* GameInfoScene.swift */; };
+		FD09F58CC9D69018037E9184 /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F383BCF902A7AF0863B0 /* ProfileService.swift */; };
 		FD09F662E9F5A6D56B5814B3 /* Sha256.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09FB328D13717B01FABC1D /* Sha256.swift */; };
 		FD09F6634FD13B6750C86FA1 /* ColorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F66AF3F1E2DA587A4197 /* ColorCell.swift */; };
+		FD09F6B0BDF435C0AF5008A1 /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F383BCF902A7AF0863B0 /* ProfileService.swift */; };
 		FD09F6C46BC683FF6AA2EEA8 /* Publisher+WeakAssign.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F98581FD36896BEE59D9 /* Publisher+WeakAssign.swift */; };
 		FD09F6E8EC6607F680D277FD /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F4BE263019CC66CB9E77 /* Game.swift */; };
 		FD09F74D82A89CEB35BC890A /* ProfileSceneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F679B8D8DA17E99A5DE6 /* ProfileSceneViewModel.swift */; };
@@ -119,6 +121,7 @@
 		FD09F24D03C3CFAA77E4EA29 /* ActivityIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorView.swift; sourceTree = "<group>"; };
 		FD09F2D3B37A40850ED95C18 /* ProfileScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileScene.swift; sourceTree = "<group>"; };
 		FD09F313CE0FB73B8C2F582D /* NewGameViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewGameViewModel.swift; sourceTree = "<group>"; };
+		FD09F383BCF902A7AF0863B0 /* ProfileService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
 		FD09F3885A0C3242BF9BD156 /* MockedData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockedData.swift; sourceTree = "<group>"; };
 		FD09F417E47E501B07D37A1E /* Tests_macOSLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOSLaunchTests.swift; sourceTree = "<group>"; };
 		FD09F44F1AC505FF5436D165 /* Tests macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -316,6 +319,7 @@
 			isa = PBXGroup;
 			children = (
 				FD09F9A14D9689675B846C1B /* GameService.swift */,
+				FD09F383BCF902A7AF0863B0 /* ProfileService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -594,6 +598,7 @@
 				FD09F1588B88D3C6D21E1D95 /* Profile.swift in Sources */,
 				FD09F4F86EBA83168FE4B370 /* IntExtensions.swift in Sources */,
 				FD09F07F76740D3CD6D1865F /* Sha256.swift in Sources */,
+				FD09F58CC9D69018037E9184 /* ProfileService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -636,6 +641,7 @@
 				FD09FDEDB5E18DFB74E0A3D6 /* Profile.swift in Sources */,
 				FD09F31D6B3BFA0509CE598D /* IntExtensions.swift in Sources */,
 				FD09F662E9F5A6D56B5814B3 /* Sha256.swift in Sources */,
+				FD09F6B0BDF435C0AF5008A1 /* ProfileService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
