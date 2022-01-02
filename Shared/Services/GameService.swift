@@ -138,7 +138,7 @@ private extension RemoteGame {
     }
 
     func toDetails() -> Game.Details {
-        Game.Details(initialStake: initialBet, stake: stake, bombs: 0, color: Game.colors[colorId], secret: secret, plain: plain)
+        Game.Details(initialStake: initialBet, stake: stake, multiplier: multiplier, bombs: bombs, color: Game.colors[colorId], secret: secret, plain: plain)
     }
 }
 

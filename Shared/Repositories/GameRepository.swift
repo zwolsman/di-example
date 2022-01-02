@@ -42,7 +42,7 @@ struct InternalGame {
     }
 
     func toRemoteGame() -> RemoteGame {
-        RemoteGame(id: id, secret: secret, plain: plain, tiles: tiles, state: state, initialBet: initialBet, stake: stake, next: next, multiplier: multiplier, colorId: colorId)
+        RemoteGame(id: id, secret: secret, plain: state == .inGame ? nil : plain, tiles: tiles, state: state, initialBet: initialBet, stake: stake, next: next, multiplier: multiplier, bombs: bombs.count, colorId: colorId)
     }
 }
 
@@ -58,6 +58,7 @@ struct RemoteGame {
     var stake: Int
     var next: Int
     var multiplier: Double
+    var bombs: Int
 
 
     var colorId: Int
@@ -91,7 +92,7 @@ class LocalGameRepository: GameRepository {
 
     func createGame(initialStake: Int, bombs: Int, colorId: Int) async -> RemoteGame {
         let bombLocations = generateBombs(amount: bombs)
-        let plain = bombLocations.map(String.init).joined(separator: "-") + randomString(length: 16)
+        let plain = bombLocations.map(String.init).joined(separator: "-") + "-" + randomString(length: 16)
         let secret = plain.sha256()
         let next = try! calculateReward(emptyTiles: 25, bombs: bombs, stake: initialStake)
 
@@ -197,15 +198,15 @@ class LocalGameRepository: GameRepository {
 struct StubGameRepository: GameRepository {
 
     func createGame(initialStake: Int, bombs: Int, colorId: Int) async -> RemoteGame {
-        RemoteGame(id: "", secret: "", plain: nil, tiles: [:], state: .inGame, initialBet: 0, stake: 0, next: 0, multiplier: 0, colorId: 0)
+        RemoteGame(id: "", secret: "", plain: nil, tiles: [:], state: .inGame, initialBet: 0, stake: 0, next: 0, multiplier: 0, bombs: 0, colorId: 0)
     }
 
     func guess(tileId: Int, gameId: String) async -> (Tile, RemoteGame) {
-        (.points(amount: 1), RemoteGame(id: "", secret: "", plain: nil, tiles: [:], state: .inGame, initialBet: 0, stake: 0, next: 0, multiplier: 0, colorId: 0))
+        (.points(amount: 1), RemoteGame(id: "", secret: "", plain: nil, tiles: [:], state: .inGame, initialBet: 0, stake: 0, next: 0, multiplier: 0, bombs: 0, colorId: 0))
     }
 
     func cashOut(gameId: String) async throws -> RemoteGame {
-        RemoteGame(id: "", secret: "", plain: nil, tiles: [:], state: .inGame, initialBet: 0, stake: 0, next: 0, multiplier: 0, colorId: 0)
+        RemoteGame(id: "", secret: "", plain: nil, tiles: [:], state: .inGame, initialBet: 0, stake: 0, next: 0, multiplier: 0, bombs: 0, colorId: 0)
     }
 
 }

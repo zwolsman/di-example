@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 // MARK: - Routing
 
@@ -21,7 +22,11 @@ extension GameInfoScene {
         @Published var showPlain: Bool = false
 
         var secret: String {
-            "\n" + (gameDetails.value?.secret ?? "") + "\n"
+            (gameDetails.value?.secret ?? "").chunked(into: 4).joined(separator: " ")
+        }
+
+        var hasPlain: Bool {
+            gameDetails.value?.plain != nil
         }
 
         var plain: String {
@@ -56,7 +61,11 @@ extension GameInfoScene {
         }
 
         func toggleSecret() {
-            showPlain.toggle()
+            if hasPlain {
+                showPlain.toggle()
+            } else {
+                UINotificationFeedbackGenerator().notificationOccurred(.error)
+            }
         }
     }
 }

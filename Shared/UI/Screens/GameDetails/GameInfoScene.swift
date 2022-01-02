@@ -68,9 +68,8 @@ private extension GameInfoScene {
         Section(header: Text("Info")) {
             DetailRow(left: Text("Initial stake"), right: Text("\(details.initialStake.formatted()) points"))
             DetailRow(left: Text("Stake"), right: Text("\(details.stake.formatted()) points"))
-            DetailRow(left: Text("Multiplier"), right: Text("TODO"))
+            DetailRow(left: Text("Multiplier"), right: Text("\(details.multiplier.formatted())x"))
             DetailRow(left: Text("Bombs"), right: Text("\(details.bombs)"))
-            DetailRow(left: Text("Revealed tiles"), right: Text("TODO"))
             DetailRow(left: Text("Color"), right: ColorCell(color: details.color))
         }
     }

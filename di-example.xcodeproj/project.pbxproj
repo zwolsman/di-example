@@ -72,10 +72,12 @@
 		FD09FB15D682CA726AAD8E14 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09FC8AE17427431090CCF3 /* Store.swift */; };
 		FD09FBA5B2D1081F2C261B5E /* ServicesContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F490AAAE20198CB33A76 /* ServicesContainer.swift */; };
 		FD09FBA751637AFEC3CF67EA /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F794336B35AD7BD0BFF9 /* GameViewModel.swift */; };
+		FD09FBBF2C7283B1A462E177 /* ChunkedCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F6D03BB9F5697B475658 /* ChunkedCollection.swift */; };
 		FD09FBD352C969491F9621D9 /* ProfileScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F2D3B37A40850ED95C18 /* ProfileScene.swift */; };
 		FD09FC222066074638051C7F /* DetailRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09FF4C014523887D64D397 /* DetailRow.swift */; };
 		FD09FC63D13AAB58151B0097 /* di_exampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09FF8766D634D9BA897217 /* di_exampleApp.swift */; };
 		FD09FC6D0608EA2425E50624 /* HomeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09FAC1723B10A7276A3135 /* HomeScene.swift */; };
+		FD09FC9C160554C46AAB4153 /* ChunkedCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F6D03BB9F5697B475658 /* ChunkedCollection.swift */; };
 		FD09FD814EB03D64B1D1CDEE /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09FCCD9F6776CFCA43EDCA /* AppState.swift */; };
 		FD09FDD639130C3E795A2C02 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F132D9D7BD8F69BA8EB5 /* GameScene.swift */; };
 		FD09FDEDB5E18DFB74E0A3D6 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F5BD5BBDFD365FCF8254 /* Profile.swift */; };
@@ -131,6 +133,7 @@
 		FD09F5BD5BBDFD365FCF8254 /* Profile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		FD09F66AF3F1E2DA587A4197 /* ColorCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorCell.swift; sourceTree = "<group>"; };
 		FD09F679B8D8DA17E99A5DE6 /* ProfileSceneViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileSceneViewModel.swift; sourceTree = "<group>"; };
+		FD09F6D03BB9F5697B475658 /* ChunkedCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChunkedCollection.swift; sourceTree = "<group>"; };
 		FD09F794336B35AD7BD0BFF9 /* GameViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
 		FD09F7EAD87FDA62908D7D7D /* HomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		FD09F837783029B66A2B64C6 /* Tests_iOSLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_iOSLaunchTests.swift; sourceTree = "<group>"; };
@@ -375,6 +378,7 @@
 				FD09F98581FD36896BEE59D9 /* Publisher+WeakAssign.swift */,
 				FD09FF814598510F430CCF7E /* IntExtensions.swift */,
 				FD09FB328D13717B01FABC1D /* Sha256.swift */,
+				FD09F6D03BB9F5697B475658 /* ChunkedCollection.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -599,6 +603,7 @@
 				FD09F4F86EBA83168FE4B370 /* IntExtensions.swift in Sources */,
 				FD09F07F76740D3CD6D1865F /* Sha256.swift in Sources */,
 				FD09F58CC9D69018037E9184 /* ProfileService.swift in Sources */,
+				FD09FC9C160554C46AAB4153 /* ChunkedCollection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -642,6 +647,7 @@
 				FD09F31D6B3BFA0509CE598D /* IntExtensions.swift in Sources */,
 				FD09F662E9F5A6D56B5814B3 /* Sha256.swift in Sources */,
 				FD09F6B0BDF435C0AF5008A1 /* ProfileService.swift in Sources */,
+				FD09FBBF2C7283B1A462E177 /* ChunkedCollection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -21,6 +21,7 @@ extension Game {
     struct Details: Equatable {
         var initialStake: Int
         var stake: Int
+        var multiplier: Double
         var bombs: Int
         var color: Color
         var secret: String
