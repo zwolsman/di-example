@@ -11,9 +11,10 @@ struct Game: Equatable, Identifiable {
     var tiles: [Int: Tile]
     var secret: String
     var stake: Int
-    var bet: Int
-    var next: Int?
+    var next: Int
+    var multiplier: Double
     var color: Color
+    var state: State
 }
 
 extension Game {

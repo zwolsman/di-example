@@ -69,40 +69,42 @@ private extension GameScene {
 
 private extension GameScene {
     private static let COLUMNS = Array(repeating: GridItem(.flexible()), count: 5)
-    
+
     func loadedView(_ game: Game) -> some View {
         VStack {
             LazyVGrid(columns: GameScene.COLUMNS, spacing: 8) {
                 ForEach(viewModel.tiles, content: TileButton.init(config:))
             }
-            .aspectRatio(1, contentMode: .fit)
-            .padding(8)
-            .layoutPriority(1)
-            
+                    .aspectRatio(1, contentMode: .fit)
+                    .padding(8)
+                    .layoutPriority(1)
+                    .allowsHitTesting(viewModel.canPlay)
+
             PointsGrid(items: [
-                .init("Next", amount: game.next ?? 0),
+                .init("Next", amount: game.next),
                 .init("Stake", amount: game.stake),
-                .init("Multiplier", amount: 1.5),
+                .init("Multiplier", amount: game.multiplier),
             ])
             Divider().padding()
-            
+
             VStack {
                 Label("No events to show yet", systemImage: "tray")
-                    .foregroundColor(.secondary)
-                
+                        .foregroundColor(.secondary)
+
             }.frame(maxHeight: .infinity)
-            
+
             Divider().padding([.top, .leading, .trailing])
-            
+
             Button("Collect points") {
                 print("Collect points")
             }
-            .frame(maxWidth: .infinity)
-            .padding(.top)
+                    .frame(maxWidth: .infinity)
+                    .padding(.top)
+                    .disabled(!viewModel.canPlay)
         }
     }
-    
-    
+
+
 }
 
 struct GameDetailScene_Previews: PreviewProvider {

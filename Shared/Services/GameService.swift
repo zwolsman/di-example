@@ -120,7 +120,7 @@ class LocalGameService: GameService {
 
 private extension RemoteGame {
     func toGame() -> Game {
-        Game(id: id, tiles: tiles, secret: secret, stake: stake, bet: initialBet, next: next, color: Game.colors[colorId])
+        Game(id: id, tiles: tiles, secret: secret, stake: stake, next: next, multiplier: multiplier, color: Game.colors[colorId], state: state)
     }
 
     func toDetails() -> Game.Details {

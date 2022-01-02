@@ -25,6 +25,13 @@ extension GameScene {
             Game.TILE_RANGE.map(createTileButtonConfig(tileId:))
         }
 
+        var canPlay: Bool {
+            guard case let Loadable.loaded(game) = game else {
+                return false
+            }
+            return game.state == .inGame
+        }
+
         // Misc
         let container: DIContainer
         private var cancelBag = CancelBag()

@@ -30,15 +30,18 @@ struct InternalGame {
         }.reduce(0, +)
     }
 
-    var next: Int?
+    var next: Int
     var initialBet: Int
 
     var colorId: Int
     var tiles = [Int: Tile]()
-    var state = State.InGame
+    var state = State.inGame
+    var multiplier: Double {
+        Double(stake) / Double(initialBet)
+    }
 
     func toRemoteGame() -> RemoteGame {
-        RemoteGame(id: id, secret: secret, plain: plain, tiles: tiles, state: state, stake: stake, next: next, initialBet: initialBet, colorId: colorId)
+        RemoteGame(id: id, secret: secret, plain: plain, tiles: tiles, state: state, initialBet: initialBet, stake: stake, next: next, multiplier: multiplier, colorId: colorId)
     }
 }
 
@@ -50,9 +53,11 @@ struct RemoteGame {
     var tiles: [Int: Tile]
     var state: State
 
-    var stake: Int
-    var next: Int?
     var initialBet: Int
+    var stake: Int
+    var next: Int
+    var multiplier: Double
+
 
     var colorId: Int
 }
@@ -63,13 +68,13 @@ enum Tile: Equatable {
     case points(amount: Int)
 }
 
-enum State {
-    case InGame
-    case GameOver(reason: Reason)
+enum State: Equatable {
+    case inGame
+    case gameOver(reason: Reason)
 
-    enum Reason {
-        case HitBomb
-        case CashedOut
+    enum Reason: Equatable {
+        case hitBomb
+        case cashedOut
     }
 }
 
@@ -109,10 +114,10 @@ class LocalGameRepository: GameRepository {
             for bombTile in internalGame.bombs {
                 internalGame.tiles[bombTile] = .bomb(revealedByUser: bombTile == tileId)
             }
-            internalGame.state = .GameOver(reason: .HitBomb)
+            internalGame.state = .gameOver(reason: .hitBomb)
         } else {
-            internalGame.tiles[tileId] = .points(amount: internalGame.next!)
-            internalGame.next = try calculateReward(emptyTiles: 25 - internalGame.tiles.count, bombs: internalGame.bombs.count, stake: internalGame.stake)
+            internalGame.tiles[tileId] = .points(amount: internalGame.next)
+            internalGame.next = (try? calculateReward(emptyTiles: 25 - internalGame.tiles.count, bombs: internalGame.bombs.count, stake: internalGame.stake)) ?? internalGame.next
         }
         games[internalGame.id] = internalGame
 
@@ -169,11 +174,11 @@ class LocalGameRepository: GameRepository {
 struct StubGameRepository: GameRepository {
 
     func createGame(initialStake: Int, bombs: Int, colorId: Int) async -> RemoteGame {
-        RemoteGame(id: "", secret: "", plain: nil, tiles: [:], state: .InGame, stake: 0, next: 0, initialBet: 0, colorId: 0)
+        RemoteGame(id: "", secret: "", plain: nil, tiles: [:], state: .inGame, initialBet: 0, stake: 0, next: 0, multiplier: 0, colorId: 0)
     }
 
     func guess(tileId: Int, gameId: String) async -> (Tile, RemoteGame) {
-        (.points(amount: 1), RemoteGame(id: "", secret: "", plain: nil, tiles: [:], state: .InGame, stake: 0, next: 0, initialBet: 0, colorId: 0))
+        (.points(amount: 1), RemoteGame(id: "", secret: "", plain: nil, tiles: [:], state: .inGame, initialBet: 0, stake: 0, next: 0,multiplier: 0, colorId: 0))
     }
 
 }
