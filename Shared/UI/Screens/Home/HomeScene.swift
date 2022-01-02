@@ -29,13 +29,33 @@ struct HomeScene: View {
                 }
     }
 
-    @ViewBuilder
     private var content: some View {
+        List {
+            profileContent
+
+            gamesContent
+        }
+    }
+
+
+    private var profileContent: some View {
+        Section {
+            switch viewModel.profile {
+            case .notRequested: profileNotRequestedView
+            case let .isLoading(last, _): loadingProfileView(last)
+            case let .loaded(profile): loadedProfileView(profile, showLoading: false)
+            case let .failed(error): profileFailedView(error)
+            }
+        }
+    }
+
+    @ViewBuilder
+    private var gamesContent: some View {
         switch viewModel.games {
-        case .notRequested: notRequestedView
-        case let .isLoading(last, _): loadingView(last)
-        case let .loaded(games): loadedView(games, showLoading: false)
-        case let .failed(error): failedView(error)
+        case .notRequested: gamesNotRequestedView
+        case let .isLoading(last, _): loadingGamesView(last)
+        case let .loaded(games): loadedGamesView(games, showLoading: false)
+        case let .failed(error): gamesFailedView(error)
         }
     }
 
@@ -51,49 +71,45 @@ struct HomeScene: View {
     }
 }
 
-// MARK: - Loading Content
+// MARK: - Loading Games Content
 
 private extension HomeScene {
-    var notRequestedView: some View {
+    var gamesNotRequestedView: some View {
         Text("").onAppear(perform: viewModel.loadGames)
     }
 
     @ViewBuilder
-    func loadingView(_ previouslyLoaded: [Game]?) -> some View {
+    func loadingGamesView(_ previouslyLoaded: [Game]?) -> some View {
         if let games = previouslyLoaded {
-            loadedView(games, showLoading: true)
+            loadedGamesView(games, showLoading: true)
         } else {
             ActivityIndicatorView().padding()
         }
     }
 
-    func failedView(_ error: Error) -> some View {
+    func gamesFailedView(_ error: Error) -> some View {
         Text(error.localizedDescription)
     }
 }
 
-// MARK: - Displaying Content
+// MARK: - Displaying Games Content
 
 private extension HomeScene {
-    func loadedView(_ games: [Game], showLoading: Bool) -> some View {
-        VStack {
-            if showLoading {
-                ActivityIndicatorView().padding()
-            }
+    @ViewBuilder
+    func loadedGamesView(_ games: [Game], showLoading: Bool) -> some View {
+        if showLoading {
+            ActivityIndicatorView().padding()
+        }
 
-            List {
-                profileSection()
-                if games.isEmpty {
-                    VStack(alignment: .center) {
-                        Text("No games to show right now.")
-                                .foregroundColor(.secondary)
-                    }
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                } else {
-                    gamesSection(games)
-                }
+        if games.isEmpty {
+            VStack(alignment: .center) {
+                Text("No games to show right now.")
+                        .foregroundColor(.secondary)
             }
+                    .frame(maxWidth: .infinity)
+                    .padding()
+        } else {
+            gamesSection(games)
         }
     }
 
@@ -118,11 +134,35 @@ private extension HomeScene {
             }
         }
     }
+}
 
+// MARK: - Profile Loading Content
 
-    func profileSection() -> some View {
+private extension HomeScene {
+    var profileNotRequestedView: some View {
+        Text("").onAppear(perform: viewModel.loadProfile)
+    }
+
+    @ViewBuilder
+    func loadingProfileView(_ previouslyLoaded: Profile?) -> some View {
+        if let profile = previouslyLoaded {
+            loadedProfileView(profile, showLoading: true)
+        } else {
+            ActivityIndicatorView().padding()
+        }
+    }
+
+    func profileFailedView(_ error: Error) -> some View {
+        Text(error.localizedDescription)
+    }
+}
+
+// MARK: - Displaying Profile Content
+
+private extension HomeScene {
+    func loadedProfileView(_ profile: Profile, showLoading: Bool) -> some View {
         func profileView() -> some View {
-            ProfileScene(viewModel: .init(container: viewModel.container, profileType: .`self`, profile: .loaded(Profile.mock)))
+            ProfileScene(viewModel: .init(container: viewModel.container, profileType: .`self`, profile: .loaded(profile)))
         }
 
         func profileRow() -> some View {
@@ -133,18 +173,16 @@ private extension HomeScene {
                         .padding(.trailing, 8)
 
                 VStack(alignment: .leading) {
-                    Text("Marvin Zwolsman")
+                    Text(profile.name)
                             .foregroundColor(.primary)
-                    Text("You have \(1000.formatted()) points")
+                    Text("You have \(profile.points.formatted()) points")
                             .foregroundColor(.secondary)
                 }
             }
         }
 
-        return Section {
-            NavigationLink(destination: profileView()) {
-                profileRow()
-            }
+        return NavigationLink(destination: profileView()) {
+            profileRow()
         }
     }
 }

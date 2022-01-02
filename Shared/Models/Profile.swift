@@ -4,7 +4,7 @@
 
 import Foundation
 
-struct Profile {
+struct Profile: Equatable {
     var name: String
     var points: Int
     var games: Int

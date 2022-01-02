@@ -14,6 +14,7 @@ struct AppState: Equatable {
 extension AppState {
     struct UserData: Equatable {
         var games: Loadable<[Game]> = .notRequested
+        var profile: Loadable<Profile> = .notRequested
     }
 }
 

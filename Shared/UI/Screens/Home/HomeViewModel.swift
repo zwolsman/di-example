@@ -20,16 +20,18 @@ extension HomeScene {
         // State
         @Published var routingState: Routing
         @Published var games: Loadable<[Game]>
+        @Published var profile: Loadable<Profile>
 
         // Misc
         let container: DIContainer
         private var cancelBag = CancelBag()
 
-        init(container: DIContainer, games: Loadable<[Game]> = .notRequested) {
+        init(container: DIContainer, games: Loadable<[Game]> = .notRequested, profile: Loadable<Profile> = .notRequested) {
             self.container = container
             let appState = container.appState
             _routingState = .init(initialValue: appState.value.routing.homeScene)
             _games = .init(initialValue: games)
+            _profile = .init(initialValue: profile)
 
             cancelBag.collect {
                 $routingState
@@ -40,9 +42,14 @@ extension HomeScene {
                 appState.map(\.routing.homeScene)
                         .removeDuplicates()
                         .weakAssign(to: \.routingState, on: self)
+
                 appState.map(\.userData.games)
                         .removeDuplicates()
                         .weakAssign(to: \.games, on: self)
+
+                appState.map(\.userData.profile)
+                        .removeDuplicates()
+                        .weakAssign(to: \.profile, on: self)
             }
         }
 
@@ -50,6 +57,10 @@ extension HomeScene {
 
         func loadGames() {
             container.services.gameService.loadGames()
+        }
+
+        func loadProfile() {
+
         }
 
     }
