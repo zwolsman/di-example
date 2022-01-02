@@ -106,7 +106,7 @@ class LocalGameService: GameService {
 
             return result
         } catch {
-            game.wrappedValue = .failed(gameNotFoundError)
+            game.wrappedValue = .failed(error)
             return nil
         }
     }
