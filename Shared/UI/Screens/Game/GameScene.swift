@@ -79,12 +79,26 @@ private extension GameScene {
             .padding(8)
             .layoutPriority(1)
             
-
-            Text("Game: \(game.id)")
-                    .font(.headline)
-
-            Text("Stake: \(game.stake)")
-                    .font(.subheadline)
+            PointsGrid(items: [
+                .init("Next", amount: game.next),
+                .init("Stake", amount: game.stake),
+                .init("Multiplier", amount: 1.5),
+            ])
+            Divider().padding()
+            
+            VStack {
+                Label("No events to show yet", systemImage: "tray")
+                    .foregroundColor(.secondary)
+                
+            }.frame(maxHeight: .infinity)
+            
+            Divider().padding([.top, .leading, .trailing])
+            
+            Button("Collect points") {
+                print("Collect points")
+            }
+            .frame(maxWidth: .infinity)
+            .padding(.top)
         }
     }
     
@@ -93,8 +107,11 @@ private extension GameScene {
 
 struct GameDetailScene_Previews: PreviewProvider {
     static var previews: some View {
-        GameScene(viewModel: .init(container: .preview, id: Game.mockedData[0].id))
-        
-        GameScene(viewModel: .init(container: .preview, id: Game.mockedData[0].id, game: .loaded(Game.mockedData[0])))
+        NavigationView {
+            GameScene(viewModel: .init(container: .preview, id: Game.mockedData[0].id))
+        }
+        NavigationView {
+            GameScene(viewModel: .init(container: .preview, id: Game.mockedData[0].id, game: .loaded(Game.mockedData[0])))
+        }
     }
 }
