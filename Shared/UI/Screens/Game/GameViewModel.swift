@@ -64,9 +64,8 @@ extension GameScene {
 
         func cashOut() {
             Task {
-                let (stake, earnings) = await container.services.gameService
+                let _ = await container.services.gameService
                         .cashOut(game: loadableSubject(\.game), gameId: gameId)
-                updateProfile(stake: stake, earnings: earnings)
                 await UINotificationFeedbackGenerator().notificationOccurred(.success)
             }
         }
@@ -80,23 +79,9 @@ extension GameScene {
                 switch result {
                 case .bomb(_):
                     await UINotificationFeedbackGenerator().notificationOccurred(.error)
-                    updateProfile(stake: 0, earnings: 0)
                 case .points(_):
                     await UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                 }
-            }
-        }
-
-        private func updateProfile(stake: Int, earnings: Int) {
-            container.appState.bulkUpdate { state in
-                // TODO: make this pretty :)
-                guard var profile = state.userData.profile.value else {
-                    return
-                }
-                profile.games += 1
-                profile.points += stake
-                profile.totalEarnings += earnings
-                state.userData.profile = .loaded(profile)
             }
         }
 

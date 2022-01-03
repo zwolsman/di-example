@@ -14,7 +14,7 @@ protocol GameService {
 
     func create(initialBet: Int, color: Color, bombs: Int) async -> String
     func guess(game: LoadableSubject<Game>, gameId: String, tileId: Int) async -> Tile?
-    func cashOut(game: LoadableSubject<Game>, gameId: String) async -> (totalStake: Int, earning: Int)
+    func cashOut(game: LoadableSubject<Game>, gameId: String) async -> Int
 }
 
 class LocalGameService: GameService {
@@ -94,6 +94,12 @@ class LocalGameService: GameService {
     func create(initialBet: Int, color: Color, bombs: Int) async -> String {
         let game = await repo.createGame(initialStake: initialBet, bombs: bombs, colorId: Game.colors.firstIndex(of: color)!)
 
+        appState[\.userData.profile] = appState[\.userData.profile].map { profile in
+            var mutableProfile = profile
+            mutableProfile.points -= initialBet
+            return mutableProfile
+        }
+
         gameStore[game.id] = game
         return game.id
     }
@@ -101,7 +107,7 @@ class LocalGameService: GameService {
     func guess(game: LoadableSubject<Game>, gameId: String, tileId: Int) async -> Tile? {
         do {
             let (result, remoteGame) = try await repo.guess(tileId: tileId, gameId: gameId)
-
+            checkGameState(remoteGame: remoteGame)
             gameStore[gameId] = remoteGame
             game.wrappedValue = .loaded(remoteGame.toGame())
 
@@ -112,17 +118,35 @@ class LocalGameService: GameService {
         }
     }
 
-    func cashOut(game: LoadableSubject<Game>, gameId: String) async -> (totalStake: Int, earning: Int) {
+    func cashOut(game: LoadableSubject<Game>, gameId: String) async -> Int {
         do {
             let remoteGame = try await repo.cashOut(gameId: gameId)
+            checkGameState(remoteGame: remoteGame)
             gameStore[gameId] = remoteGame
             game.wrappedValue = .loaded(remoteGame.toGame())
-
-            return (remoteGame.stake, remoteGame.stake - remoteGame.initialBet)
+            return remoteGame.stake
         } catch {
             game.wrappedValue = .failed(error)
-            return (0, 0)
+            return 0
         }
+    }
+
+    private func checkGameState(remoteGame: RemoteGame) {
+        guard remoteGame.state != .inGame else {
+            return
+        }
+        let profile = appState[\.userData.profile].map { profile -> Profile in
+            var mutableProfile = profile
+            mutableProfile.games += 1
+            if case .gameOver(.cashedOut) = remoteGame.state {
+                mutableProfile.totalEarnings += remoteGame.stake - remoteGame.initialBet
+                mutableProfile.points += remoteGame.stake
+            }
+
+            return mutableProfile
+        }
+
+        appState[\.userData.profile] = profile
     }
 
     private var gameNotFoundError: Error {
@@ -167,7 +191,7 @@ struct StubGameService: GameService {
         nil
     }
 
-    func cashOut(game: LoadableSubject<Game>, gameId: String) async -> (totalStake: Int, earning: Int) {
-        (0, 0)
+    func cashOut(game: LoadableSubject<Game>, gameId: String) async -> Int {
+        0
     }
 }

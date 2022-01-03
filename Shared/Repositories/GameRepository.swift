@@ -142,6 +142,10 @@ class LocalGameRepository: GameRepository {
         }
 
         internalGame.state = .gameOver(reason: .cashedOut)
+        for bombTile in internalGame.bombs {
+            internalGame.tiles[bombTile] = .bomb(revealedByUser: false)
+        }
+
         games[internalGame.id] = internalGame
 
         return internalGame.toRemoteGame()

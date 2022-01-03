@@ -59,13 +59,6 @@ extension NewGameScene {
                 container.appState.bulkUpdate { state in
                     state.routing.homeScene.showNewGameScene = false
                     state.routing.homeScene.gameId = id
-
-                    // TODO: make this pretty :)
-                    guard var profile = state.userData.profile.value else {
-                        return
-                    }
-                    profile.points -= bet
-                    state.userData.profile = .loaded(profile)
                 }
             }
         }
