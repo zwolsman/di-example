@@ -118,6 +118,34 @@ private extension HomeScene {
             GameScene(viewModel: .init(container: viewModel.container, id: game.id, game: .loaded(game)))
         }
 
+        func highlightButton(_ game: Game) -> some View {
+            Button {
+                print("highlight game")
+            } label: {
+                Label("Highlight", systemImage: "star")
+            }
+                    .tint(.yellow)
+        }
+
+        func deleteButton(_ game: Game) -> some View {
+            Button(role: .destructive) {
+                withAnimation {
+                    viewModel.deleteGame(id: game.id)
+                }
+            } label: {
+                Label("Delete", systemImage: "trash")
+            }
+        }
+
+        func archiveButton(_ game: Game) -> some View {
+            Button {
+                print("archive \(game.id)")
+            } label: {
+                Label("Archive", systemImage: "archivebox")
+            }
+            .tint(.blue)
+        }
+
         func gameRow(_ game: Game) -> some View {
             NavigationLink(
                     destination: gameView(game: game),
@@ -126,12 +154,23 @@ private extension HomeScene {
             ) {
                 GameRow(game: game)
             }
+                    .swipeActions(edge: .leading) {
+                        if game.state != .inGame {
+                            highlightButton(game)
+                        }
+                    }
+                    .swipeActions(edge: .trailing) {
+                        archiveButton(game)
+                        if game.state != .inGame {
+                            deleteButton(game)
+                        }
+                    }
         }
 
         return Section {
             ForEach(games) { game in
                 gameRow(game)
-            }.onDelete(perform: viewModel.deleteGame)
+            }
         }
     }
 }
