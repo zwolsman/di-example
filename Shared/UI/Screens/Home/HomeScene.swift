@@ -131,7 +131,7 @@ private extension HomeScene {
         return Section {
             ForEach(games) { game in
                 gameRow(game)
-            }
+            }.onDelete(perform: viewModel.deleteGame)
         }
     }
 }

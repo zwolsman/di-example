@@ -15,6 +15,8 @@ protocol GameService {
     func create(initialBet: Int, color: Color, bombs: Int) async -> String
     func guess(game: LoadableSubject<Game>, gameId: String, tileId: Int) async -> Tile?
     func cashOut(game: LoadableSubject<Game>, gameId: String) async -> Int
+
+    func removeGames(ids: [String])
 }
 
 class LocalGameService: GameService {
@@ -149,6 +151,12 @@ class LocalGameService: GameService {
         appState[\.userData.profile] = profile
     }
 
+    func removeGames(ids: [String]) {
+        for id in ids {
+            gameStore.removeValue(forKey: id)
+        }
+    }
+
     private var gameNotFoundError: Error {
         NSError(
                 domain: NSCocoaErrorDomain, code: NSUserCancelledError,
@@ -193,5 +201,9 @@ struct StubGameService: GameService {
 
     func cashOut(game: LoadableSubject<Game>, gameId: String) async -> Int {
         0
+    }
+
+    func removeGames(ids: [String]) {
+
     }
 }

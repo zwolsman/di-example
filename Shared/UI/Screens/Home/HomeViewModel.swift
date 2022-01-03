@@ -63,5 +63,17 @@ extension HomeScene {
             container.services.profileService.loadProfile(token: "fake-token")
         }
 
+        func deleteGame(at offsets: IndexSet) {
+            guard case let .loaded(games) = games else {
+                return
+            }
+
+            let gameIds = offsets.map {
+                games[$0].id
+            }
+
+            container.services.gameService.removeGames(ids: gameIds)
+        }
+
     }
 }
