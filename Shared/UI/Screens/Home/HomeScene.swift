@@ -15,15 +15,13 @@ struct HomeScene: View {
     let inspection = Inspection<Self>()
 
     var body: some View {
-        NavigationView {
             content
                     .navigationBarTitle("Home")
                     .listStyle(.grouped)
                     .toolbar {
                         newGameButton
                     }
-        }
-                .navigationViewStyle(.stack)
+                    .navigationBarBackButtonHidden(true)
                 .onReceive(inspection.notice) {
                     inspection.visit(self, $0)
                 }
@@ -228,6 +226,8 @@ private extension HomeScene {
 
 struct HomeScene_Previews: PreviewProvider {
     static var previews: some View {
-        HomeScene(viewModel: .init(container: .preview))
+        NavigationView {
+            HomeScene(viewModel: .init(container: .preview))
+        }
     }
 }

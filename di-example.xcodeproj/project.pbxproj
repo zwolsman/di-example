@@ -19,6 +19,8 @@
 		EAF7CE5827846BBB00292F77 /* SignInScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF7CE5627846BBB00292F77 /* SignInScene.swift */; };
 		EAF7CE5A27846BCA00292F77 /* SignInSceneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF7CE5927846BCA00292F77 /* SignInSceneViewModel.swift */; };
 		EAF7CE5B27846BCA00292F77 /* SignInSceneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF7CE5927846BCA00292F77 /* SignInSceneViewModel.swift */; };
+		EAF7CE5D2784819000292F77 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF7CE5C2784819000292F77 /* AuthService.swift */; };
+		EAF7CE5E2784819000292F77 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF7CE5C2784819000292F77 /* AuthService.swift */; };
 		FD09F005492A8178CB168300 /* RootViewAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F123C7D7D7651F1EB7EA /* RootViewAppearance.swift */; };
 		FD09F00A7E60E65E1B7E7BA7 /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09FBA58D71B8E80BEF7A04 /* AppEnvironment.swift */; };
 		FD09F0425FB9B197208468AE /* ProfileSceneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F679B8D8DA17E99A5DE6 /* ProfileSceneViewModel.swift */; };
@@ -119,6 +121,8 @@
 		EAF7CE51278466C100292F77 /* di-example (iOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "di-example (iOS).entitlements"; sourceTree = "<group>"; };
 		EAF7CE5627846BBB00292F77 /* SignInScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInScene.swift; sourceTree = "<group>"; };
 		EAF7CE5927846BCA00292F77 /* SignInSceneViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInSceneViewModel.swift; sourceTree = "<group>"; };
+		EAF7CE5C2784819000292F77 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		EAF7CE5F2784887700292F77 /* di-example--iOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "di-example--iOS--Info.plist"; sourceTree = "<group>"; };
 		FD09F123C7D7D7651F1EB7EA /* RootViewAppearance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewAppearance.swift; sourceTree = "<group>"; };
 		FD09F132D9D7BD8F69BA8EB5 /* GameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		FD09F1357A3572564D51AC76 /* DependencyInjector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DependencyInjector.swift; sourceTree = "<group>"; };
@@ -340,6 +344,7 @@
 			children = (
 				FD09F9A14D9689675B846C1B /* GameService.swift */,
 				FD09F383BCF902A7AF0863B0 /* ProfileService.swift */,
+				EAF7CE5C2784819000292F77 /* AuthService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -347,6 +352,7 @@
 		FD09FD82250F6AC72F5A86AF = {
 			isa = PBXGroup;
 			children = (
+				EAF7CE5F2784887700292F77 /* di-example--iOS--Info.plist */,
 				EAF7CE51278466C100292F77 /* di-example (iOS).entitlements */,
 				FD09F89E3783FF659A6912AA /* Products */,
 				FD09F4AB5FA71B66B602D4DC /* Shared */,
@@ -513,6 +519,7 @@
 				TargetAttributes = {
 					FD09FE725958D65B92244C46 = {
 						DevelopmentTeam = UV7YH72NQ8;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -620,6 +627,7 @@
 				FD09F0425FB9B197208468AE /* ProfileSceneViewModel.swift in Sources */,
 				FD09F1588B88D3C6D21E1D95 /* Profile.swift in Sources */,
 				EAF7CE5727846BBB00292F77 /* SignInScene.swift in Sources */,
+				EAF7CE5D2784819000292F77 /* AuthService.swift in Sources */,
 				FD09F4F86EBA83168FE4B370 /* IntExtensions.swift in Sources */,
 				FD09F07F76740D3CD6D1865F /* Sha256.swift in Sources */,
 				FD09F58CC9D69018037E9184 /* ProfileService.swift in Sources */,
@@ -638,6 +646,7 @@
 				FD09FBA5B2D1081F2C261B5E /* ServicesContainer.swift in Sources */,
 				FD09F3E825C14F69DE3FC476 /* RootViewAppearance.swift in Sources */,
 				FD09F10CC14422D3B09D7845 /* Store.swift in Sources */,
+				EAF7CE5E2784819000292F77 /* AuthService.swift in Sources */,
 				FD09F42235BF5235BBB33DD4 /* GameService.swift in Sources */,
 				FD09FA6213CB856ACF9919FE /* Helpers.swift in Sources */,
 				FD09FAB1D7CAEF194B96B97B /* Loadable.swift in Sources */,
@@ -905,10 +914,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "di-example (iOS).entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = UV7YH72NQ8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "di-example--iOS--Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -919,6 +931,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.zwolsman.di-example";
 				PRODUCT_NAME = "di-example";
+				PROVISIONING_PROFILE_SPECIFIER = "test dev";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -947,10 +960,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "di-example (iOS).entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = UV7YH72NQ8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "di-example--iOS--Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -961,6 +977,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.zwolsman.di-example";
 				PRODUCT_NAME = "di-example";
+				PROVISIONING_PROFILE_SPECIFIER = "test dev";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

@@ -6,9 +6,10 @@ extension DIContainer {
     struct Services {
         let gameService: GameService
         let profileService: ProfileService
+        let authService: AuthService
 
         static var stub: Self {
-            .init(gameService: StubGameService(), profileService: StubProfileService())
+            .init(gameService: StubGameService(), profileService: StubProfileService(), authService: StubAuthService())
         }
     }
 }

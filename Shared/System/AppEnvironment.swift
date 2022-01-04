@@ -23,7 +23,8 @@ extension AppEnvironment {
 
         let gameService = LocalGameService(appState: appState, repo: LocalGameRepository())
         let profileService = LocalProfileService(appState: appState)
+        let authService = RemoteAuthService()
 
-        return .init(gameService: gameService, profileService: profileService)
+        return .init(gameService: gameService, profileService: profileService, authService: authService)
     }
 }

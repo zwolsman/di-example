@@ -7,8 +7,8 @@
 //
 
 import SwiftUI
-
 import Combine
+import AuthenticationServices
 
 // MARK: - View
 
@@ -20,9 +20,24 @@ struct ContentView: View {
         if viewModel.isRunningTests {
             Text("Running unit tests")
         } else {
-            SignInScene(viewModel: .init(container: viewModel.container))
+            NavigationView {
+                if viewModel.authenticated {
+                    homeScene
+                } else {
+                    signInScene
+                }
+            }
+                    .onAppear(perform: viewModel.validateUser)
                     .modifier(RootViewAppearance(viewModel: .init(container: viewModel.container)))
         }
+
+    }
+
+    private var homeScene: some View {
+        HomeScene(viewModel: .init(container: viewModel.container))
+    }
+    private var signInScene: some View {
+        SignInScene(viewModel: .init(container: viewModel.container))
     }
 }
 
@@ -30,13 +45,54 @@ struct ContentView: View {
 
 extension ContentView {
     class ViewModel: ObservableObject {
+        // State
+        @Published var authenticated: Bool
 
+        // Misc
         let container: DIContainer
         let isRunningTests: Bool
+        private var cancelBag = CancelBag()
 
         init(container: DIContainer, isRunningTests: Bool = ProcessInfo.processInfo.isRunningTests) {
             self.container = container
             self.isRunningTests = isRunningTests
+            let appState = container.appState
+            _authenticated = .init(initialValue: false)
+
+            cancelBag.collect {
+                appState.map(\.userData.authenticated)
+                        .removeDuplicates()
+                        .weakAssign(to: \.authenticated, on: self)
+            }
+        }
+
+        func validateUser() {
+            let appleIDProvider = ASAuthorizationAppleIDProvider()
+            guard let userId = UserDefaults.standard.string(forKey: "user.id") else {
+                print("no user id found")
+                container.appState[\.userData.authenticated] = false
+                return
+            }
+
+            appleIDProvider.getCredentialState(forUserID: userId) { [weak self] (credentialState, error) in
+                guard error == nil else {
+                    print(error!)
+                    self?.authenticated = false
+                    return
+                }
+
+                switch credentialState {
+                case .authorized:
+                    print("user still valid")
+                    self?.authenticated = true
+                    break // The Apple ID credential is valid.
+                case .revoked, .notFound:
+                    print("user invalid")
+                    self?.authenticated = false
+                default:
+                    break
+                }
+            }
         }
     }
 }

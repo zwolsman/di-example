@@ -4,13 +4,10 @@
 
 import Foundation
 
-struct Profile: Equatable {
+struct Profile: Equatable, Codable {
     var name: String
     var points: Int
     var games: Int
     var totalEarnings: Int
     var link: String
-
-    var highlights: [Game] = []
-    var achievements: [String] = []
 }

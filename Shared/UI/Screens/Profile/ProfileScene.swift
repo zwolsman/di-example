@@ -53,9 +53,9 @@ private extension ProfileScene {
     var loadingView: some View {
         VStack {
             ActivityIndicatorView()
-            Button(action: {
+            Button("Cancel loading") {
                 viewModel.profile.cancelLoading()
-            }, label: { Text("Cancel loading") })
+            }
         }
     }
 
@@ -114,17 +114,17 @@ private extension ProfileScene {
                         .padding(.bottom)
             }.listRowSeparator(.hidden)
 
-            highlightSection(profile.highlights)
+//            highlightSection(profile.highlights)
+//
+//            achievementSection(profile.achievements)
 
-            achievementSection(profile.achievements)
-
-            signoutButton()
+            signOutButton()
 
 
         }.listStyle(.insetGrouped)
     }
 
-    
+
     func editableSection(text: String, editAction: @escaping () -> ()) -> some View {
         HStack {
             Text(text)
@@ -141,8 +141,8 @@ private extension ProfileScene {
             Section(header: editableSection(text: "Highlights", editAction: {})) {
                 if (highlights.isEmpty) {
                     Text("Show off your highlights here.")
-                        .foregroundColor(.secondary)
-                        .frame(maxWidth: .infinity)
+                            .foregroundColor(.secondary)
+                            .frame(maxWidth: .infinity)
                 } else {
                     ForEach(highlights) { game in
                         Text(game.id)
@@ -158,8 +158,8 @@ private extension ProfileScene {
             Section(header: editableSection(text: "Achievements", editAction: {})) {
                 if (achievements.isEmpty) {
                     Text("Show off your achievements here.")
-                        .foregroundColor(.secondary)
-                        .frame(maxWidth: .infinity)
+                            .foregroundColor(.secondary)
+                            .frame(maxWidth: .infinity)
                 } else {
                     ForEach(achievements, id: \.self) { achievement in
                         Text(achievement)
@@ -170,7 +170,7 @@ private extension ProfileScene {
     }
 
     @ViewBuilder
-    func signoutButton() -> some View {
+    func signOutButton() -> some View {
         if (viewModel.profileType == .`self`) {
             Section {
                 Button("Sign out", role: .destructive) {
