@@ -51,7 +51,8 @@ extension ProfileScene {
         }
 
         func signOut() {
-
+            UserDefaults.standard.removeObject(forKey: "user.id")
+            container.appState[\.userData.authenticated] = false
         }
 
         func shareProfile() {

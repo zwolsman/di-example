@@ -64,14 +64,14 @@ extension SignInScene {
                     print(identityToken)
                     print(authCode)
 
-                    let name = fullName?.formatted() ?? "Unknown user"
+
 
                     var oldProfile: Profile? = nil
                     let data = UserDefaults.standard.data(forKey: "user.json")
                     if data != nil {
                         oldProfile = try? JSONDecoder().decode(Profile.self, from: data!)
                     }
-
+                    let name = fullName?.givenName ?? oldProfile?.name ?? "Unknown user"
                     let userProfile = Profile(name: name,
                             points: oldProfile?.points ?? 1000,
                             games: oldProfile?.games ?? 0,
