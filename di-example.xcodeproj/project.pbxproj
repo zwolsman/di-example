@@ -15,6 +15,10 @@
 		EA0F966C2781D4790021A2E4 /* PointsGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0F966A2781D4790021A2E4 /* PointsGrid.swift */; };
 		EA0F96702781DC150021A2E4 /* GameRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0F966F2781DC150021A2E4 /* GameRepository.swift */; };
 		EA0F96712781DC150021A2E4 /* GameRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0F966F2781DC150021A2E4 /* GameRepository.swift */; };
+		EAF7CE5727846BBB00292F77 /* SignInScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF7CE5627846BBB00292F77 /* SignInScene.swift */; };
+		EAF7CE5827846BBB00292F77 /* SignInScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF7CE5627846BBB00292F77 /* SignInScene.swift */; };
+		EAF7CE5A27846BCA00292F77 /* SignInSceneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF7CE5927846BCA00292F77 /* SignInSceneViewModel.swift */; };
+		EAF7CE5B27846BCA00292F77 /* SignInSceneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF7CE5927846BCA00292F77 /* SignInSceneViewModel.swift */; };
 		FD09F005492A8178CB168300 /* RootViewAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F123C7D7D7651F1EB7EA /* RootViewAppearance.swift */; };
 		FD09F00A7E60E65E1B7E7BA7 /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09FBA58D71B8E80BEF7A04 /* AppEnvironment.swift */; };
 		FD09F0425FB9B197208468AE /* ProfileSceneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F679B8D8DA17E99A5DE6 /* ProfileSceneViewModel.swift */; };
@@ -112,6 +116,9 @@
 		EA0F9667278091220021A2E4 /* GameRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRow.swift; sourceTree = "<group>"; };
 		EA0F966A2781D4790021A2E4 /* PointsGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointsGrid.swift; sourceTree = "<group>"; };
 		EA0F966F2781DC150021A2E4 /* GameRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRepository.swift; sourceTree = "<group>"; };
+		EAF7CE51278466C100292F77 /* di-example (iOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "di-example (iOS).entitlements"; sourceTree = "<group>"; };
+		EAF7CE5627846BBB00292F77 /* SignInScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInScene.swift; sourceTree = "<group>"; };
+		EAF7CE5927846BCA00292F77 /* SignInSceneViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInSceneViewModel.swift; sourceTree = "<group>"; };
 		FD09F123C7D7D7651F1EB7EA /* RootViewAppearance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewAppearance.swift; sourceTree = "<group>"; };
 		FD09F132D9D7BD8F69BA8EB5 /* GameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		FD09F1357A3572564D51AC76 /* DependencyInjector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DependencyInjector.swift; sourceTree = "<group>"; };
@@ -214,6 +221,15 @@
 			path = Repositories;
 			sourceTree = "<group>";
 		};
+		EAF7CE5527846BAB00292F77 /* SignIn */ = {
+			isa = PBXGroup;
+			children = (
+				EAF7CE5627846BBB00292F77 /* SignInScene.swift */,
+				EAF7CE5927846BCA00292F77 /* SignInSceneViewModel.swift */,
+			);
+			path = SignIn;
+			sourceTree = "<group>";
+		};
 		FD09F081654D65E36E4D5E26 /* UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -300,6 +316,7 @@
 			isa = PBXGroup;
 			children = (
 				FD09F20997757AFF8D9C4C10 /* ContentView.swift */,
+				EAF7CE5527846BAB00292F77 /* SignIn */,
 				FD09FE1422F37DA78B502E88 /* Home */,
 				FD09FF554F05F47843487217 /* Game */,
 				FD09F6F697F7C30D84344017 /* NewGame */,
@@ -330,6 +347,7 @@
 		FD09FD82250F6AC72F5A86AF = {
 			isa = PBXGroup;
 			children = (
+				EAF7CE51278466C100292F77 /* di-example (iOS).entitlements */,
 				FD09F89E3783FF659A6912AA /* Products */,
 				FD09F4AB5FA71B66B602D4DC /* Shared */,
 				FD09F719F0A552627C5BE88B /* macOS */,
@@ -584,6 +602,7 @@
 				FD09FEA5C9849263D1A35F41 /* AppEnvironment.swift in Sources */,
 				FD09F29C1964F7E04DB747E5 /* ActivityIndicatorView.swift in Sources */,
 				EA0F966427807CD20021A2E4 /* TileButton.swift in Sources */,
+				EAF7CE5A27846BCA00292F77 /* SignInSceneViewModel.swift in Sources */,
 				FD09F238EDD1001A3928D9FF /* MockedData.swift in Sources */,
 				FD09F9C86F28F6F77856701C /* HomeScene.swift in Sources */,
 				FD09F4C73588DEB592E81AE5 /* HomeViewModel.swift in Sources */,
@@ -600,6 +619,7 @@
 				FD09FBD352C969491F9621D9 /* ProfileScene.swift in Sources */,
 				FD09F0425FB9B197208468AE /* ProfileSceneViewModel.swift in Sources */,
 				FD09F1588B88D3C6D21E1D95 /* Profile.swift in Sources */,
+				EAF7CE5727846BBB00292F77 /* SignInScene.swift in Sources */,
 				FD09F4F86EBA83168FE4B370 /* IntExtensions.swift in Sources */,
 				FD09F07F76740D3CD6D1865F /* Sha256.swift in Sources */,
 				FD09F58CC9D69018037E9184 /* ProfileService.swift in Sources */,
@@ -642,9 +662,11 @@
 				EA0F9669278091220021A2E4 /* GameRow.swift in Sources */,
 				FD09F8BA211598F14EE1B133 /* DetailRow.swift in Sources */,
 				FD09F9389520107697DCE200 /* ProfileScene.swift in Sources */,
+				EAF7CE5B27846BCA00292F77 /* SignInSceneViewModel.swift in Sources */,
 				FD09F74D82A89CEB35BC890A /* ProfileSceneViewModel.swift in Sources */,
 				FD09FDEDB5E18DFB74E0A3D6 /* Profile.swift in Sources */,
 				FD09F31D6B3BFA0509CE598D /* IntExtensions.swift in Sources */,
+				EAF7CE5827846BBB00292F77 /* SignInScene.swift in Sources */,
 				FD09F662E9F5A6D56B5814B3 /* Sha256.swift in Sources */,
 				FD09F6B0BDF435C0AF5008A1 /* ProfileService.swift in Sources */,
 				FD09FBBF2C7283B1A462E177 /* ChunkedCollection.swift in Sources */,
@@ -882,6 +904,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "di-example (iOS).entitlements";
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = UV7YH72NQ8;
 				ENABLE_PREVIEWS = YES;
@@ -923,6 +946,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "di-example (iOS).entitlements";
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = UV7YH72NQ8;
 				ENABLE_PREVIEWS = YES;

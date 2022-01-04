@@ -20,7 +20,7 @@ struct ContentView: View {
         if viewModel.isRunningTests {
             Text("Running unit tests")
         } else {
-            HomeScene(viewModel: .init(container: viewModel.container))
+            SignInScene(viewModel: .init(container: viewModel.container))
                     .modifier(RootViewAppearance(viewModel: .init(container: viewModel.container)))
         }
     }

@@ -13,6 +13,7 @@ struct AppState: Equatable {
 
 extension AppState {
     struct UserData: Equatable {
+        var authenticated: Bool = false
         var games: Loadable<[Game]> = .notRequested
         var profile: Loadable<Profile> = .notRequested
     }
@@ -25,6 +26,7 @@ extension AppState {
         var gameDetailsScene = GameInfoScene.Routing()
         var newGameScene = NewGameScene.Routing()
         var profileScene = ProfileScene.Routing()
+        var signInScene = SignInScene.Routing()
     }
 }
 
