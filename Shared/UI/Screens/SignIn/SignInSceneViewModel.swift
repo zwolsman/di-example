@@ -21,7 +21,6 @@ extension SignInScene {
         // State
         @Published var routingState: Routing
         @Published var authenticated: Bool = false
-        @Published var profile: Loadable<Profile> = .notRequested
 
         // Misc
         let container: DIContainer
@@ -45,10 +44,6 @@ extension SignInScene {
                 appState.map(\.userData.authenticated)
                         .removeDuplicates()
                         .weakAssign(to: \.authenticated, on: self)
-
-                appState.map(\.userData.profile)
-                        .removeDuplicates()
-                        .weakAssign(to: \.profile, on: self)
             }
         }
 
@@ -83,14 +78,14 @@ extension SignInScene {
                             totalEarnings: oldProfile?.totalEarnings ?? 0,
                             link: "https://bombastic.dev/u/id"
                     )
-
-                    let userJson = try! JSONEncoder().encode(userProfile)
-                    profile = .loaded(userProfile)
-
                     UserDefaults.standard.set(userId, forKey: "user.id")
-                    UserDefaults.standard.set(userJson, forKey: "user.json")
-                    container.appState[\.userData.authenticated] = true
-                    print("Authenticated user \(profile)!")
+
+                    container.appState.bulkUpdate { state in
+                        state.userData.profile = .loaded(userProfile)
+                        state.userData.authenticated = true
+                    }
+
+                    print("Authenticated user \(userProfile)!")
                 }
                 break
             case .failure(let error):
