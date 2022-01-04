@@ -40,17 +40,17 @@ extension GameRow {
         
         init(game: Game, id: Int) {
             guard let state = game.tiles[id] else {
-                color = .secondary.opacity(0.2)
+                color = Color("TileColor")
                 return
             }
 
             switch state {
-            case .bomb(false):
-                color = .secondary.opacity(0.2)
             case .bomb(true):
-                color = .secondary
+                color = Color("BombTileColor")
+            case .bomb(false):
+                color = Color("TileColor")
             case .points(_):
-                color = game.color.opacity(0.2)
+                color = game.color
             }
         }
         
@@ -66,5 +66,10 @@ struct GameRow_Previews: PreviewProvider {
     static var previews: some View {
         GameRow(game: Game.mockedData[0])
             .previewLayout(.sizeThatFits)
+            .preferredColorScheme(.light)
+        
+        GameRow(game: Game.mockedData[0])
+            .previewLayout(.sizeThatFits)
+            .preferredColorScheme(.dark)
     }
 }

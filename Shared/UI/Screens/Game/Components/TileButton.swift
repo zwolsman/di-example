@@ -20,14 +20,16 @@ struct TileButton: View {
 
     private var tileColor: Color {
         guard let tile = tile else {
-            return .secondary.opacity(0.2)
+            return Color("TileColor")
         }
 
         switch tile {
-        case .bomb(_):
-            return .secondary.opacity(0.2)
+        case .bomb(true):
+            return Color("BombTileColor")
+        case .bomb(false):
+            return Color("TileColor")
         case .points(_):
-            return gameColor.opacity(0.2)
+            return gameColor
         }
     }
 
@@ -38,11 +40,11 @@ struct TileButton: View {
 
         switch tile {
         case .points(_):
-            return gameColor
+            return .white
         case .bomb(true):
-            return .primary
+            return .white
         case .bomb(false):
-            return .secondary
+            return .primary
         }
     }
 
@@ -81,6 +83,16 @@ struct TileButton_Previews: PreviewProvider {
     private static let COLUMNS = Array(repeating: GridItem(.flexible()), count: 5)
 
     static var previews: some View {
+        allTheButtons
+            .previewLayout(.sizeThatFits)
+            .preferredColorScheme(.light)
+            
+        allTheButtons
+            .previewLayout(.sizeThatFits)
+            .preferredColorScheme(.dark)
+    }
+    
+    static var allTheButtons: some View {
         ScrollView {
             LazyVGrid(columns: COLUMNS) {
                 ForEach(Game.colors, id: \.self) { color in
