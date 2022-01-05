@@ -152,13 +152,13 @@ private extension HomeScene {
             ) {
                 GameRow(game: game)
             }
-                    .swipeActions(edge: .leading) {
-                        if game.state != .inGame {
-                            highlightButton(game)
-                        }
-                    }
+//                    .swipeActions(edge: .leading) {
+//                        if game.state != .inGame {
+//                            highlightButton(game)
+//                        }
+//                    }
                     .swipeActions(edge: .trailing) {
-                        archiveButton(game)
+//                        archiveButton(game)
                         if game.state != .inGame {
                             deleteButton(game)
                         }
