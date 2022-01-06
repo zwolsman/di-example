@@ -56,36 +56,19 @@ extension SignInScene {
             case .success(let authorization):
                 if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
                     let userId = appleIDCredential.user
-                    let identityToken = appleIDCredential.identityToken?.base64EncodedString() ?? ""
-                    let authCode = appleIDCredential.authorizationCode?.base64EncodedString() ?? ""
+                    let identityToken = String(data: appleIDCredential.identityToken!, encoding: .utf8)!
+                    let authCode = String(data: appleIDCredential.authorizationCode!, encoding: .utf8)!
                     let fullName = appleIDCredential.fullName
 
                     print(userId)
                     print(identityToken)
                     print(authCode)
 
-
-
-                    var oldProfile: Profile? = nil
-                    let data = UserDefaults.standard.data(forKey: "user.json")
-                    if data != nil {
-                        oldProfile = try? JSONDecoder().decode(Profile.self, from: data!)
+                    if let fullName = fullName?.formatted(.name(style: .short)), let email = appleIDCredential.email {
+                        print("registering user. name: \(fullName), email: \(email)")
+                    } else {
+                        print("user already has account")
                     }
-                    let name = fullName?.givenName ?? oldProfile?.name ?? "Unknown user"
-                    let userProfile = Profile(name: name,
-                            points: oldProfile?.points ?? 1000,
-                            games: oldProfile?.games ?? 0,
-                            totalEarnings: oldProfile?.totalEarnings ?? 0,
-                            link: "https://bombastic.dev/u/id"
-                    )
-                    UserDefaults.standard.set(userId, forKey: "user.id")
-
-                    container.appState.bulkUpdate { state in
-                        state.userData.profile = .loaded(userProfile)
-                        state.userData.authenticated = true
-                    }
-
-                    print("Authenticated user \(userProfile)!")
                 }
                 break
             case .failure(let error):
