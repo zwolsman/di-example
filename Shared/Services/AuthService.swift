@@ -6,79 +6,46 @@
 //
 
 import Foundation
+import Combine
+import Moya
 
 protocol AuthService {
-    
-    func register(email: String, fullName: PersonNameComponents, token: String, authCode: String) async throws -> SimpleProfile
-    func validate(token: String, authCode: String, user: String) async throws -> SimpleProfile
+    func register(email: String, fullName: String, authCode: String, identityToken: String) -> AnyPublisher<String, MoyaError>
+    func verify(authCode: String, identityToken: String) -> AnyPublisher<String, MoyaError>
 }
 
-struct SimpleProfile : Decodable {
-    var name: String
-    var points: Int
+struct TokenResponse: Decodable {
+    var accessToken: String
 }
 
-struct RegisterPayload: Codable {
-    var email: String
-    var user: PersonNameComponents
-    var token: String
-    var authCode: String
-}
+class RemoteAuthService: AuthService {
+    let provider: MoyaProvider<APIRepository>
 
-struct ValidatePayload : Codable {
-    var token: String
-    var authCode: String
-    var user: String
-}
-
-class RemoteAuthService : AuthService {
-    func register(email: String, fullName: PersonNameComponents, token: String, authCode: String) async throws -> SimpleProfile {
-        let url = URL(string: "http://192.168.1.120:8080/v1/profile")!
-        let payload = RegisterPayload(email: email, user: fullName, token: token, authCode: authCode)
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = try JSONEncoder().encode(payload)
-
-
-
-        let (data, result) = try await URLSession.shared.data(for: request)
-        print(result)
-        // Parse the JSON data
-        let profile = try JSONDecoder().decode(SimpleProfile.self, from: data)
-        return profile
+    init(provider: MoyaProvider<APIRepository>) {
+        self.provider = provider
     }
-    
-    func validate(token: String, authCode: String, user: String) async throws -> SimpleProfile {
-        let url = URL(string: "http://192.168.1.120:8080/v1/profile/validate")!
-        let payload = ValidatePayload(token: token, authCode: authCode, user: user)
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = try JSONEncoder().encode(payload)
 
-
-
-        let (data, result) = try await URLSession.shared.data(for: request)
-        print(result)
-        print(String(data: data, encoding: .utf8)!)
-        
-        // Parse the JSON data
-        let profile = try JSONDecoder().decode(SimpleProfile.self, from: data)
-        return profile
+    func register(email: String, fullName: String, authCode: String, identityToken: String) -> AnyPublisher<String, MoyaError> {
+        provider
+                .requestPublisher(.signUp(email: email, fullName: fullName, authCode: authCode, identityToken: identityToken))
+                .map(TokenResponse.self, using: JSONDecoder())
+                .map(\.accessToken)
+                .eraseToAnyPublisher()
     }
-    
-    
+    func verify(authCode: String, identityToken: String) -> AnyPublisher<String, MoyaError> {
+        provider
+                .requestPublisher(.verify(authCode: authCode, identityToken: identityToken))
+                .map(TokenResponse.self, using: JSONDecoder())
+                .map(\.accessToken)
+                .eraseToAnyPublisher()
+    }
 }
 
-class StubAuthService : AuthService {
-    func register(email: String, fullName: PersonNameComponents, token: String, authCode: String) async -> SimpleProfile {
-        SimpleProfile(name: "stub", points: 0)
+class StubAuthService: AuthService {
+    func register(email: String, fullName: String, authCode: String, identityToken: String) -> AnyPublisher<String, MoyaError> {
+        Empty<String, MoyaError>().eraseToAnyPublisher()
     }
-    
-    func validate(token: String, authCode: String, user: String) async throws -> SimpleProfile {
-        SimpleProfile(name: "stub", points: 0)
+    func verify(authCode: String, identityToken: String) -> AnyPublisher<String, MoyaError> {
+        Empty<String, MoyaError>().eraseToAnyPublisher()
     }
 }

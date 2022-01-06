@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import Combine
+import Moya
 import AuthenticationServices
 
 // MARK: - Routing
@@ -66,8 +68,17 @@ extension SignInScene {
 
                     if let fullName = fullName?.formatted(.name(style: .short)), let email = appleIDCredential.email {
                         print("registering user. name: \(fullName), email: \(email)")
+                        container
+                                .services
+                                .authService
+                                .register(email: email, fullName: fullName, authCode: authCode, identityToken: identityToken)
+                                .sink(receiveCompletion: onError, receiveValue: onAccessToken)
+                                .store(in: cancelBag)
                     } else {
-                        print("user already has account")
+                        container
+                                .services
+                        .authService
+                                .verify(authCode: authCode, identityToken: identityToken)
                     }
                 }
                 break
@@ -77,5 +88,23 @@ extension SignInScene {
                 break
             }
         }
+
+
+        private func onError(cpl: Subscribers.Completion<MoyaError>) {
+            guard let err = cpl.error else {
+                return
+            }
+
+            print("received error!")
+            print(err)
+        }
+
+        private func onAccessToken(accessToken: String) {
+            print("Received access token from api")
+            UserDefaults.standard.set(accessToken, forKey: "access_token")
+            container.appState[\.userData.authenticated] = true
+        }
     }
+
+
 }

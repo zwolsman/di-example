@@ -12,10 +12,11 @@ protocol ProfileService {
 
 class RemoteProfileService: ProfileService {
     let appState: Store<AppState>
-    let repo = MoyaProvider<APIRepository>()
+    let provider: MoyaProvider<APIRepository>
 
-    init(appState: Store<AppState>) {
+    init(appState: Store<AppState>, provider: MoyaProvider<APIRepository>) {
         self.appState = appState
+        self.provider = provider
     }
 
     func loadProfile(token: String) {
@@ -23,7 +24,7 @@ class RemoteProfileService: ProfileService {
         appState[\.userData.profile].setIsLoading(cancelBag: cancelBag)
         weak var weakAppState = appState
 
-        repo
+        provider
                 .requestPublisher(.profile())
                 .map(Profile.self, using: JSONDecoder())
                 .sinkToLoadable {

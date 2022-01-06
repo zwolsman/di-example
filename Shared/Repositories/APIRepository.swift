@@ -9,6 +9,7 @@ enum APIRepository {
     case profile(id: String? = nil)
     case games
     case signUp(email: String, fullName: String, authCode: String, identityToken: String)
+    case verify(authCode: String, identityToken: String)
 }
 
 struct SignUpPayload: Codable {
@@ -18,8 +19,22 @@ struct SignUpPayload: Codable {
     var identityToken: String
 }
 
+struct VerifyPayload: Codable {
+    var authCode: String
+    var identityToken: String
+}
+
 // MARK: - TargetType Protocol Implementation
-extension APIRepository: TargetType {
+extension APIRepository: AuthorizedTargetType {
+    var needsAuth: Bool {
+        switch self {
+        case .signUp, .verify:
+            return false
+        default:
+            return true
+        }
+    }
+
     var baseURL: URL {
         URL(string: "http://192.168.1.120:8080/api")!
     }
@@ -34,8 +49,10 @@ extension APIRepository: TargetType {
 
         case .games:
             return "/v1/games"
-        case .signUp(email: _, fullName: _, authCode: _, identityToken: _):
+        case .signUp:
             return "/v1/auth/sign-up"
+        case .verify:
+            return "/v1/auth/verify"
         }
     }
 
@@ -45,7 +62,7 @@ extension APIRepository: TargetType {
             return .get
         case .games:
             return .get
-        case .signUp(email: _, fullName: _, authCode: _, identityToken: _):
+        case .signUp, .verify:
             return .post
         }
     }
@@ -55,8 +72,11 @@ extension APIRepository: TargetType {
         case .profile, .games:
             return .requestPlain
 
-        case .signUp(email: let email, fullName: let fullName, authCode: let authCode, identityToken: let identityToken):
+        case let .signUp(email, fullName, authCode, identityToken):
             let payload = SignUpPayload(email: email, fullName: fullName, authCode: authCode, identityToken: identityToken)
+            return .requestJSONEncodable(payload)
+        case let .verify(authCode, identityToken):
+            let payload = VerifyPayload(authCode: authCode, identityToken: identityToken)
             return .requestJSONEncodable(payload)
         }
     }
@@ -67,4 +87,32 @@ extension APIRepository: TargetType {
 
 }
 
+// MARK: - Auth plugin
+class TokenSource {
+    var token: String?
 
+    init() {
+    }
+}
+
+protocol AuthorizedTargetType: TargetType {
+    var needsAuth: Bool { get }
+}
+
+struct AuthPlugin: PluginType {
+    let tokenClosure: () -> String?
+
+    func prepare(_ request: URLRequest, target: TargetType) -> URLRequest {
+        guard
+                let token = tokenClosure(),
+                let target = target as? AuthorizedTargetType,
+                target.needsAuth
+                else {
+            return request
+        }
+
+        var request = request
+        request.addValue("Bearer " + token, forHTTPHeaderField: "Authorization")
+        return request
+    }
+}
