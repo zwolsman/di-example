@@ -1,0 +1,6 @@
+framework module Pods_Bomastic__macOS_ {
+  umbrella header "Pods-Bomastic (macOS)-umbrella.h"
+
+  export *
+  module * { export * }
+}

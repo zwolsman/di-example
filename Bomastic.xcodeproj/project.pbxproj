@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C8F6A06E1ECC231C5D08DADF /* Pods_Bomastic__iOS_.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC18E52771EF128225F6986C /* Pods_Bomastic__iOS_.framework */; };
+		D5EAE156C3264F055D5E33F1 /* Pods_Bomastic__macOS_.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD7DC3BC45D64AEFE6CB0C36 /* Pods_Bomastic__macOS_.framework */; };
 		EA0F966427807CD20021A2E4 /* TileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0F966327807CD20021A2E4 /* TileButton.swift */; };
 		EA0F966527807CD20021A2E4 /* TileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0F966327807CD20021A2E4 /* TileButton.swift */; };
 		EA0F9668278091220021A2E4 /* GameRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0F9667278091220021A2E4 /* GameRow.swift */; };
@@ -114,6 +116,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		56F2CCD74E4D145F0971C9F1 /* Pods-Bomastic (macOS).debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bomastic (macOS).debug.xcconfig"; path = "Target Support Files/Pods-Bomastic (macOS)/Pods-Bomastic (macOS).debug.xcconfig"; sourceTree = "<group>"; };
+		6B4A4215956FD6804ACAD86A /* Pods-Bomastic (iOS).release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bomastic (iOS).release.xcconfig"; path = "Target Support Files/Pods-Bomastic (iOS)/Pods-Bomastic (iOS).release.xcconfig"; sourceTree = "<group>"; };
+		8D94EFDDCC176ECD10BD2887 /* Pods-Bomastic (iOS).debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bomastic (iOS).debug.xcconfig"; path = "Target Support Files/Pods-Bomastic (iOS)/Pods-Bomastic (iOS).debug.xcconfig"; sourceTree = "<group>"; };
+		CB33C4C3D516CF59D7F42B87 /* Pods-Bomastic (macOS).release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bomastic (macOS).release.xcconfig"; path = "Target Support Files/Pods-Bomastic (macOS)/Pods-Bomastic (macOS).release.xcconfig"; sourceTree = "<group>"; };
+		CD7DC3BC45D64AEFE6CB0C36 /* Pods_Bomastic__macOS_.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Bomastic__macOS_.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA0F966327807CD20021A2E4 /* TileButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileButton.swift; sourceTree = "<group>"; };
 		EA0F9667278091220021A2E4 /* GameRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRow.swift; sourceTree = "<group>"; };
 		EA0F966A2781D4790021A2E4 /* PointsGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointsGrid.swift; sourceTree = "<group>"; };
@@ -123,6 +130,7 @@
 		EAF7CE5927846BCA00292F77 /* SignInSceneViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInSceneViewModel.swift; sourceTree = "<group>"; };
 		EAF7CE5C2784819000292F77 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		EAF7CE5F2784887700292F77 /* Bomastic--iOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Bomastic--iOS--Info.plist"; sourceTree = "<group>"; };
+		EC18E52771EF128225F6986C /* Pods_Bomastic__iOS_.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Bomastic__iOS_.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD09F123C7D7D7651F1EB7EA /* RootViewAppearance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewAppearance.swift; sourceTree = "<group>"; };
 		FD09F132D9D7BD8F69BA8EB5 /* GameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		FD09F1357A3572564D51AC76 /* DependencyInjector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DependencyInjector.swift; sourceTree = "<group>"; };
@@ -188,6 +196,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5EAE156C3264F055D5E33F1 /* Pods_Bomastic__macOS_.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -195,12 +204,34 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C8F6A06E1ECC231C5D08DADF /* Pods_Bomastic__iOS_.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1114DF1B098603F7E5528941 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EC18E52771EF128225F6986C /* Pods_Bomastic__iOS_.framework */,
+				CD7DC3BC45D64AEFE6CB0C36 /* Pods_Bomastic__macOS_.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DFF2061833CB0848A80CA69F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8D94EFDDCC176ECD10BD2887 /* Pods-Bomastic (iOS).debug.xcconfig */,
+				6B4A4215956FD6804ACAD86A /* Pods-Bomastic (iOS).release.xcconfig */,
+				56F2CCD74E4D145F0971C9F1 /* Pods-Bomastic (macOS).debug.xcconfig */,
+				CB33C4C3D516CF59D7F42B87 /* Pods-Bomastic (macOS).release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		EA0F966227807CA50021A2E4 /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -359,6 +390,8 @@
 				FD09F719F0A552627C5BE88B /* macOS */,
 				FD09F9A1BF48AA7CEBD523EF /* Tests iOS */,
 				FD09F4A9A4830D787EB925F0 /* Tests macOS */,
+				DFF2061833CB0848A80CA69F /* Pods */,
+				1114DF1B098603F7E5528941 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -461,9 +494,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FD09F1F74ED88E2F0A053F1A /* Build configuration list for PBXNativeTarget "Bomastic (macOS)" */;
 			buildPhases = (
+				2E177138D2F83BD07F6885E7 /* [CP] Check Pods Manifest.lock */,
 				FD09FC45252721CE0E7565F9 /* Sources */,
 				FD09F79A216AA959F6A1EF90 /* Frameworks */,
 				FD09FB83183155158861A8BD /* Resources */,
+				AD0DF35190C4846A2E7DB08E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -496,9 +531,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FD09F9623605D0D520065418 /* Build configuration list for PBXNativeTarget "Bomastic (iOS)" */;
 			buildPhases = (
+				35149327F97224CB889D82EA /* [CP] Check Pods Manifest.lock */,
 				FD09F9D3C674AEA6596420ED /* Sources */,
 				FD09F991184A561B9C056785 /* Frameworks */,
 				FD09F6955339422E7093DA0F /* Resources */,
+				1143BEAAAF76AB4C5F2374B4 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -576,6 +613,93 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1143BEAAAF76AB4C5F2374B4 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Bomastic (iOS)/Pods-Bomastic (iOS)-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire-iOS/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Moya-iOS/Moya.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Bomastic (iOS)/Pods-Bomastic (iOS)-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2E177138D2F83BD07F6885E7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Bomastic (macOS)-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		35149327F97224CB889D82EA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Bomastic (iOS)-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AD0DF35190C4846A2E7DB08E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Bomastic (macOS)/Pods-Bomastic (macOS)-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire-macOS/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Moya-macOS/Moya.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Bomastic (macOS)/Pods-Bomastic (macOS)-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		FD09F1A2FD91FDEF417133D7 /* Sources */ = {
@@ -738,6 +862,7 @@
 		};
 		FD09F6539BFB13BB3F31B73F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 56F2CCD74E4D145F0971C9F1 /* Pods-Bomastic (macOS).debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -761,6 +886,7 @@
 		};
 		FD09F78B22040BE28BF9C016 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CB33C4C3D516CF59D7F42B87 /* Pods-Bomastic (macOS).release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -910,6 +1036,7 @@
 		};
 		FD09FA14420FDBA5B2486910 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8D94EFDDCC176ECD10BD2887 /* Pods-Bomastic (iOS).debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -957,6 +1084,7 @@
 		};
 		FD09FF9400DADE9CD99D3472 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6B4A4215956FD6804ACAD86A /* Pods-Bomastic (iOS).release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
