@@ -122,7 +122,7 @@
 		EAF7CE5627846BBB00292F77 /* SignInScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInScene.swift; sourceTree = "<group>"; };
 		EAF7CE5927846BCA00292F77 /* SignInSceneViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInSceneViewModel.swift; sourceTree = "<group>"; };
 		EAF7CE5C2784819000292F77 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
-		EAF7CE5F2784887700292F77 /* di-example--iOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "di-example--iOS--Info.plist"; sourceTree = "<group>"; };
+		EAF7CE5F2784887700292F77 /* Bomastic--iOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Bomastic--iOS--Info.plist"; sourceTree = "<group>"; };
 		FD09F123C7D7D7651F1EB7EA /* RootViewAppearance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewAppearance.swift; sourceTree = "<group>"; };
 		FD09F132D9D7BD8F69BA8EB5 /* GameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		FD09F1357A3572564D51AC76 /* DependencyInjector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DependencyInjector.swift; sourceTree = "<group>"; };
@@ -149,8 +149,8 @@
 		FD09F7EAD87FDA62908D7D7D /* HomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		FD09F837783029B66A2B64C6 /* Tests_iOSLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_iOSLaunchTests.swift; sourceTree = "<group>"; };
 		FD09F877CC60840FBD1390BE /* NetworkingHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkingHelpers.swift; sourceTree = "<group>"; };
-		FD09F8907D9CE8177350BFEF /* di-example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "di-example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		FD09F90D59FC2234C9ED4100 /* di-example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "di-example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FD09F8907D9CE8177350BFEF /* Bomastic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bomastic.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FD09F90D59FC2234C9ED4100 /* Bomastic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bomastic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD09F98581FD36896BEE59D9 /* Publisher+WeakAssign.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Publisher+WeakAssign.swift"; sourceTree = "<group>"; };
 		FD09F9A14D9689675B846C1B /* GameService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameService.swift; sourceTree = "<group>"; };
 		FD09FAC1723B10A7276A3135 /* HomeScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeScene.swift; sourceTree = "<group>"; };
@@ -308,8 +308,8 @@
 		FD09F89E3783FF659A6912AA /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				FD09F90D59FC2234C9ED4100 /* di-example.app */,
-				FD09F8907D9CE8177350BFEF /* di-example.app */,
+				FD09F90D59FC2234C9ED4100 /* Bomastic.app */,
+				FD09F8907D9CE8177350BFEF /* Bomastic.app */,
 				FD09FFB561E0CCBB9125B141 /* Tests iOS.xctest */,
 				FD09F44F1AC505FF5436D165 /* Tests macOS.xctest */,
 			);
@@ -352,7 +352,7 @@
 		FD09FD82250F6AC72F5A86AF = {
 			isa = PBXGroup;
 			children = (
-				EAF7CE5F2784887700292F77 /* di-example--iOS--Info.plist */,
+				EAF7CE5F2784887700292F77 /* Bomastic--iOS--Info.plist */,
 				EAF7CE51278466C100292F77 /* di-example (iOS).entitlements */,
 				FD09F89E3783FF659A6912AA /* Products */,
 				FD09F4AB5FA71B66B602D4DC /* Shared */,
@@ -457,9 +457,9 @@
 			productReference = FD09F44F1AC505FF5436D165 /* Tests macOS.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
-		FD09F875FE63B3E46CE40A51 /* di-example (macOS) */ = {
+		FD09F875FE63B3E46CE40A51 /* Bomastic (macOS) */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = FD09F1F74ED88E2F0A053F1A /* Build configuration list for PBXNativeTarget "di-example (macOS)" */;
+			buildConfigurationList = FD09F1F74ED88E2F0A053F1A /* Build configuration list for PBXNativeTarget "Bomastic (macOS)" */;
 			buildPhases = (
 				FD09FC45252721CE0E7565F9 /* Sources */,
 				FD09F79A216AA959F6A1EF90 /* Frameworks */,
@@ -469,9 +469,9 @@
 			);
 			dependencies = (
 			);
-			name = "di-example (macOS)";
+			name = "Bomastic (macOS)";
 			productName = "di-example (macOS)";
-			productReference = FD09F8907D9CE8177350BFEF /* di-example.app */;
+			productReference = FD09F8907D9CE8177350BFEF /* Bomastic.app */;
 			productType = "com.apple.product-type.application";
 		};
 		FD09FDEDA0F38FEE0D3F476B /* Tests iOS */ = {
@@ -492,9 +492,9 @@
 			productReference = FD09FFB561E0CCBB9125B141 /* Tests iOS.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
-		FD09FE725958D65B92244C46 /* di-example (iOS) */ = {
+		FD09FE725958D65B92244C46 /* Bomastic (iOS) */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = FD09F9623605D0D520065418 /* Build configuration list for PBXNativeTarget "di-example (iOS)" */;
+			buildConfigurationList = FD09F9623605D0D520065418 /* Build configuration list for PBXNativeTarget "Bomastic (iOS)" */;
 			buildPhases = (
 				FD09F9D3C674AEA6596420ED /* Sources */,
 				FD09F991184A561B9C056785 /* Frameworks */,
@@ -504,9 +504,9 @@
 			);
 			dependencies = (
 			);
-			name = "di-example (iOS)";
+			name = "Bomastic (iOS)";
 			productName = "di-example (iOS)";
-			productReference = FD09F90D59FC2234C9ED4100 /* di-example.app */;
+			productReference = FD09F90D59FC2234C9ED4100 /* Bomastic.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -519,11 +519,11 @@
 				TargetAttributes = {
 					FD09FE725958D65B92244C46 = {
 						DevelopmentTeam = UV7YH72NQ8;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
-			buildConfigurationList = FD09F11595DC3048B4FC8742 /* Build configuration list for PBXProject "di-example" */;
+			buildConfigurationList = FD09F11595DC3048B4FC8742 /* Build configuration list for PBXProject "Bomastic" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -536,8 +536,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				FD09FE725958D65B92244C46 /* di-example (iOS) */,
-				FD09F875FE63B3E46CE40A51 /* di-example (macOS) */,
+				FD09FE725958D65B92244C46 /* Bomastic (iOS) */,
+				FD09F875FE63B3E46CE40A51 /* Bomastic (macOS) */,
 				FD09FDEDA0F38FEE0D3F476B /* Tests iOS */,
 				FD09F0F60C7E6B1BB8244A9E /* Tests macOS */,
 			);
@@ -696,12 +696,12 @@
 /* Begin PBXTargetDependency section */
 		FD09F084CE2031E3BC9FD5CB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = FD09F875FE63B3E46CE40A51 /* di-example (macOS) */;
+			target = FD09F875FE63B3E46CE40A51 /* Bomastic (macOS) */;
 			targetProxy = FD09FADFA3430D90BF898233 /* PBXContainerItemProxy */;
 		};
 		FD09FDFAD4275904390A36A2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = FD09FE725958D65B92244C46 /* di-example (iOS) */;
+			target = FD09FE725958D65B92244C46 /* Bomastic (iOS) */;
 			targetProxy = FD09F83B29D643FFA8159EFF /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -752,7 +752,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 11.6;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.zwolsman.di-example";
-				PRODUCT_NAME = "di-example";
+				PRODUCT_NAME = Bomastic;
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -775,7 +775,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 11.6;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.zwolsman.di-example";
-				PRODUCT_NAME = "di-example";
+				PRODUCT_NAME = Bomastic;
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -914,28 +914,29 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "di-example (iOS).entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = UV7YH72NQ8;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "di-example--iOS--Info.plist";
+				INFOPLIST_FILE = "Bomastic--iOS--Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.zwolsman.di-example";
-				PRODUCT_NAME = "di-example";
-				PROVISIONING_PROFILE_SPECIFIER = "test dev";
+				PRODUCT_BUNDLE_IDENTIFIER = dev.bombastic.app;
+				PRODUCT_NAME = Bomastic;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -960,28 +961,29 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "di-example (iOS).entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = UV7YH72NQ8;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "di-example--iOS--Info.plist";
+				INFOPLIST_FILE = "Bomastic--iOS--Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.zwolsman.di-example";
-				PRODUCT_NAME = "di-example";
-				PROVISIONING_PROFILE_SPECIFIER = "test dev";
+				PRODUCT_BUNDLE_IDENTIFIER = dev.bombastic.app;
+				PRODUCT_NAME = Bomastic;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -989,7 +991,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		FD09F11595DC3048B4FC8742 /* Build configuration list for PBXProject "di-example" */ = {
+		FD09F11595DC3048B4FC8742 /* Build configuration list for PBXProject "Bomastic" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FD09F7ACF7131BF200C34D87 /* Debug */,
@@ -998,7 +1000,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		FD09F1F74ED88E2F0A053F1A /* Build configuration list for PBXNativeTarget "di-example (macOS)" */ = {
+		FD09F1F74ED88E2F0A053F1A /* Build configuration list for PBXNativeTarget "Bomastic (macOS)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FD09F6539BFB13BB3F31B73F /* Debug */,
@@ -1007,7 +1009,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		FD09F9623605D0D520065418 /* Build configuration list for PBXNativeTarget "di-example (iOS)" */ = {
+		FD09F9623605D0D520065418 /* Build configuration list for PBXNativeTarget "Bomastic (iOS)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FD09FA14420FDBA5B2486910 /* Debug */,

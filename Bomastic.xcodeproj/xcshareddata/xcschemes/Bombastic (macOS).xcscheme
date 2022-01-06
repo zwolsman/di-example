@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "FD09FE725958D65B92244C46"
-               BuildableName = "di-example.app"
-               BlueprintName = "di-example (iOS)"
-               ReferencedContainer = "container:di-example.xcodeproj">
+               BlueprintIdentifier = "FD09F875FE63B3E46CE40A51"
+               BuildableName = "Bomastic.app"
+               BlueprintName = "Bomastic (macOS)"
+               ReferencedContainer = "container:Bomastic.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -28,6 +28,16 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "FD09F0F60C7E6B1BB8244A9E"
+               BuildableName = "Tests macOS.xctest"
+               BlueprintName = "Tests macOS"
+               ReferencedContainer = "container:Bomastic.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
@@ -44,10 +54,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "FD09FE725958D65B92244C46"
-            BuildableName = "di-example.app"
-            BlueprintName = "di-example (iOS)"
-            ReferencedContainer = "container:di-example.xcodeproj">
+            BlueprintIdentifier = "FD09F875FE63B3E46CE40A51"
+            BuildableName = "Bomastic.app"
+            BlueprintName = "Bomastic (macOS)"
+            ReferencedContainer = "container:Bomastic.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -57,6 +67,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "FD09F875FE63B3E46CE40A51"
+            BuildableName = "Bomastic.app"
+            BlueprintName = "Bomastic (macOS)"
+            ReferencedContainer = "container:Bomastic.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
