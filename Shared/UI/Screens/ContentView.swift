@@ -67,13 +67,14 @@ extension ContentView {
         }
 
         func validateUser() {
-            let appleIDProvider = ASAuthorizationAppleIDProvider()
-            guard let userId = UserDefaults.standard.string(forKey: "user.id") else {
-                print("no user id found")
-                container.appState[\.userData.authenticated] = false
+            guard let userId = UserDefaults.standard.string(forKey: "user.id"),
+                  let _ = UserDefaults.standard.string(forKey: "access_token") else {
+                print("could not recover user")
+                authenticated = false
                 return
             }
 
+            let appleIDProvider = ASAuthorizationAppleIDProvider()
             appleIDProvider.getCredentialState(forUserID: userId) { [weak self] (credentialState, error) in
                 guard error == nil else {
                     print(error!)
@@ -81,16 +82,9 @@ extension ContentView {
                     return
                 }
 
-                switch credentialState {
-                case .authorized:
+                if credentialState == .authorized {
                     print("user still valid")
                     self?.authenticated = true
-                    break // The Apple ID credential is valid.
-                case .revoked, .notFound:
-                    print("user invalid")
-                    self?.authenticated = false
-                default:
-                    break
                 }
             }
         }

@@ -72,13 +72,15 @@ extension SignInScene {
                                 .services
                                 .authService
                                 .register(email: email, fullName: fullName, authCode: authCode, identityToken: identityToken)
-                                .sink(receiveCompletion: onError, receiveValue: onAccessToken)
+                                .sink(receiveCompletion: onError, receiveValue: { [weak self] in self?.onAccessToken(userId: userId, accessToken: $0) })
                                 .store(in: cancelBag)
                     } else {
                         container
                                 .services
-                        .authService
+                                .authService
                                 .verify(authCode: authCode, identityToken: identityToken)
+                                .sink(receiveCompletion: onError, receiveValue: { [weak self] in self?.onAccessToken(userId: userId, accessToken: $0) })
+                                .store(in: cancelBag)
                     }
                 }
                 break
@@ -99,9 +101,10 @@ extension SignInScene {
             print(err)
         }
 
-        private func onAccessToken(accessToken: String) {
+        private func onAccessToken(userId: String, accessToken: String) {
             print("Received access token from api")
             UserDefaults.standard.set(accessToken, forKey: "access_token")
+            UserDefaults.standard.set(userId, forKey: "user.id")
             container.appState[\.userData.authenticated] = true
         }
     }
