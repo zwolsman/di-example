@@ -15,18 +15,7 @@ extension AppState {
     struct UserData: Equatable {
         var authenticated: Bool = false
         var games: Loadable<[Game]> = .notRequested
-        var profile: Loadable<Profile> = .notRequested {
-            didSet {
-                guard case let .loaded(profile) = profile else {
-                    return
-                }
-
-                let userJson = try! JSONEncoder().encode(profile)
-                UserDefaults.standard.set(userJson, forKey: "user.json")
-                print("saved profile")
-            }
-        }
-
+        var profile: Loadable<Profile> = .notRequested
     }
 }
 

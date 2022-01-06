@@ -32,6 +32,7 @@
 		FD09F0C7C94AFB9751EF0102 /* Loadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F1A2290728C746FD75B8 /* Loadable.swift */; };
 		FD09F10A5144FA043364321F /* NewGameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F313CE0FB73B8C2F582D /* NewGameViewModel.swift */; };
 		FD09F10CC14422D3B09D7845 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09FC8AE17427431090CCF3 /* Store.swift */; };
+		FD09F11B3FA10266E70E5E35 /* APIRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F90ADBB9858E2327FC2F /* APIRepository.swift */; };
 		FD09F1588B88D3C6D21E1D95 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F5BD5BBDFD365FCF8254 /* Profile.swift */; };
 		FD09F1F182CA4452BB6461A7 /* ColorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F66AF3F1E2DA587A4197 /* ColorCell.swift */; };
 		FD09F238EDD1001A3928D9FF /* MockedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F3885A0C3242BF9BD156 /* MockedData.swift */; };
@@ -74,6 +75,7 @@
 		FD09FA0F1E7CF63519C5F59A /* DependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F1357A3572564D51AC76 /* DependencyInjector.swift */; };
 		FD09FA6213CB856ACF9919FE /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F558B302AEAA879445DC /* Helpers.swift */; };
 		FD09FA78014AD4E26B12DFDC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F20997757AFF8D9C4C10 /* ContentView.swift */; };
+		FD09FA7A60D1EC77E3A12478 /* APIRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F90ADBB9858E2327FC2F /* APIRepository.swift */; };
 		FD09FAB1D7CAEF194B96B97B /* Loadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F1A2290728C746FD75B8 /* Loadable.swift */; };
 		FD09FAD38515155D36147923 /* CancelBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F1843E70DE61E47F859F /* CancelBag.swift */; };
 		FD09FAEADE96F95A58117212 /* NetworkingHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F877CC60840FBD1390BE /* NetworkingHelpers.swift */; };
@@ -158,6 +160,7 @@
 		FD09F837783029B66A2B64C6 /* Tests_iOSLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_iOSLaunchTests.swift; sourceTree = "<group>"; };
 		FD09F877CC60840FBD1390BE /* NetworkingHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkingHelpers.swift; sourceTree = "<group>"; };
 		FD09F8907D9CE8177350BFEF /* Bomastic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bomastic.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FD09F90ADBB9858E2327FC2F /* APIRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIRepository.swift; sourceTree = "<group>"; };
 		FD09F90D59FC2234C9ED4100 /* Bomastic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bomastic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD09F98581FD36896BEE59D9 /* Publisher+WeakAssign.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Publisher+WeakAssign.swift"; sourceTree = "<group>"; };
 		FD09F9A14D9689675B846C1B /* GameService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameService.swift; sourceTree = "<group>"; };
@@ -252,6 +255,7 @@
 			isa = PBXGroup;
 			children = (
 				EA0F966F2781DC150021A2E4 /* GameRepository.swift */,
+				FD09F90ADBB9858E2327FC2F /* APIRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -756,6 +760,7 @@
 				FD09F07F76740D3CD6D1865F /* Sha256.swift in Sources */,
 				FD09F58CC9D69018037E9184 /* ProfileService.swift in Sources */,
 				FD09FC9C160554C46AAB4153 /* ChunkedCollection.swift in Sources */,
+				FD09F11B3FA10266E70E5E35 /* APIRepository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -803,6 +808,7 @@
 				FD09F662E9F5A6D56B5814B3 /* Sha256.swift in Sources */,
 				FD09F6B0BDF435C0AF5008A1 /* ProfileService.swift in Sources */,
 				FD09FBBF2C7283B1A462E177 /* ChunkedCollection.swift in Sources */,
+				FD09FA7A60D1EC77E3A12478 /* APIRepository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

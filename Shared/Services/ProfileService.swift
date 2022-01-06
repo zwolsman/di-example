@@ -4,13 +4,15 @@
 
 import Foundation
 import Combine
+import Moya
 
 protocol ProfileService {
     func loadProfile(token: String)
 }
 
-class LocalProfileService: ProfileService {
+class RemoteProfileService: ProfileService {
     let appState: Store<AppState>
+    let repo = MoyaProvider<APIRepository>()
 
     init(appState: Store<AppState>) {
         self.appState = appState
@@ -21,17 +23,9 @@ class LocalProfileService: ProfileService {
         appState[\.userData.profile].setIsLoading(cancelBag: cancelBag)
         weak var weakAppState = appState
 
-        guard let profileJSON = UserDefaults.standard.data(forKey: "user.json") else {
-            appState[\.userData.profile] = .failed(ProfileError.noProfileFoundError)
-            return
-        }
-
-        guard let profile = try? JSONDecoder().decode(Profile.self, from: profileJSON) else {
-            appState[\.userData.profile] = .failed(ProfileError.profileDecodeError)
-            return
-        }
-
-        Just(profile)
+        repo
+                .requestPublisher(.profile())
+                .map(Profile.self, using: JSONDecoder())
                 .sinkToLoadable {
                     weakAppState?[\.userData.profile] = $0
                 }
