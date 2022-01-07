@@ -66,7 +66,7 @@ extension SignInScene {
                     print(identityToken)
                     print(authCode)
 
-                    if let fullName = fullName?.formatted(.name(style: .short)), let email = appleIDCredential.email {
+                    if let fullName = fullName?.formatted(.name(style: .long)), let email = appleIDCredential.email {
                         print("registering user. name: \(fullName), email: \(email)")
                         container
                                 .services
