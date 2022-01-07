@@ -31,6 +31,7 @@ struct GameResponse: Decodable {
     var multiplier: Double
     var state: State
     var secret: String
+    var colorId: Int
     var plain: String?
 
     enum State: String, Codable {
@@ -82,7 +83,7 @@ extension GameResponse {
                 stake: response.stake,
                 next: response.next,
                 multiplier: response.multiplier,
-                color: .red,
+                color: Game.colors[response.colorId],
                 isActive: response.state == .inGame,
                 isCashedOut: response.state == .cashedOut,
                 lastTile: orderedTiles.last?.tile
