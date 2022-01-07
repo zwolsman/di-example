@@ -55,7 +55,7 @@ extension NewGameScene {
                 guard case let .loaded(game) = game else {
                     return
                 }
-                self?.navigateTo(game: game)
+                self?.gameCreated(game)
             }
 
             container
@@ -64,8 +64,25 @@ extension NewGameScene {
                     .create(game: game, initialBet: bet, color: color, bombs: bombs.rawValue)
         }
 
-        private func navigateTo(game: Game) {
+        private func gameCreated(_ game: Game) {
             container.appState.bulkUpdate { state in
+                switch state.userData.games {
+                case .notRequested:
+                    state.userData.games = .loaded([game])
+                case let .isLoading(last, cb):
+                    guard var previousGames = last else {
+                        state.userData.games = .isLoading(last: [game], cancelBag: cb)
+                        break
+                    }
+                    previousGames.insert(game, at: 0)
+                    state.userData.games = .isLoading(last: previousGames, cancelBag: cb)
+                case var .loaded(games):
+                    games.insert(game, at: 0)
+                    state.userData.games = .loaded(games)
+                default:
+                    break
+                }
+
                 state.routing.homeScene.showNewGameScene = false
                 state.routing.homeScene.gameId = game.id
             }
