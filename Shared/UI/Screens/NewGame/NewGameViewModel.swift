@@ -23,6 +23,8 @@ extension NewGameScene {
         @Published var bombs: Bombs = .three
         @Published var bet: Int = 100
 
+        @Published var newGame: Loadable<Game> = .notRequested
+
         var canCreateGame: Bool {
             true
         }
@@ -49,17 +51,23 @@ extension NewGameScene {
         // MARK: - Side effects
 
         func createGame() {
-            Task {
-                let id = await container
-                        .services
-                        .gameService
-                        .create(initialBet: bet, color: color, bombs: bombs.rawValue)
-                print("created game with id: \(id)")
-
-                container.appState.bulkUpdate { state in
-                    state.routing.homeScene.showNewGameScene = false
-                    state.routing.homeScene.gameId = id
+            let game = loadableSubject(\.newGame).onSet { [weak self] game in
+                guard case let .loaded(game) = game else {
+                    return
                 }
+                self?.navigateTo(game: game)
+            }
+
+            container
+                    .services
+                    .gameService
+                    .create(game: game, initialBet: bet, color: color, bombs: bombs.rawValue)
+        }
+
+        private func navigateTo(game: Game) {
+            container.appState.bulkUpdate { state in
+                state.routing.homeScene.showNewGameScene = false
+                state.routing.homeScene.gameId = game.id
             }
         }
     }

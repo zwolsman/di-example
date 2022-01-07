@@ -9,6 +9,7 @@ enum APIRepository {
     case profile(id: String? = nil)
     case games
     case game(id: String)
+    case createGame(initialBet: Int, bombs: Int, colorId: Int)
     case guess(gameId: String, tileId: Int)
     case cashOut(gameId: String)
     case signUp(email: String, fullName: String, authCode: String, identityToken: String)
@@ -25,6 +26,12 @@ struct SignUpPayload: Codable {
 struct VerifyPayload: Codable {
     var authCode: String
     var identityToken: String
+}
+
+struct CreateGamePayload: Codable {
+    var initialBet: Int
+    var bombs: Int
+    var colorId: Int
 }
 
 // MARK: - TargetType Protocol Implementation
@@ -50,7 +57,7 @@ extension APIRepository: AuthorizedTargetType {
             }
             return "/v1/profiles/\(profileId)"
 
-        case .games:
+        case .games, .createGame:
             return "/v1/games"
         case let .game(gameId):
             return "/v1/games/\(gameId)"
@@ -71,6 +78,8 @@ extension APIRepository: AuthorizedTargetType {
             return .get
         case .game, .games:
             return .get
+        case .createGame:
+            return .post
         case .guess:
             return .put
         case .cashOut:
@@ -90,6 +99,9 @@ extension APIRepository: AuthorizedTargetType {
             return .requestJSONEncodable(payload)
         case let .verify(authCode, identityToken):
             let payload = VerifyPayload(authCode: authCode, identityToken: identityToken)
+            return .requestJSONEncodable(payload)
+        case let .createGame(initialBet, bombs, colorId):
+            let payload = CreateGamePayload(initialBet: initialBet, bombs: bombs, colorId: colorId)
             return .requestJSONEncodable(payload)
         case let .guess(_, tileId):
             return .requestParameters(parameters: ["tileId": tileId], encoding: URLEncoding.queryString)

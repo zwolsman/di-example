@@ -13,7 +13,7 @@ protocol GameService {
     func load(game: LoadableSubject<Game>, gameId: String)
     func load(gameDetails: LoadableSubject<Game.Details>, gameId: String)
 
-    func create(initialBet: Int, color: Color, bombs: Int) async -> String
+    func create(game: LoadableSubject<Game>, initialBet: Int, color: Color, bombs: Int)
     func guess(game: LoadableSubject<Game>, gameId: String, tileId: Int)
     func cashOut(game: LoadableSubject<Game>, gameId: String)
 
@@ -129,8 +129,20 @@ struct RemoteGameService: GameService {
 
     }
 
-    func create(initialBet: Int, color: Color, bombs: Int) async -> String {
-        ""
+    func create(game: LoadableSubject<Game>, initialBet: Int, color: Color, bombs: Int) {
+        let cancelBag = CancelBag()
+        game.wrappedValue.setIsLoading(cancelBag: cancelBag)
+
+        let colorId = Game.colors.firstIndex(of: color)!
+
+        provider
+                .requestPublisher(.createGame(initialBet: initialBet, bombs: bombs, colorId: colorId))
+                .map(GameResponse.self)
+                .map(GameResponse.toDomain)
+                .sinkToLoadable {
+                    game.wrappedValue = $0
+                }
+                .store(in: cancelBag)
     }
 
     func guess(game: LoadableSubject<Game>, gameId: String, tileId: Int) {
@@ -183,8 +195,8 @@ struct StubGameService: GameService {
 
     }
 
-    func create(initialBet: Int, color: Color, bombs: Int) async -> String {
-        ""
+    func create(game: LoadableSubject<Game>, initialBet: Int, color: Color, bombs: Int) {
+
     }
 
     func guess(game: LoadableSubject<Game>, gameId: String, tileId: Int) {
@@ -192,7 +204,7 @@ struct StubGameService: GameService {
     }
 
     func cashOut(game: LoadableSubject<Game>, gameId: String) {
-        0
+
     }
 
     func removeGames(ids: [String]) {
