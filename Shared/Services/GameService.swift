@@ -42,33 +42,6 @@ struct GameResponse: Decodable {
     }
 }
 
-extension Tile {
-    static func from(string source: String) -> (tileId: Int, tile: Tile)? {
-        let tileTypeIndex = source.index(source.startIndex, offsetBy: 2)
-        let stateIndex = source.index(after: tileTypeIndex)
-
-        guard let tileId = Int(source[..<tileTypeIndex]) else {
-            return nil
-        }
-
-        let state = source[stateIndex...]
-        switch source[tileTypeIndex] {
-        case "B":
-            switch state {
-            case "T", "F":
-                return (tileId, .bomb(revealedByUser: state == "T"))
-            default:
-                return nil
-            }
-        case "P":
-            let amount = Int(state)!
-            return (tileId, .points(amount: amount))
-        default:
-            return nil
-        }
-    }
-}
-
 extension GameResponse {
 
     static func toDomain(response: Self) -> Game {
