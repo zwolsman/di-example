@@ -95,13 +95,24 @@ extension GameScene {
         }
 
         private func createTileButtonConfig(tileId: Int) -> TileButton.Configuration {
-            guard case let Loadable.loaded(game) = game else {
+            let _game: Game
+            switch game {
+            case let .loaded(game):
+                _game = game
+            case let .isLoading(last, _):
+                if let game = last {
+                    _game = game
+                } else {
+                    fallthrough
+                }
+            default:
                 return TileButton.Configuration(id: tileId)
             }
+
             return TileButton.Configuration(
                     id: tileId,
-                    tile: game.tiles[tileId],
-                    color: game.color
+                    tile: _game.tiles[tileId],
+                    color: _game.color
             ) { [weak self] in
                 self?.guess(tileId: tileId)
             }
@@ -117,6 +128,8 @@ extension GameScene {
                 UINotificationFeedbackGenerator().notificationOccurred(.error)
             case .points:
                 UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+            default:
+                break
             }
         }
 

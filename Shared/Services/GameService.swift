@@ -151,6 +151,12 @@ struct RemoteGameService: GameService {
         let cancelBag = CancelBag()
         game.wrappedValue.setIsLoading(cancelBag: cancelBag)
 
+        game.wrappedValue = game.wrappedValue.map {
+            var game = $0
+            game.tiles[tileId] = .loading
+            return game
+        }
+
         provider
                 .requestPublisher(.guess(gameId: gameId, tileId: tileId))
                 .map(GameResponse.self)

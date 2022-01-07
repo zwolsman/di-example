@@ -29,8 +29,8 @@ struct GameScene: View {
     private var content: some View {
         switch viewModel.game {
         case .notRequested: notRequestedView
-        case .isLoading: loadingView
-        case let .loaded(gameDetails): loadedView(gameDetails)
+        case let .isLoading(game, _): loadingView(game)
+        case let .loaded(game): loadedView(game)
         case let .failed(error): failedView(error)
         }
     }
@@ -51,12 +51,17 @@ private extension GameScene {
         Text("").onAppear(perform: viewModel.loadGame)
     }
 
-    var loadingView: some View {
-        VStack {
-            ActivityIndicatorView()
-            Button(action: {
-                viewModel.game.cancelLoading()
-            }, label: { Text("Cancel loading") })
+    @ViewBuilder
+    func loadingView(_ previouslyLoaded: Game?) -> some View {
+        if let game = previouslyLoaded {
+            loadedView(game)
+        } else {
+            VStack {
+                ActivityIndicatorView()
+                Button(action: {
+                    viewModel.game.cancelLoading()
+                }, label: { Text("Cancel loading") })
+            }
         }
     }
 

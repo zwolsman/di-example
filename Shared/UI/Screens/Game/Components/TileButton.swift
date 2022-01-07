@@ -28,6 +28,8 @@ struct TileButton: View {
             return Color("BombTileColor")
         case .bomb(false):
             return Color("TileColor")
+        case .loading:
+            return Color("TileColor")
         case .points(_):
             return gameColor
         }
@@ -45,10 +47,12 @@ struct TileButton: View {
             return .white
         case .bomb(false):
             return .primary
+        case .loading:
+            return .clear
         }
     }
 
-    private var isDisabled: Bool {
+    private var isEnabled: Bool {
         tile == nil
     }
 
@@ -62,20 +66,24 @@ struct TileButton: View {
             return "BOMB"
         case let .points(amount):
             return amount.abbr()
+        case .loading:
+            return ""
         }
     }
 
     var body: some View {
         Button(action: action) {
-            Rectangle()
-                    .foregroundColor(tileColor)
-                    .overlay {
-                        Text(text)
-                                .foregroundColor(textColor)
-                    }
-                    .aspectRatio(1, contentMode: .fit)
-                    .allowsHitTesting(!isDisabled)
-        }
+            ZStack {
+                Rectangle()
+                        .foregroundColor(tileColor)
+                        .aspectRatio(1, contentMode: .fit)
+                Text(text)
+                        .foregroundColor(textColor)
+                if (tile == .loading) {
+                    ProgressView()
+                }
+            }
+        }.allowsHitTesting(isEnabled)
     }
 }
 
@@ -84,17 +92,27 @@ struct TileButton_Previews: PreviewProvider {
 
     static var previews: some View {
         allTheButtons
-            .previewLayout(.sizeThatFits)
-            .preferredColorScheme(.light)
-            
+                .preferredColorScheme(.light)
+
         allTheButtons
-            .previewLayout(.sizeThatFits)
-            .preferredColorScheme(.dark)
+                .preferredColorScheme(.dark)
     }
-    
+
     static var allTheButtons: some View {
         ScrollView {
             LazyVGrid(columns: COLUMNS) {
+                TileButton(config: TileButton.Configuration(id: 0, tile: nil, color: .clear) {
+                })
+                TileButton(config: TileButton.Configuration(id: 0, tile: nil, color: .clear) {
+                })
+                TileButton(config: TileButton.Configuration(id: 0, tile: .bomb(revealedByUser: true), color: .clear) {
+                })
+                TileButton(config: TileButton.Configuration(id: 0, tile: .bomb(revealedByUser: false), color: .clear) {
+                })
+                TileButton(config: TileButton.Configuration(id: 0, tile: .loading, color: .clear) {
+                })
+
+
                 ForEach(Game.colors, id: \.self) { color in
                     ForEach(1...5, id: \.self) { i in
                         let amount = Int(truncating: pow(10, i) as NSNumber)
@@ -103,14 +121,6 @@ struct TileButton_Previews: PreviewProvider {
                         TileButton(config: config)
                     }
                 }
-
-                TileButton(config: TileButton.Configuration(id: 0, tile: .bomb(revealedByUser: true), color: .clear) {
-                })
-                TileButton(config: TileButton.Configuration(id: 0, tile: .bomb(revealedByUser: false), color: .clear) {
-                })
-                TileButton(config: TileButton.Configuration(id: 0, tile: nil, color: .clear) {
-                })
-
             }.padding()
         }
     }

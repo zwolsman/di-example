@@ -66,6 +66,7 @@ struct RemoteGame {
 
 // TODO: leaky
 enum Tile: Equatable {
+    case loading
     case bomb(revealedByUser: Bool)
     case points(amount: Int)
 }
