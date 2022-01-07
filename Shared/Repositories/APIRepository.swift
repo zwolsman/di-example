@@ -8,6 +8,7 @@ import Moya
 enum APIRepository {
     case profile(id: String? = nil)
     case games
+    case game(id: String)
     case signUp(email: String, fullName: String, authCode: String, identityToken: String)
     case verify(authCode: String, identityToken: String)
 }
@@ -49,6 +50,8 @@ extension APIRepository: AuthorizedTargetType {
 
         case .games:
             return "/v1/games"
+        case let .game(id):
+            return "/v1/games/\(id)"
         case .signUp:
             return "/v1/auth/sign-up"
         case .verify:
@@ -60,7 +63,7 @@ extension APIRepository: AuthorizedTargetType {
         switch self {
         case .profile:
             return .get
-        case .games:
+        case .game, .games:
             return .get
         case .signUp, .verify:
             return .post
@@ -69,7 +72,7 @@ extension APIRepository: AuthorizedTargetType {
 
     var task: Task {
         switch self {
-        case .profile, .games:
+        case .profile, .game, .games:
             return .requestPlain
 
         case let .signUp(email, fullName, authCode, identityToken):
