@@ -14,7 +14,7 @@ struct Game: Equatable, Identifiable {
     var next: Int
     var multiplier: Double
     var color: Color
-    var state: State
+    var isActive: Bool
 }
 
 extension Game {

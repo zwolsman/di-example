@@ -159,7 +159,7 @@ private extension HomeScene {
 //                    }
                     .swipeActions(edge: .trailing) {
 //                        archiveButton(game)
-                        if game.state != .inGame {
+                        if !game.isActive {
                             deleteButton(game)
                         }
                     }

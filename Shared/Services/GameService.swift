@@ -5,6 +5,7 @@
 import Combine
 import Foundation
 import SwiftUI
+import Moya
 
 protocol GameService {
     func refreshGames() -> AnyPublisher<Void, Error>
@@ -164,9 +165,105 @@ class LocalGameService: GameService {
     }
 }
 
+struct GameResponse: Decodable {
+    var id: String
+    var tiles: [String]
+    var stake: Int
+    var next: Int
+    var state: State
+    var secret: String
+    var plain: String?
+
+    enum State: String, Codable {
+        case inGame = "IN_GAME"
+        case hitBomb = "HIT_BOMB"
+        case cashedOut = "CASHED_OUT"
+    }
+}
+
+extension GameResponse {
+
+    static func toDomain(response: Self) -> Game {
+        let tiles = response.tiles.reduce(into: [Int: Tile]()) { result, tile in
+            let tileTypeIndex = tile.index(tile.startIndex, offsetBy: 2)
+            let stateIndex = tile.index(after: tileTypeIndex)
+
+            let tileId = Int(tile[..<tileTypeIndex])!
+            let state = tile[stateIndex...]
+            switch tile[tileTypeIndex] {
+            case "B":
+                if state == "T" {
+                    result[tileId] = .bomb(revealedByUser: true)
+                }
+                if state == "F" {
+                    result[tileId] = .bomb(revealedByUser: false)
+                }
+                break
+            case "P":
+                let amount = Int(state)!
+                result[tileId] = .points(amount: amount)
+            default:
+                break
+            }
+        }
+
+        return Game(id: response.id, tiles: tiles, secret: response.secret, stake: response.stake, next: response.next, multiplier: 1, color: .red, isActive: response.state == .inGame)
+    }
+}
+
+struct RemoteGameService: GameService {
+    let appState: Store<AppState>
+    let provider: MoyaProvider<APIRepository>
+
+    func refreshGames() -> AnyPublisher<Void, Error> {
+        Just<Void>.withErrorType(Error.self)
+    }
+
+    func loadGames() {
+        let cancelBag = CancelBag()
+        appState[\.userData.games].setIsLoading(cancelBag: cancelBag)
+        weak var weakAppState = appState
+
+        provider
+                .requestPublisher(.games)
+                .map([GameResponse].self, using: JSONDecoder())
+                .map { games in
+                    games.map(GameResponse.toDomain)
+                }
+                .sinkToLoadable {
+                    weakAppState?[\.userData.games] = $0
+                }
+                .store(in: cancelBag)
+    }
+
+    func load(game: LoadableSubject<Game>, gameId: String) {
+
+    }
+
+    func load(gameDetails: LoadableSubject<Game.Details>, gameId: String) {
+
+    }
+
+    func create(initialBet: Int, color: Color, bombs: Int) async -> String {
+        ""
+    }
+
+    func guess(game: LoadableSubject<Game>, gameId: String, tileId: Int) async -> Tile? {
+        nil
+    }
+
+    func cashOut(game: LoadableSubject<Game>, gameId: String) async -> Int {
+        0
+    }
+
+    func removeGames(ids: [String]) {
+
+    }
+}
+
 private extension RemoteGame {
     func toGame() -> Game {
-        Game(id: id, tiles: tiles, secret: secret, stake: stake, next: next, multiplier: multiplier, color: Game.colors[colorId], state: state)
+        Game(id: id, tiles: tiles, secret: secret, stake: stake, next: next, multiplier: multiplier, color: Game.colors[colorId], isActive: state == .inGame)
     }
 
     func toDetails() -> Game.Details {

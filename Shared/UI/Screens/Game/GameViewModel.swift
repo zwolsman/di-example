@@ -29,7 +29,7 @@ extension GameScene {
             guard case let Loadable.loaded(game) = game else {
                 return false
             }
-            return game.state == .inGame
+            return game.isActive
         }
 
         // Misc

@@ -68,7 +68,7 @@ extension ContentView {
 
         func validateUser() {
             guard let userId = UserDefaults.standard.string(forKey: "user.id"),
-                  let _ = UserDefaults.standard.string(forKey: "access_token") else {
+                  let accessToken = UserDefaults.standard.string(forKey: "access_token") else {
                 print("could not recover user")
                 authenticated = false
                 return
@@ -84,6 +84,7 @@ extension ContentView {
 
                 if credentialState == .authorized {
                     print("user still valid")
+                    print("token: \(accessToken)")
                     self?.authenticated = true
                 }
             }

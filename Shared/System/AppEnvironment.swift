@@ -31,7 +31,7 @@ extension AppEnvironment {
 
     private static func configuredServices(appState: Store<AppState>, provider: MoyaProvider<APIRepository>) -> DIContainer.Services {
 
-        let gameService = LocalGameService(appState: appState, repo: LocalGameRepository())
+        let gameService = RemoteGameService(appState: appState, provider: provider) // LocalGameService(appState: appState, repo: LocalGameRepository())
         let profileService = RemoteProfileService(appState: appState, provider: provider)
         let authService = RemoteAuthService(provider: provider)
 
