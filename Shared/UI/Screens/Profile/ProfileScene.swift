@@ -118,7 +118,7 @@ private extension ProfileScene {
 //
 //            achievementSection(profile.achievements)
 
-            signOutButton()
+//            signOutButton()
 
 
         }.listStyle(.insetGrouped)
