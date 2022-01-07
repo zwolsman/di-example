@@ -10,7 +10,9 @@ typealias Store<State> = CurrentValueSubject<State, Never>
 extension Store {
 
     subscript<T>(keyPath: WritableKeyPath<Output, T>) -> T where T: Equatable {
-        get { value[keyPath: keyPath] }
+        get {
+            value[keyPath: keyPath]
+        }
         set {
             var value = self.value
             if value[keyPath: keyPath] != newValue {
@@ -49,10 +51,10 @@ extension Binding where Value: Equatable {
     typealias ValueClosure = (Value) -> Void
 
     func onSet(_ perform: @escaping ValueClosure) -> Self {
-        return .init(get: { () -> Value in
-            self.wrappedValue
+        .init(get: { () -> Value in
+            wrappedValue
         }, set: { value in
-            if self.wrappedValue != value {
+            if wrappedValue != value {
                 self.wrappedValue = value
             }
             perform(value)

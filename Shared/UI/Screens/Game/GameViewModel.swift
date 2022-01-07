@@ -70,13 +70,16 @@ extension GameScene {
                 self?.cashOutFeedback(game: game)
             }
 
-            container.services.gameService
+            container
+                    .services
+                    .gameService
                     .cashOut(game: gameSubject, gameId: gameId)
 
         }
 
         func guess(tileId: Int) {
-            // TODO: ideal world loadableSubject(\.game).onLoaded(notificationFeedback(game:))
+            // TODO: ideal world
+            // loadableSubject(\.game).onLoaded(notificationFeedback(game:))
             let gameSubject = loadableSubject(\.game).onSet { [weak self] game in
                 guard case let .loaded(game) = game else {
                     return
