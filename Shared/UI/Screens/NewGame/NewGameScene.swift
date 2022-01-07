@@ -30,6 +30,17 @@ struct NewGameScene: View {
 }
 
 // MARK: - Displaying Content
+private extension Button {
+    func pointButtonStyle() -> some View {
+        self
+                .buttonStyle(.borderless)
+                .padding(8)
+                .frame(maxWidth: .infinity)
+                .background(
+                        RoundedRectangle(cornerRadius: 8)
+                                .fill(Color(.systemGray5)))
+    }
+}
 
 private extension NewGameScene {
     func loadedView() -> some View {
@@ -46,8 +57,35 @@ private extension NewGameScene {
                 }
             }
 
-            Section(footer: Text("You can adjust your stake in later versions")) {
-                Text("Stake: 100")
+            Section(footer: Text("A game's initial bet should be higher than 100 points and lower than \(Int.max.formatted()).")) {
+                VStack {
+                    TextField("Points", text: $viewModel.pointsText)
+                            .keyboardType(.numberPad)
+                            .multilineTextAlignment(.center)
+                            .lineLimit(1)
+                            .padding()
+
+                    LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]) {
+
+                        Button("MIN", action: viewModel.setToMinPoints)
+                                .pointButtonStyle()
+
+                        Button("0", action: viewModel.resetPoints)
+                                .pointButtonStyle()
+
+                        Button("MAX", action: viewModel.setToMaxPoints)
+                                .pointButtonStyle()
+
+                        ForEach([100, 1000, 10000, -100, -1000, -10000], id: \.self) { points in
+                            let label = (points > 0 ? "+" : "") + points.formatted()
+                            Button(label) {
+                                viewModel.modifyPoints(points)
+                            }
+                                    .pointButtonStyle()
+
+                        }
+                    }
+                }
             }
 
             Button("Create game", action: viewModel.createGame)

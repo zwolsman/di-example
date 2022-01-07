@@ -21,7 +21,11 @@ extension NewGameScene {
         @Published var routingState: Routing
         @Published var color: Color = Game.colors[0]
         @Published var bombs: Bombs = .three
-        @Published var bet: Int = 100
+        @Published var pointsText: String = "100"
+
+        var points: Int? {
+            Int.from(string: pointsText)
+        }
 
         @Published var newGame: Loadable<Game> = .notRequested
 
@@ -50,6 +54,7 @@ extension NewGameScene {
 
         // MARK: - Side effects
 
+        // MARK: - Creating game
         func createGame() {
             let game = loadableSubject(\.newGame).onSet { [weak self] game in
                 guard case let .loaded(game) = game else {
@@ -57,11 +62,15 @@ extension NewGameScene {
                 }
                 self?.gameCreated(game)
             }
+            guard let points = points else {
+                print("Points are invalid")
+                return
+            }
 
             container
                     .services
                     .gameService
-                    .create(game: game, initialBet: bet, color: color, bombs: bombs.rawValue)
+                    .create(game: game, initialBet: points, color: color, bombs: bombs.rawValue)
         }
 
         private func gameCreated(_ game: Game) {
@@ -86,6 +95,30 @@ extension NewGameScene {
                 state.routing.homeScene.showNewGameScene = false
                 state.routing.homeScene.gameId = game.id
             }
+        }
+
+        // MARK: - Modify points
+
+        func setToMinPoints() {
+            pointsText = "100"
+        }
+
+        func setToMaxPoints() {
+            guard let profile = container.appState[\.userData.profile].value else {
+                return
+            }
+            pointsText = "\(profile.points.formatted())"
+        }
+
+        func resetPoints() {
+            pointsText = "0"
+        }
+
+        func modifyPoints(_ diff: Int) {
+            guard let points = points else {
+                return
+            }
+            pointsText = "\((points + diff).formatted())"
         }
     }
 }

@@ -8,15 +8,22 @@ extension Int {
     static func formatted(_ value: Int) -> String {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
+        
         return formatter.string(from: NSNumber(value: value))!
+    }
+    static func from(string: String) -> Int? {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+
+        return formatter.number(from: string) as? Int
     }
 
     func formatted() -> String {
-        return Int.formatted(self)
+        Int.formatted(self)
     }
 
     func abbr() -> String {
-        return Int.abbr(self)
+        Int.abbr(self)
     }
 
     static func abbr(_ value: Int) -> String {
@@ -26,7 +33,7 @@ extension Int {
         num = fabs(num)
 
         if (num < 1000) {
-            return "\(sign)\(Int.formatted(value))"
+            return "\(sign)\(value.formatted())"
         }
 
         let exp = Int(log10(num) / 3)
