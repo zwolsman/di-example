@@ -275,7 +275,19 @@ struct RemoteGameService: GameService {
     }
 
     func cashOut(game: LoadableSubject<Game>, gameId: String) async -> Int {
-        0
+        let cancelBag = CancelBag()
+        game.wrappedValue.setIsLoading(cancelBag: cancelBag)
+
+        provider
+                .requestPublisher(.cashOut(gameId: gameId))
+                .map(GameResponse.self)
+                .map(GameResponse.toDomain)
+                .sinkToLoadable {
+                    game.wrappedValue = $0
+                }
+                .store(in: cancelBag)
+
+        return 0
     }
 
     func removeGames(ids: [String]) {

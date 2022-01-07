@@ -10,6 +10,7 @@ enum APIRepository {
     case games
     case game(id: String)
     case guess(gameId: String, tileId: Int)
+    case cashOut(gameId: String)
     case signUp(email: String, fullName: String, authCode: String, identityToken: String)
     case verify(authCode: String, identityToken: String)
 }
@@ -55,6 +56,8 @@ extension APIRepository: AuthorizedTargetType {
             return "/v1/games/\(gameId)"
         case let .guess(gameId, _):
             return "/v1/games/\(gameId)/guess"
+        case let .cashOut(gameId):
+            return "/v1/games/\(gameId)/cash-out"
         case .signUp:
             return "/v1/auth/sign-up"
         case .verify:
@@ -70,6 +73,8 @@ extension APIRepository: AuthorizedTargetType {
             return .get
         case .guess:
             return .put
+        case .cashOut:
+            return .put
         case .signUp, .verify:
             return .post
         }
@@ -77,7 +82,7 @@ extension APIRepository: AuthorizedTargetType {
 
     var task: Task {
         switch self {
-        case .profile, .game, .games:
+        case .profile, .game, .games, .cashOut:
             return .requestPlain
 
         case let .signUp(email, fullName, authCode, identityToken):
