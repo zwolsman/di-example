@@ -8,7 +8,6 @@ import SwiftUI
 import Moya
 
 protocol GameService {
-    func refreshGames() -> AnyPublisher<Void, Error>
     func loadGames()
     func load(game: LoadableSubject<Game>, gameId: String)
     func load(gameDetails: LoadableSubject<Game.Details>, gameId: String)
@@ -20,11 +19,15 @@ protocol GameService {
     func removeGames(ids: [String])
 }
 
+struct GamesResponse: Decodable {
+    var games: [GameResponse]
+}
+
 struct GameResponse: Decodable {
     var id: String
     var tiles: [String]
     var stake: Int
-    var next: Int
+    var next: Int?
     var state: State
     var secret: String
     var plain: String?
@@ -90,10 +93,6 @@ struct RemoteGameService: GameService {
     let appState: Store<AppState>
     let provider: MoyaProvider<APIRepository>
 
-    func refreshGames() -> AnyPublisher<Void, Error> {
-        Just<Void>.withErrorType(Error.self)
-    }
-
     func loadGames() {
         let cancelBag = CancelBag()
         appState[\.userData.games].setIsLoading(cancelBag: cancelBag)
@@ -101,7 +100,8 @@ struct RemoteGameService: GameService {
 
         provider
                 .requestPublisher(.games)
-                .map([GameResponse].self)
+                .map(GamesResponse.self)
+                .map(\.games)
                 .map { games in
                     games.map(GameResponse.toDomain)
                 }
@@ -179,9 +179,6 @@ struct RemoteGameService: GameService {
 }
 
 struct StubGameService: GameService {
-    func refreshGames() -> AnyPublisher<Void, Error> {
-        Just<Void>.withErrorType(Error.self)
-    }
 
     func loadGames() {
 

@@ -15,13 +15,13 @@ struct HomeScene: View {
     let inspection = Inspection<Self>()
 
     var body: some View {
-            content
-                    .navigationBarTitle("Home")
-                    .listStyle(.grouped)
-                    .toolbar {
-                        newGameButton
-                    }
-                    .navigationBarBackButtonHidden(true)
+        content
+                .navigationBarTitle("Home")
+                .listStyle(.grouped)
+                .toolbar {
+                    newGameButton
+                }
+                .navigationBarBackButtonHidden(true)
                 .onReceive(inspection.notice) {
                     inspection.visit(self, $0)
                 }
@@ -32,6 +32,8 @@ struct HomeScene: View {
             profileContent
 
             gamesContent
+        }.refreshable {
+            viewModel.loadGames()
         }
     }
 
@@ -141,7 +143,7 @@ private extension HomeScene {
             } label: {
                 Label("Archive", systemImage: "archivebox")
             }
-            .tint(.blue)
+                    .tint(.blue)
         }
 
         func gameRow(_ game: Game) -> some View {
@@ -152,11 +154,11 @@ private extension HomeScene {
             ) {
                 GameRow(game: game)
             }
-//                    .swipeActions(edge: .leading) {
-//                        if game.state != .inGame {
-//                            highlightButton(game)
-//                        }
-//                    }
+                    //                    .swipeActions(edge: .leading) {
+                    //                        if game.state != .inGame {
+                    //                            highlightButton(game)
+                    //                        }
+                    //                    }
                     .swipeActions(edge: .trailing) {
 //                        archiveButton(game)
                         if !game.isActive {

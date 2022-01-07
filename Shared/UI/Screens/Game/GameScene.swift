@@ -81,7 +81,7 @@ private extension GameScene {
                     .allowsHitTesting(viewModel.canPlay)
 
             PointsGrid(items: [
-                .init("Next", amount: game.next),
+                .init(name: "Next", amount: game.next?.formatted() ?? "-"),
                 .init("Stake", amount: game.stake),
                 .init("Multiplier", amount: game.multiplier),
             ])
