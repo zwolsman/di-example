@@ -20,6 +20,7 @@ extension GameInfoScene {
         @Published var routingState: Routing
         @Published var game: Loadable<Game>
         @Published var showPlain: Bool = false
+        @Published var abbreviatePoints: Bool = true
 
         var secret: String {
             guard let game = game.value else {
@@ -42,6 +43,30 @@ extension GameInfoScene {
             }
 
             return "\n\(plain)\n"
+        }
+
+        var initialStake: String {
+            guard let game = game.value else {
+                return ""
+            }
+
+            if abbreviatePoints {
+                return game.initialBet.abbr()
+            } else {
+                return game.initialBet.formatted()
+            }
+        }
+
+        var stake: String {
+            guard let game = game.value else {
+                return ""
+            }
+
+            if abbreviatePoints {
+                return game.stake.abbr()
+            } else {
+                return game.stake.formatted()
+            }
         }
 
 
@@ -69,6 +94,10 @@ extension GameInfoScene {
 
         func loadGame() {
             container.services.gameService.load(game: loadableSubject(\.game), gameId: gameId)
+        }
+
+        func toggleAbbreviatePoints() {
+            abbreviatePoints.toggle()
         }
 
         func toggleSecret() {
