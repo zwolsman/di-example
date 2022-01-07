@@ -10,7 +10,6 @@ import Moya
 protocol GameService {
     func loadGames()
     func load(game: LoadableSubject<Game>, gameId: String)
-    func load(gameDetails: LoadableSubject<Game.Details>, gameId: String)
 
     func create(game: LoadableSubject<Game>, initialBet: Int, color: Color, bombs: Int)
     func guess(game: LoadableSubject<Game>, gameId: String, tileId: Int)
@@ -33,6 +32,8 @@ struct GameResponse: Decodable {
     var secret: String
     var colorId: Int
     var plain: String?
+    var initialBet: Int
+    var bombs: Int
 
     enum State: String, Codable {
         case inGame = "IN_GAME"
@@ -86,6 +87,9 @@ extension GameResponse {
                 color: Game.colors[response.colorId],
                 isActive: response.state == .inGame,
                 isCashedOut: response.state == .cashedOut,
+                initialBet: response.initialBet,
+                bombs: response.bombs,
+                plain: response.plain,
                 lastTile: orderedTiles.last?.tile
         )
     }
@@ -125,10 +129,6 @@ struct RemoteGameService: GameService {
                     game.wrappedValue = $0
                 }
                 .store(in: cancelBag)
-    }
-
-    func load(gameDetails: LoadableSubject<Game.Details>, gameId: String) {
-
     }
 
     func create(game: LoadableSubject<Game>, initialBet: Int, color: Color, bombs: Int) {
@@ -193,10 +193,6 @@ struct StubGameService: GameService {
     }
 
     func load(game: LoadableSubject<Game>, gameId: String) {
-
-    }
-
-    func load(gameDetails: LoadableSubject<Game.Details>, gameId: String) {
 
     }
 

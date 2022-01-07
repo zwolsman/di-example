@@ -18,19 +18,30 @@ extension GameInfoScene {
     class ViewModel: ObservableObject {
         // State
         @Published var routingState: Routing
-        @Published var gameDetails: Loadable<Game.Details>
+        @Published var game: Loadable<Game>
         @Published var showPlain: Bool = false
 
         var secret: String {
-            (gameDetails.value?.secret ?? "").chunked(into: 4).joined(separator: " ")
+            guard let game = game.value else {
+                return ""
+            }
+
+            return game.secret.chunked(into: 4).joined(separator: " ")
         }
 
         var hasPlain: Bool {
-            gameDetails.value?.plain != nil
+            guard let _ = game.value?.plain else {
+                return false
+            }
+            return true
         }
 
         var plain: String {
-            "\n" + (gameDetails.value?.plain ?? "") + "\n"
+            guard let plain = game.value?.plain else {
+                return "\n\n\n"
+            }
+
+            return "\n\(plain)\n"
         }
 
 
@@ -39,11 +50,11 @@ extension GameInfoScene {
         private var cancelBag = CancelBag()
         var gameId: String
 
-        init(container: DIContainer, gameId: String, gameDetails: Loadable<Game.Details> = .notRequested) {
+        init(container: DIContainer, gameId: String, game: Loadable<Game> = .notRequested) {
             self.container = container
             let appState = container.appState
             _routingState = .init(initialValue: appState.value.routing.gameDetailsScene)
-            _gameDetails = .init(initialValue: gameDetails)
+            _game = .init(initialValue: game)
             self.gameId = gameId
             cancelBag.collect {
                 $routingState
@@ -56,8 +67,8 @@ extension GameInfoScene {
             }
         }
 
-        func loadGameDetails() {
-            container.services.gameService.load(gameDetails: loadableSubject(\.gameDetails), gameId: gameId)
+        func loadGame() {
+            container.services.gameService.load(game: loadableSubject(\.game), gameId: gameId)
         }
 
         func toggleSecret() {

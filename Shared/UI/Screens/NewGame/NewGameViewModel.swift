@@ -19,9 +19,9 @@ extension NewGameScene {
     class ViewModel: ObservableObject {
         // State
         @Published var routingState: Routing
-        @Published var color: Color = Game.colors[0]
-        @Published var bombs: Bombs = .three
-        @Published var pointsText: String = "100"
+        @Published var color: Color
+        @Published var bombs: Bombs
+        @Published var pointsText: String
 
         var points: Int? {
             Int.from(string: pointsText)
@@ -41,6 +41,17 @@ extension NewGameScene {
             self.container = container
             let appState = container.appState
             _routingState = .init(initialValue: appState.value.routing.newGameScene)
+
+            if let lastGame = appState.value.userData.games.value?.first {
+                color = lastGame.color
+                bombs = .init(rawValue: lastGame.bombs) ?? .three
+                pointsText = lastGame.initialBet.formatted()
+            } else {
+                color = Game.colors[0]
+                bombs = .three
+                pointsText = "100"
+            }
+
             cancelBag.collect {
                 $routingState
                         .sink {

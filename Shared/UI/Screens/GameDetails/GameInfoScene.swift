@@ -24,10 +24,10 @@ struct GameInfoScene: View {
 
     @ViewBuilder
     private var content: some View {
-        switch viewModel.gameDetails {
+        switch viewModel.game {
         case .notRequested: notRequestedView
         case .isLoading: loadingView
-        case let .loaded(gameDetails): loadedView(gameDetails)
+        case let .loaded(game): loadedView(game)
         case let .failed(error): failedView(error)
         }
     }
@@ -37,14 +37,14 @@ struct GameInfoScene: View {
 
 private extension GameInfoScene {
     var notRequestedView: some View {
-        Text("").onAppear(perform: viewModel.loadGameDetails)
+        Text("").onAppear(perform: viewModel.loadGame)
     }
 
     var loadingView: some View {
         VStack {
             ActivityIndicatorView()
             Button(action: {
-                viewModel.gameDetails.cancelLoading()
+                viewModel.game.cancelLoading()
             }, label: { Text("Cancel loading") })
         }
     }
@@ -57,24 +57,24 @@ private extension GameInfoScene {
 // MARK: - Displaying Content
 
 private extension GameInfoScene {
-    func loadedView(_ gameDetails: Game.Details) -> some View {
+    func loadedView(_ game: Game) -> some View {
         List {
-            basicInfo(details: gameDetails)
-            secretInfo(details: gameDetails)
+            basicInfo(game)
+            secretInfo(game)
         }
     }
 
-    private func basicInfo(details: Game.Details) -> some View {
+    private func basicInfo(_ game: Game) -> some View {
         Section(header: Text("Info")) {
-            DetailRow(left: Text("Initial stake"), right: Text("\(details.initialStake.formatted()) points"))
-            DetailRow(left: Text("Stake"), right: Text("\(details.stake.formatted()) points"))
-            DetailRow(left: Text("Multiplier"), right: Text("\(details.multiplier.formatted())x"))
-            DetailRow(left: Text("Bombs"), right: Text("\(details.bombs)"))
-            DetailRow(left: Text("Color"), right: ColorCell(color: details.color))
+            DetailRow(left: Text("Initial stake"), right: Text("\(game.initialBet.formatted()) points"))
+            DetailRow(left: Text("Stake"), right: Text("\(game.stake.formatted()) points"))
+            DetailRow(left: Text("Multiplier"), right: Text("\(game.multiplier.formatted())x"))
+            DetailRow(left: Text("Bombs"), right: Text("\(game.bombs)"))
+            DetailRow(left: Text("Color"), right: ColorCell(color: game.color))
         }
     }
 
-    private func secretInfo(details: Game.Details) -> some View {
+    private func secretInfo(_ game: Game) -> some View {
         Section(header: Text("Game secret"), footer: secretFooter()) {
             Text(viewModel.showPlain ? viewModel.plain : viewModel.secret)
                     .multilineTextAlignment(.center)

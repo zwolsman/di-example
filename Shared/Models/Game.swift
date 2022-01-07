@@ -16,6 +16,9 @@ struct Game: Equatable, Identifiable {
     var color: Color
     var isActive: Bool
     var isCashedOut: Bool
+    var initialBet: Int
+    var bombs: Int
+    var plain: String?
 
     var lastTile: Tile? = nil
 }

@@ -66,7 +66,7 @@ struct HomeScene: View {
                     isActive: $viewModel.routingState.showNewGameScene
             ) {
                 Label("Create game", systemImage: "plus")
-            }
+            }.id("newGameButton")
         }
     }
 }
