@@ -24,7 +24,7 @@ extension AppEnvironment {
     private static func configureAPIRepository() -> MoyaProvider<APIRepository> {
         MoyaProvider<APIRepository>(
                 plugins: [
-                    AuthPlugin(tokenClosure: { UserDefaults.standard.string(forKey: "access_token") })
+                    AuthPlugin(tokenClosure: { UserDefaults.standard.string(forKey: "access_token") }),
                 ]
         )
     }

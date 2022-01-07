@@ -9,6 +9,7 @@ enum APIRepository {
     case profile(id: String? = nil)
     case games
     case game(id: String)
+    case guess(gameId: String, tileId: Int)
     case signUp(email: String, fullName: String, authCode: String, identityToken: String)
     case verify(authCode: String, identityToken: String)
 }
@@ -50,8 +51,10 @@ extension APIRepository: AuthorizedTargetType {
 
         case .games:
             return "/v1/games"
-        case let .game(id):
-            return "/v1/games/\(id)"
+        case let .game(gameId):
+            return "/v1/games/\(gameId)"
+        case let .guess(gameId, _):
+            return "/v1/games/\(gameId)/guess"
         case .signUp:
             return "/v1/auth/sign-up"
         case .verify:
@@ -65,6 +68,8 @@ extension APIRepository: AuthorizedTargetType {
             return .get
         case .game, .games:
             return .get
+        case .guess:
+            return .put
         case .signUp, .verify:
             return .post
         }
@@ -81,6 +86,8 @@ extension APIRepository: AuthorizedTargetType {
         case let .verify(authCode, identityToken):
             let payload = VerifyPayload(authCode: authCode, identityToken: identityToken)
             return .requestJSONEncodable(payload)
+        case let .guess(_, tileId):
+            return .requestParameters(parameters: ["tileId": tileId], encoding: URLEncoding.queryString)
         }
     }
 

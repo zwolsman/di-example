@@ -212,8 +212,8 @@ extension GameResponse {
 }
 
 struct RemoteGameService: GameService {
-    private let appState: Store<AppState>
-    private let provider: MoyaProvider<APIRepository>
+    let appState: Store<AppState>
+    let provider: MoyaProvider<APIRepository>
 
     func refreshGames() -> AnyPublisher<Void, Error> {
         Just<Void>.withErrorType(Error.self)
@@ -259,7 +259,19 @@ struct RemoteGameService: GameService {
     }
 
     func guess(game: LoadableSubject<Game>, gameId: String, tileId: Int) async -> Tile? {
-        nil
+        let cancelBag = CancelBag()
+        game.wrappedValue.setIsLoading(cancelBag: cancelBag)
+
+        provider
+                .requestPublisher(.guess(gameId: gameId, tileId: tileId))
+                .map(GameResponse.self)
+                .map(GameResponse.toDomain)
+                .sinkToLoadable {
+                    game.wrappedValue = $0
+                }
+                .store(in: cancelBag)
+
+        return nil
     }
 
     func cashOut(game: LoadableSubject<Game>, gameId: String) async -> Int {
