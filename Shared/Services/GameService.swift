@@ -28,6 +28,7 @@ struct GameResponse: Decodable {
     var tiles: [String]
     var stake: Int
     var next: Int?
+    var multiplier: Double
     var state: State
     var secret: String
     var plain: String?
@@ -80,7 +81,7 @@ extension GameResponse {
                 secret: response.secret,
                 stake: response.stake,
                 next: response.next,
-                multiplier: 1,
+                multiplier: response.multiplier,
                 color: .red,
                 isActive: response.state == .inGame,
                 isCashedOut: response.state == .cashedOut,
