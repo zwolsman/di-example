@@ -6,7 +6,7 @@ import Foundation
 
 extension Game {
     static let mockedData = [
-        Game(tiles: [:], secret: "secret", stake: 100, next: 15, multiplier: 1, color: .red, isActive: true)
+        Game(tiles: [:], secret: "secret", stake: 100, next: 15, multiplier: 1, color: .red, isActive: true, isCashedOut: false)
     ]
 }
 

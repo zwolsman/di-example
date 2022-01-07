@@ -15,6 +15,9 @@ struct Game: Equatable, Identifiable {
     var multiplier: Double
     var color: Color
     var isActive: Bool
+    var isCashedOut: Bool
+
+    var lastTile: Tile? = nil
 }
 
 extension Game {

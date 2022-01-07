@@ -63,26 +63,32 @@ extension GameScene {
         }
 
         func cashOut() {
-            Task {
-                let _ = await container.services.gameService
-                        .cashOut(game: loadableSubject(\.game), gameId: gameId)
-                await UINotificationFeedbackGenerator().notificationOccurred(.success)
+            let gameSubject = loadableSubject(\.game).onSet { [weak self] game in
+                guard case let .loaded(game) = game else {
+                    return
+                }
+                self?.cashOutFeedback(game: game)
             }
+
+            container.services.gameService
+                    .cashOut(game: gameSubject, gameId: gameId)
+
         }
 
         func guess(tileId: Int) {
-            Task {
-                guard let result = await container.services.gameService.guess(game: loadableSubject(\.game), gameId: gameId, tileId: tileId) else {
+            // TODO: ideal world loadableSubject(\.game).onLoaded(notificationFeedback(game:))
+            let gameSubject = loadableSubject(\.game).onSet { [weak self] game in
+                guard case let .loaded(game) = game else {
                     return
                 }
 
-                switch result {
-                case .bomb(_):
-                    await UINotificationFeedbackGenerator().notificationOccurred(.error)
-                case .points(_):
-                    await UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-                }
+                self?.guessFeedback(game: game)
             }
+
+            container
+                    .services
+                    .gameService
+                    .guess(game: gameSubject, gameId: gameId, tileId: tileId)
         }
 
         private func createTileButtonConfig(tileId: Int) -> TileButton.Configuration {
@@ -96,6 +102,26 @@ extension GameScene {
             ) { [weak self] in
                 self?.guess(tileId: tileId)
             }
+        }
+
+        private func guessFeedback(game: Game) {
+            guard let result = game.lastTile else {
+                return
+            }
+
+            switch result {
+            case .bomb:
+                UINotificationFeedbackGenerator().notificationOccurred(.error)
+            case .points:
+                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+            }
+        }
+
+        private func cashOutFeedback(game: Game) {
+            guard game.isCashedOut else {
+                return
+            }
+            UINotificationFeedbackGenerator().notificationOccurred(.success)
         }
     }
 }
