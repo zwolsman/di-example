@@ -97,10 +97,6 @@ private extension HomeScene {
 private extension HomeScene {
     @ViewBuilder
     func loadedGamesView(_ games: [Game], showLoading: Bool) -> some View {
-        if showLoading {
-            ActivityIndicatorView().padding()
-        }
-
         if games.isEmpty {
             VStack(alignment: .center) {
                 Text("No games to show right now.")
@@ -154,13 +150,7 @@ private extension HomeScene {
             ) {
                 GameRow(game: game)
             }
-                    //                    .swipeActions(edge: .leading) {
-                    //                        if game.state != .inGame {
-                    //                            highlightButton(game)
-                    //                        }
-                    //                    }
                     .swipeActions(edge: .trailing) {
-//                        archiveButton(game)
                         if !game.isActive {
                             deleteButton(game)
                         }
