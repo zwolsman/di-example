@@ -39,6 +39,8 @@ extension StoreScene {
             }
         }
 
+        //MARK: - Side effects
+
         func loadOffers() {
             container.services.storeService.loadOffers(offers: loadableSubject(\.offers))
         }

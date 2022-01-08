@@ -25,28 +25,45 @@ struct StoreScene: View {
     @ViewBuilder
     var content: some View {
         switch viewModel.offers {
+        case .notRequested:
+            notRequestedView
+        case .isLoading:
+            loadingView
         case let .loaded(offers):
             loadedView(offers)
         default:
             Text("TODO")
         }
     }
-    
+
+    var notRequestedView: some View {
+        Text("").onAppear(perform: viewModel.loadOffers)
+    }
+
+    var loadingView: some View {
+        HStack {
+            ProgressView()
+                    .padding()
+            Text("LOADING STORE")
+                    .foregroundColor(.secondary)
+        }
+    }
+
     func loadedView(_ offers: [Offer]) -> some View {
         List {
-            Section(footer: Text("The price you see here is artificial and will not be paid with real money. It does get substracted from your profile balance. Spend wisely.")) {
-            ForEach(offers) { offer in
-                Button(action: {}) {
-                    OfferRow(offer: offer)
+            Section(footer: Text("The price you see here is artificial and will not be paid with real money. It does get subtracted from your profile balance. Spend wisely.")) {
+                ForEach(offers) { offer in
+                    Button(action: {}) {
+                        OfferRow(offer: offer)
+                    }
                 }
-            }
             }
             Section(header: Text("Pay out")) {
                 Button(action: {}) {
                     HStack {
                         VStack(alignment: .leading) {
                             Text("Regular")
-                                .font(.title)
+                                    .font(.title)
                             Text("Add €4.00 to your profile balance")
                         }
                         Spacer()
