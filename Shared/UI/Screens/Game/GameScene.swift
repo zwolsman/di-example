@@ -35,9 +35,13 @@ struct GameScene: View {
         }
     }
 
+    private var gameInfoScene: GameInfoScene {
+        .init(viewModel: .init(container: viewModel.container, gameId: viewModel.gameId, game: viewModel.game))
+    }
+
     private var gameDetailsButton: some ToolbarContent {
         ToolbarItem(placement: .navigationBarTrailing) {
-            NavigationLink(destination: GameInfoScene(viewModel: .init(container: viewModel.container, gameId: viewModel.gameId))) {
+            NavigationLink(destination: gameInfoScene) {
                 Label("Game details", systemImage: "info.circle")
             }
         }
@@ -95,7 +99,6 @@ private extension GameScene {
             VStack {
                 Label("No events to show yet", systemImage: "tray")
                         .foregroundColor(.secondary)
-
             }.frame(maxHeight: .infinity)
 
             Divider().padding([.top, .leading, .trailing])
@@ -106,8 +109,6 @@ private extension GameScene {
                     .disabled(!viewModel.canPlay)
         }
     }
-
-
 }
 
 struct GameDetailScene_Previews: PreviewProvider {
