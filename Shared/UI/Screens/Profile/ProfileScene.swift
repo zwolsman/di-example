@@ -121,9 +121,11 @@ private extension ProfileScene {
 //            signOutButton()
 
 
+            NavigationLink("Go to store") {
+                StoreScene(viewModel: .init(container: viewModel.container))
+            }
         }.listStyle(.insetGrouped)
     }
-
 
     func editableSection(text: String, editAction: @escaping () -> ()) -> some View {
         HStack {
@@ -190,6 +192,7 @@ struct ProfileScene_Previews: PreviewProvider {
 
         NavigationView {
             ProfileScene(viewModel: .init(container: .preview, profileType: .other("id"), profile: .loaded(Profile.mockWithHighlights)))
+                    .preferredColorScheme(.dark)
         }
     }
 }

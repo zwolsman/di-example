@@ -9,7 +9,7 @@ import SwiftUI
 
 extension ProfileScene {
     struct Routing: Equatable {
-
+        var showStore: Bool = false
     }
 }
 
