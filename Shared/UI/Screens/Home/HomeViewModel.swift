@@ -60,7 +60,7 @@ extension HomeScene {
         }
 
         func loadProfile() {
-            container.services.profileService.loadProfile(token: "fake-token")
+            container.services.profileService.loadProfile()
         }
 
         func deleteGame(id: String) {

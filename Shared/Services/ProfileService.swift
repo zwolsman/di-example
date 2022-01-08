@@ -7,7 +7,7 @@ import Combine
 import Moya
 
 protocol ProfileService {
-    func loadProfile(token: String)
+    func loadProfile()
 }
 
 class RemoteProfileService: ProfileService {
@@ -19,30 +19,23 @@ class RemoteProfileService: ProfileService {
         self.provider = provider
     }
 
-    func loadProfile(token: String) {
+    func loadProfile() {
         let cancelBag = CancelBag()
         appState[\.userData.profile].setIsLoading(cancelBag: cancelBag)
         weak var weakAppState = appState
 
         provider
                 .requestPublisher(.profile())
-                .map(Profile.self, using: JSONDecoder())
+                .map(Profile.self)
                 .sinkToLoadable {
                     weakAppState?[\.userData.profile] = $0
                 }
                 .store(in: cancelBag)
     }
-
-    enum ProfileError: Error {
-        case noProfileFoundError
-        case profileDecodeError
-    }
-
-
 }
 
 struct StubProfileService: ProfileService {
-    func loadProfile(token: String) {
+    func loadProfile() {
 
     }
 }
