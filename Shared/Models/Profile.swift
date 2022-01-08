@@ -10,4 +10,5 @@ struct Profile: Equatable, Codable {
     var games: Int
     var totalEarnings: Int
     var link: String
+    var balanceInEur: Double
 }

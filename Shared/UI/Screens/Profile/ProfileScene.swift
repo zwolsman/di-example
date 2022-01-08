@@ -118,8 +118,10 @@ private extension ProfileScene {
 //
 //            achievementSection(profile.achievements)
 
-            NavigationLink(destination: storeScene) {
-                Text("Go to store")
+            Section(footer: Text("Your balance is \(profile.balanceInEur.formatted(.currency(code: "EUR")))")) {
+                NavigationLink(destination: storeScene) {
+                    Text("Go to store")
+                }
             }
         }.listStyle(.insetGrouped)
     }

@@ -70,7 +70,7 @@ struct StoreScene: View {
                         Spacer()
                         Text("1000 points")
                     }.padding()
-                }
+                }.disabled(!viewModel.canPayOut)
             }
         }
     }
