@@ -15,7 +15,7 @@ struct GameRow: View {
     var body: some View {
         HStack {
             LazyVGrid(columns: GameRow.COLUMNS, spacing: 2) {
-                ForEach(Game.TILE_RANGE, id: \.self) { tileId in
+                ForEach(Game.tileRange, id: \.self) { tileId in
                     Tile(game: game, id: tileId)
                 }
             }
@@ -51,7 +51,7 @@ extension GameRow {
                 color = Color("TileColor")
             case .loading:
                 color = Color("TileColor")
-            case .points(_):
+            case .points:
                 color = game.color
             }
         }

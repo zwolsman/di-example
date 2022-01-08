@@ -1,0 +1,17 @@
+disabled_rules:
+  - trailing_comma
+
+excluded:
+  - Carthage
+  - Pods
+
+type_name:
+  excluded: iPhone # excluded via string
+  allowed_symbols: [ "_" ] # these are allowed in type names
+
+identifier_name:
+  excluded: # excluded via string array
+    - id
+    - URL
+    - GlobalAPIKey
+reporter: "xcode"

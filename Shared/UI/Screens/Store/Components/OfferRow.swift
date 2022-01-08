@@ -1,6 +1,6 @@
 //
 //  OfferRow.swift
-//  Bomastic
+//  Bombastic
 //
 //  Created by Marvin Zwolsman on 08/01/2022.
 //

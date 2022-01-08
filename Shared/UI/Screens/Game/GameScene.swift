@@ -92,7 +92,7 @@ private extension GameScene {
             PointsGrid(items: [
                 .init(name: "Next", amount: game.next?.formatted() ?? "-"),
                 .init("Stake", amount: game.stake),
-                .init("Multiplier", amount: game.multiplier),
+                .init("Multiplier", amount: game.multiplier)
             ])
             Divider().padding()
 

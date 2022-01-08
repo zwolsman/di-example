@@ -37,7 +37,7 @@ extension AppState {
     }
 }
 
-func ==(lhs: AppState, rhs: AppState) -> Bool {
+func == (lhs: AppState, rhs: AppState) -> Bool {
     lhs.userData == rhs.userData && lhs.routing == rhs.routing
 }
 

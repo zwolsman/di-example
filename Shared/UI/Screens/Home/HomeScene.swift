@@ -38,7 +38,6 @@ struct HomeScene: View {
         }
     }
 
-
     private var profileContent: some View {
         Section {
             switch viewModel.profile {

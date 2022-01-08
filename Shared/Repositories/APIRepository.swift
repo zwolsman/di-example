@@ -5,6 +5,8 @@
 import Foundation
 import Moya
 
+typealias APIProvider = MoyaProvider<APIRepository>
+
 enum APIRepository {
     case profile(id: String? = nil)
     case games
@@ -105,7 +107,8 @@ extension APIRepository: AuthorizedTargetType {
             return .requestPlain
 
         case let .signUp(email, fullName, authCode, identityToken):
-            let payload = SignUpPayload(email: email, fullName: fullName, authCode: authCode, identityToken: identityToken)
+            let payload =
+                    SignUpPayload(email: email, fullName: fullName, authCode: authCode, identityToken: identityToken)
             return .requestJSONEncodable(payload)
         case let .verify(authCode, identityToken):
             let payload = VerifyPayload(authCode: authCode, identityToken: identityToken)

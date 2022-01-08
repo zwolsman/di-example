@@ -22,7 +22,7 @@ extension GameScene {
         @Published var game: Loadable<Game>
 
         var tiles: [TileButton.Configuration] {
-            Game.TILE_RANGE.map(createTileButtonConfig(tileId:))
+            Game.tileRange.map(createTileButtonConfig(tileId:))
         }
 
         var canPlay: Bool {

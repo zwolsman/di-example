@@ -20,7 +20,7 @@ struct Game: Equatable, Identifiable {
     var bombs: Int
     var plain: String?
 
-    var lastTile: Tile? = nil
+    var lastTile: Tile?
 }
 
 extension Game {
@@ -48,8 +48,8 @@ extension Game {
         Color.indigo,
         Color.purple,
         Color.pink,
-        Color.brown,
+        Color.brown
     ]
 
-    static let TILE_RANGE = 1...25
+    static let tileRange = 1...25
 }

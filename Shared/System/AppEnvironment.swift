@@ -21,21 +21,27 @@ extension AppEnvironment {
         return AppEnvironment(container: diContainer)
     }
 
-    private static func configureAPIRepository() -> MoyaProvider<APIRepository> {
-        MoyaProvider<APIRepository>(
+    private static func configureAPIRepository() -> APIProvider {
+        APIProvider(
                 plugins: [
                     AuthPlugin(tokenClosure: { UserDefaults.standard.string(forKey: "access_token") }),
+                    NetworkLoggerPlugin()
                 ]
         )
     }
 
-    private static func configuredServices(appState: Store<AppState>, provider: MoyaProvider<APIRepository>) -> DIContainer.Services {
+    private static func configuredServices(appState: Store<AppState>, provider: APIProvider) -> DIContainer.Services {
 
-        let gameService = RemoteGameService(appState: appState, provider: provider) // LocalGameService(appState: appState, repo: LocalGameRepository())
+        let gameService = RemoteGameService(appState: appState, provider: provider)
         let profileService = RemoteProfileService(appState: appState, provider: provider)
         let authService = RemoteAuthService(provider: provider)
         let storeService = RemoteStoreService(provider: provider)
 
-        return .init(gameService: gameService, profileService: profileService, authService: authService, storeService: storeService)
+        return .init(
+                gameService: gameService,
+                profileService: profileService,
+                authService: authService,
+                storeService: storeService
+        )
     }
 }

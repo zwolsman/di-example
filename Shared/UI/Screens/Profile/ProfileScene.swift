@@ -128,11 +128,11 @@ private extension ProfileScene {
         StoreScene(viewModel: .init(container: viewModel.container))
     }
 
-    func editableSection(text: String, editAction: @escaping () -> ()) -> some View {
+    func editableSection(text: String, editAction: @escaping () -> Void) -> some View {
         HStack {
             Text(text)
             Spacer()
-            if (viewModel.profileType == .own) {
+            if viewModel.profileType == .own {
                 Button("Edit", action: editAction)
             }
         }
@@ -140,9 +140,9 @@ private extension ProfileScene {
 
     @ViewBuilder
     func highlightSection(_ highlights: [Game]) -> some View {
-        if (viewModel.profileType == .own || !highlights.isEmpty) {
+        if viewModel.profileType == .own || !highlights.isEmpty {
             Section(header: editableSection(text: "Highlights", editAction: {})) {
-                if (highlights.isEmpty) {
+                if highlights.isEmpty {
                     Text("Show off your highlights here.")
                             .foregroundColor(.secondary)
                             .frame(maxWidth: .infinity)
@@ -157,9 +157,9 @@ private extension ProfileScene {
 
     @ViewBuilder
     func achievementSection(_ achievements: [String]) -> some View {
-        if (viewModel.profileType == .own || !achievements.isEmpty) {
+        if viewModel.profileType == .own || !achievements.isEmpty {
             Section(header: editableSection(text: "Achievements", editAction: {})) {
-                if (achievements.isEmpty) {
+                if achievements.isEmpty {
                     Text("Show off your achievements here.")
                             .foregroundColor(.secondary)
                             .frame(maxWidth: .infinity)

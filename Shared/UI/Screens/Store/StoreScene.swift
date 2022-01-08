@@ -51,15 +51,16 @@ struct StoreScene: View {
 
     func loadedView(_ offers: [Offer]) -> some View {
         List {
+            // swiftlint:disable:next line_length
             Section(footer: Text("The price you see here is artificial and will not be paid with real money. It does get subtracted from your profile balance. Spend wisely.")) {
                 ForEach(offers) { offer in
-                    Button(action: { viewModel.purchase(offer: offer) }) {
+                    Button(action: { viewModel.purchase(offer: offer) }, label: {
                         OfferRow(offer: offer)
-                    }
+                    })
                 }
             }
             Section(header: Text("Pay out")) {
-                Button(action: {}) {
+                Button(action: viewModel.payOut) {
                     HStack {
                         VStack(alignment: .leading) {
                             Text("Regular")

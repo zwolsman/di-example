@@ -17,7 +17,6 @@ struct OffersResponse: Decodable {
 struct RemoteStoreService: StoreService {
     let provider: MoyaProvider<APIRepository>
 
-
     init(provider: MoyaProvider<APIRepository>) {
         self.provider = provider
     }
@@ -39,7 +38,6 @@ struct RemoteStoreService: StoreService {
     let cancelBag = CancelBag()
 
     func purchase(offer: Offer, profile: LoadableSubject<Profile>) {
-//        profile.wrappedValue.setIsLoading(cancelBag: cancelBag)
         provider
                 .requestPublisher(.purchase(offerId: offer.offerId))
                 .map(Profile.self)

@@ -27,7 +27,11 @@ extension HomeScene {
         let container: DIContainer
         private var cancelBag = CancelBag()
 
-        init(container: DIContainer, games: Loadable<[Game]> = .notRequested, profile: Loadable<Profile> = .notRequested) {
+        init(
+                container: DIContainer,
+                games: Loadable<[Game]> = .notRequested,
+                profile: Loadable<Profile> = .notRequested
+        ) {
             self.container = container
             let appState = container.appState
             _routingState = .init(initialValue: appState.value.routing.homeScene)
@@ -40,16 +44,16 @@ extension HomeScene {
                         .sink {
                             appState[\.routing.homeScene] = $0
                         }
-                appState.map(\.routing.homeScene)
-                        .removeDuplicates()
+                appState
+                        .updates(for: \.routing.homeScene)
                         .weakAssign(to: \.routingState, on: self)
 
-                appState.map(\.userData.games)
-                        .removeDuplicates()
+                appState
+                        .updates(for: \.userData.games)
                         .weakAssign(to: \.games, on: self)
 
-                appState.map(\.userData.profile)
-                        .removeDuplicates()
+                appState
+                        .updates(for: \.userData.profile)
                         .weakAssign(to: \.profile, on: self)
             }
         }

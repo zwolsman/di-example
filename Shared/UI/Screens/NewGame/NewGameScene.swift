@@ -57,7 +57,7 @@ private extension NewGameScene {
                 }
             }
 
-            Section(footer: Text("A game's initial bet should be higher than 100 points and lower than \(Int.max.formatted()).")) {
+            Section(footer: Text("A game's initial bet should be higher than 100 points.")) {
                 VStack {
                     TextField("Points", text: $viewModel.pointsText)
                             .keyboardType(.numberPad)

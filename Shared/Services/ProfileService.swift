@@ -57,5 +57,4 @@ struct StubProfileService: ProfileService {
 
     }
 
-
 }

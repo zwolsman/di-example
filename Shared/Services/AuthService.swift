@@ -10,7 +10,8 @@ import Combine
 import Moya
 
 protocol AuthService {
-    func register(email: String, fullName: String, authCode: String, identityToken: String) -> AnyPublisher<String, MoyaError>
+    func register(email: String, fullName: String, authCode: String, identityToken: String)
+            -> AnyPublisher<String, MoyaError>
     func verify(authCode: String, identityToken: String) -> AnyPublisher<String, MoyaError>
 }
 
@@ -25,13 +26,22 @@ class RemoteAuthService: AuthService {
         self.provider = provider
     }
 
-    func register(email: String, fullName: String, authCode: String, identityToken: String) -> AnyPublisher<String, MoyaError> {
+    func register(email: String, fullName: String, authCode: String, identityToken: String)
+            -> AnyPublisher<String, MoyaError> {
         provider
-                .requestPublisher(.signUp(email: email, fullName: fullName, authCode: authCode, identityToken: identityToken))
+                .requestPublisher(
+                        .signUp(
+                                email: email,
+                                fullName: fullName,
+                                authCode: authCode,
+                                identityToken: identityToken
+                        )
+                )
                 .map(TokenResponse.self, using: JSONDecoder())
                 .map(\.accessToken)
                 .eraseToAnyPublisher()
     }
+
     func verify(authCode: String, identityToken: String) -> AnyPublisher<String, MoyaError> {
         provider
                 .requestPublisher(.verify(authCode: authCode, identityToken: identityToken))
@@ -42,9 +52,11 @@ class RemoteAuthService: AuthService {
 }
 
 class StubAuthService: AuthService {
-    func register(email: String, fullName: String, authCode: String, identityToken: String) -> AnyPublisher<String, MoyaError> {
+    func register(email: String, fullName: String, authCode: String, identityToken: String)
+            -> AnyPublisher<String, MoyaError> {
         Empty<String, MoyaError>().eraseToAnyPublisher()
     }
+
     func verify(authCode: String, identityToken: String) -> AnyPublisher<String, MoyaError> {
         Empty<String, MoyaError>().eraseToAnyPublisher()
     }

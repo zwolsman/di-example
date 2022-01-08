@@ -18,5 +18,5 @@ extension AppState {
             return games
         }
     }
-    
+
 }

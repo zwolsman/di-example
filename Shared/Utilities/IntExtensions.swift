@@ -8,7 +8,7 @@ extension Int {
     static func formatted(_ value: Int) -> String {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
-        
+
         return formatter.string(from: NSNumber(value: value))!
     }
     static func from(string: String) -> Int? {
@@ -32,7 +32,7 @@ extension Int {
 
         num = fabs(num)
 
-        if (num < 1000) {
+        if num < 1000 {
             return "\(sign)\(value.formatted())"
         }
 

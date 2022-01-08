@@ -41,7 +41,7 @@ extension StoreScene {
             }
         }
 
-        //MARK: - Side effects
+        // MARK: - Side effects
 
         func loadOffers() {
             container.services.storeService.loadOffers(offers: loadableSubject(\.offers))
@@ -49,13 +49,17 @@ extension StoreScene {
 
         func purchase(offer: Offer) {
             let profileSubject = loadableSubject(\.profile).onSet {
-                guard case .loaded(_) = $0 else {
+                guard case .loaded = $0 else {
                     return
                 }
                 self.purchasedOffer()
             }
 
             container.services.storeService.purchase(offer: offer, profile: profileSubject)
+        }
+
+        func payOut() {
+
         }
 
         private func purchasedOffer() {

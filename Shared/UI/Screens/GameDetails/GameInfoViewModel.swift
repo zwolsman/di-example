@@ -69,7 +69,6 @@ extension GameInfoScene {
             }
         }
 
-
         // Misc
         let container: DIContainer
         private var cancelBag = CancelBag()

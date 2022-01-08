@@ -9,7 +9,7 @@
 import SwiftUI
 
 @main
-struct di_exampleApp: App {
+struct BombasticApp: App {
     let environment = AppEnvironment.bootstrap()
 
     var body: some Scene {

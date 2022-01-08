@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TileButton: View {
-    private let action: () -> ()
+    private let action: () -> Void
     private let tile: Tile?
     private let gameColor: Color
 
@@ -30,7 +30,7 @@ struct TileButton: View {
             return Color("TileColor")
         case .loading:
             return Color("TileColor")
-        case .points(_):
+        case .points:
             return gameColor
         }
     }
@@ -41,7 +41,7 @@ struct TileButton: View {
         }
 
         switch tile {
-        case .points(_):
+        case .points:
             return .white
         case .bomb(true):
             return .white
@@ -62,7 +62,7 @@ struct TileButton: View {
         }
 
         switch tile {
-        case .bomb(_):
+        case .bomb:
             return "BOMB"
         case let .points(amount):
             return amount.abbr()
@@ -79,7 +79,7 @@ struct TileButton: View {
                         .aspectRatio(1, contentMode: .fit)
                 Text(text)
                         .foregroundColor(textColor)
-                if (tile == .loading) {
+                if tile == .loading {
                     ProgressView()
                 }
             }
@@ -112,10 +112,9 @@ struct TileButton_Previews: PreviewProvider {
                 TileButton(config: TileButton.Configuration(id: 0, tile: .loading, color: .clear) {
                 })
 
-
                 ForEach(Game.colors, id: \.self) { color in
-                    ForEach(1...5, id: \.self) { i in
-                        let amount = Int(truncating: pow(10, i) as NSNumber)
+                    ForEach(1...5, id: \.self) { expoonent in
+                        let amount = Int(truncating: pow(10, expoonent) as NSNumber)
                         let config = TileButton.Configuration(id: 0, tile: .points(amount: amount), color: color) {
                         }
                         TileButton(config: config)
