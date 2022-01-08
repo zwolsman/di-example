@@ -72,5 +72,9 @@ extension HomeScene {
             container.services.gameService.removeGames(ids: [id])
         }
 
+        func refresh() async {
+            loadGames()
+            loadProfile()
+        }
     }
 }
