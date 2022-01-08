@@ -7,8 +7,12 @@
 
 import Foundation
 
-struct Offer {
+struct Offer: Identifiable {
+    var id: Int {
+        offerId
+    }
     var offerId: Int
+
     var name: String
     var price: Double
     var points: Int

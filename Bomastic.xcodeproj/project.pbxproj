@@ -28,6 +28,7 @@
 		FD09F0425FB9B197208468AE /* ProfileSceneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F679B8D8DA17E99A5DE6 /* ProfileSceneViewModel.swift */; };
 		FD09F066FBB74C871A7D24AA /* NewGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09FF6B7EEF04340F0452A6 /* NewGameScene.swift */; };
 		FD09F0908019834CDF2828BA /* GameService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F9A14D9689675B846C1B /* GameService.swift */; };
+		FD09F093CC4A1C9476B8DC95 /* OfferRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F349D530708BF4531E05 /* OfferRow.swift */; };
 		FD09F0C7C94AFB9751EF0102 /* Loadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F1A2290728C746FD75B8 /* Loadable.swift */; };
 		FD09F10A5144FA043364321F /* NewGameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F313CE0FB73B8C2F582D /* NewGameViewModel.swift */; };
 		FD09F10CC14422D3B09D7845 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09FC8AE17427431090CCF3 /* Store.swift */; };
@@ -46,6 +47,7 @@
 		FD09F32BA54A3CF317C13A7F /* StoreScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F348F9657A39B65FD59A /* StoreScene.swift */; };
 		FD09F33C63938ECCCB6CB696 /* GameInfoScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09FD68F5134FFA25684DC0 /* GameInfoScene.swift */; };
 		FD09F3E825C14F69DE3FC476 /* RootViewAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F123C7D7D7651F1EB7EA /* RootViewAppearance.swift */; };
+		FD09F3F35208EB0C85A74832 /* OfferRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F349D530708BF4531E05 /* OfferRow.swift */; };
 		FD09F42235BF5235BBB33DD4 /* GameService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F9A14D9689675B846C1B /* GameService.swift */; };
 		FD09F4580AD468D5C3EE9AF8 /* MockedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F3885A0C3242BF9BD156 /* MockedData.swift */; };
 		FD09F4C73588DEB592E81AE5 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F7EAD87FDA62908D7D7D /* HomeViewModel.swift */; };
@@ -152,6 +154,7 @@
 		FD09F2D3B37A40850ED95C18 /* ProfileScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileScene.swift; sourceTree = "<group>"; };
 		FD09F313CE0FB73B8C2F582D /* NewGameViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewGameViewModel.swift; sourceTree = "<group>"; };
 		FD09F348F9657A39B65FD59A /* StoreScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreScene.swift; sourceTree = "<group>"; };
+		FD09F349D530708BF4531E05 /* OfferRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OfferRow.swift; sourceTree = "<group>"; };
 		FD09F383BCF902A7AF0863B0 /* ProfileService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
 		FD09F3885A0C3242BF9BD156 /* MockedData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockedData.swift; sourceTree = "<group>"; };
 		FD09F417E47E501B07D37A1E /* Tests_macOSLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOSLaunchTests.swift; sourceTree = "<group>"; };
@@ -392,9 +395,18 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		FD09FA9B0097C96988005F2C /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				FD09F349D530708BF4531E05 /* OfferRow.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		FD09FD6CE05A5DF87B2FF717 /* Store */ = {
 			isa = PBXGroup;
 			children = (
+				FD09FA9B0097C96988005F2C /* Components */,
 				FD09F348F9657A39B65FD59A /* StoreScene.swift */,
 				FD09FFDB346D35154BEAF35F /* StoreViewModel.swift */,
 			);
@@ -783,6 +795,7 @@
 				FD09FAFFCEAC00E99E02BE67 /* GameStoreHelpers.swift in Sources */,
 				FD09F32BA54A3CF317C13A7F /* StoreScene.swift in Sources */,
 				FD09F1F44CD81E1B1452D83E /* StoreViewModel.swift in Sources */,
+				FD09F093CC4A1C9476B8DC95 /* OfferRow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -834,6 +847,7 @@
 				FD09FCB40EE53D8FEF3385BF /* GameStoreHelpers.swift in Sources */,
 				FD09FDC28F4D3DDA16CA7A6D /* StoreScene.swift in Sources */,
 				FD09F2D0FBE2B3F462C14F06 /* StoreViewModel.swift in Sources */,
+				FD09F3F35208EB0C85A74832 /* OfferRow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

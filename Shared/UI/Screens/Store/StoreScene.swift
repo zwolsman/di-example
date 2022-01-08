@@ -16,21 +16,39 @@ struct StoreScene: View {
     var body: some View {
         content
                 .navigationBarTitle("Store")
-                .listStyle(.insetGrouped)
+                .listStyle(.grouped)
                 .onReceive(inspection.notice) {
                     inspection.visit(self, $0)
                 }
     }
 
+    @ViewBuilder
     var content: some View {
+        switch viewModel.offers {
+        case let .loaded(offers):
+            loadedView(offers)
+        default:
+            Text("TODO")
+        }
+    }
+    
+    func loadedView(_ offers: [Offer]) -> some View {
         List {
-
+            Section(footer: Text("The price you see here is artificial and will not be paid with real money. It does get transferred to the server so spend wisely.")) {
+            ForEach(offers) { offer in
+                Button(action: {}) {
+                    OfferRow(offer: offer)
+                }
+            }
+        }
         }
     }
 }
 
 struct StoreScene_Previews: PreviewProvider {
     static var previews: some View {
-        StoreScene(viewModel: .init(container: .preview, offers: .loaded(Offer.mockMany)))
+        NavigationView {
+            StoreScene(viewModel: .init(container: .preview, offers: .loaded(Offer.mockMany)))
+        }
     }
 }
