@@ -70,7 +70,7 @@ private extension GameInfoScene {
                     .onTapGesture(perform: viewModel.toggleAbbreviatePoints)
             DetailRow(left: Text("Stake"), right: Text("\(viewModel.stake) points"))
                     .onTapGesture(perform: viewModel.toggleAbbreviatePoints)
-            DetailRow(left: Text("Multiplier"), right: Text("\(game.multiplier.formatted())x"))
+            DetailRow(left: Text("Multiplier"), right: Text(game.multiplier.formatted()))
             DetailRow(left: Text("Bombs"), right: Text("\(game.bombs)"))
             DetailRow(left: Text("Color"), right: ColorCell(color: game.color))
         }
