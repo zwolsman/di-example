@@ -65,20 +65,16 @@ extension StoreScene {
             container.services.storeService.purchase(offer: offer, profile: profileSubject)
         }
 
-        func payOut() {
-            let profileSubject = loadableSubject(\.profile).onSet {
-                switch $0 {
-                case .loaded:
-                    UINotificationFeedbackGenerator().notificationOccurred(.success)
-                case .failed:
-                    UINotificationFeedbackGenerator().notificationOccurred(.error)
-                default:
-                    break
+        func isDisabled(offer: Offer) -> Bool {
+            switch offer.currency {
+            case .money:
+                return false
+            case .points:
+                guard let balance = container.appState[\.userData.profile].value?.points else {
+                    return true
                 }
-
+                return offer.price > Double(balance)
             }
-
-            container.services.storeService.purchase(offer: Offer.payOut, profile: profileSubject)
         }
 
         private func purchasedOffer() {
@@ -88,11 +84,5 @@ extension StoreScene {
                 state.userData.profile = profile
             }
         }
-    }
-}
-
-private extension Offer {
-    static var payOut: Self {
-        Offer(offerId: "pay-out", name: "Regular", price: 0, points: 0, bonus: 0)
     }
 }

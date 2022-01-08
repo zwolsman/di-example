@@ -7,14 +7,16 @@
 
 import Foundation
 
-struct Offer: Identifiable, Decodable {
-    var id: String {
-        offerId
-    }
-    var offerId: String
-
+struct Offer: Decodable, Identifiable {
+    var id: String
     var name: String
+    var currency: Currency
     var price: Double
-    var points: Int
-    var bonus: Int
+    var reward: Double
+    var bonus: Int?
+
+    enum Currency: String, Decodable {
+        case points = "POINTS"
+        case money = "MONEY"
+    }
 }

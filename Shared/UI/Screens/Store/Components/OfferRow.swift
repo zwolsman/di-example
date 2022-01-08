@@ -17,20 +17,36 @@ struct OfferRow: View {
 
                 Text(offer.name.lowercased().capitalized)
                         .font(.title)
-                Text("\(offer.points.formatted()) points")
-                if offer.bonus > 0 {
-                    Text("Receive \(offer.bonus.formatted()) points for free!")
+
+                switch offer.currency {
+                case .money:
+                    Text("\(offer.reward.formatted()) points")
+                case .points:
+                    Text("Add \(offer.reward.formatted(.currency(code: "EUR"))) to your profile balance")
+                }
+
+                if let bonus = offer.bonus, bonus > 0 {
+                    Text("Receive \(bonus.formatted()) points for free!")
                 }
             }
             Spacer()
-            Text(offer.price.formatted(.currency(code: "EUR")))
+            switch offer.currency {
+            case .money:
+                Text(offer.price.formatted(.currency(code: "EUR")))
+            case .points:
+                Text("\(offer.price.formatted()) points")
+            }
         }.padding()
     }
 }
 
 struct OfferRow_Previews: PreviewProvider {
     static var previews: some View {
-        OfferRow(offer: .mockMany[1])
+        OfferRow(offer: .mockPoints)
+                .previewLayout(.sizeThatFits)
+        OfferRow(offer: .mockPointsBonus)
+                .previewLayout(.sizeThatFits)
+        OfferRow(offer: .mockPayOut)
                 .previewLayout(.sizeThatFits)
     }
 }

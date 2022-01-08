@@ -39,7 +39,7 @@ struct RemoteStoreService: StoreService {
 
     func purchase(offer: Offer, profile: LoadableSubject<Profile>) {
         provider
-                .requestPublisher(.purchase(offerId: offer.offerId))
+                .requestPublisher(.purchase(offerId: offer.id))
                 .map(Profile.self)
                 .sinkToLoadable {
                     profile.wrappedValue = $0

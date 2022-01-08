@@ -31,6 +31,8 @@ struct StoreScene: View {
             loadingView
         case let .loaded(offers):
             loadedView(offers)
+        case let .failed(error):
+            Text(error.localizedDescription)
         default:
             Text("TODO")
         }
@@ -57,20 +59,8 @@ struct StoreScene: View {
                     Button(action: { viewModel.purchase(offer: offer) }, label: {
                         OfferRow(offer: offer)
                     })
+                            .disabled(viewModel.isDisabled(offer: offer))
                 }
-            }
-            Section(header: Text("Pay out")) {
-                Button(action: viewModel.payOut) {
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Text("Regular")
-                                    .font(.title)
-                            Text("Add €4.00 to your profile balance")
-                        }
-                        Spacer()
-                        Text("1000 points")
-                    }.padding()
-                }.disabled(!viewModel.canPayOut)
             }
         }
     }

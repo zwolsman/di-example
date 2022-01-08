@@ -17,12 +17,15 @@ extension Profile {
 }
 
 extension Offer {
-    static let mockMany = [
-        Offer(offerId: "1", name: "SILVER", price: 2.0, points: 500, bonus: 0),
-        Offer(offerId: "2", name: "GOLD", price: 10.0, points: 5002, bonus: 2),
-        Offer(offerId: "3", name: "PLATINUM", price: 20, points: 10009, bonus: 9),
-        Offer(offerId: "4", name: "DIAMOND", price: 50.0, points: 25074, bonus: 74)
+    static let mockMany: [Offer] = [
+        .init(id: "1", name: "SILVER", currency: .money, price: 2.0, reward: 500, bonus: 0),
+        .init(id: "2", name: "GOLD", currency: .money, price: 10.0, reward: 5002, bonus: 2),
+        .init(id: "3", name: "PLATINUM", currency: .money, price: 20, reward: 10009, bonus: 9),
+        .init(id: "4", name: "DIAMOND", currency: .money, price: 50.0, reward: 25074, bonus: 74),
+        .init(id: "5", name: "REGULAR", currency: .points, price: 1000, reward: 2)
     ]
 
-    static let mock = mockMany[0]
+    static let mockPoints = mockMany[0]
+    static let mockPointsBonus = mockMany[1]
+    static let mockPayOut = mockMany.last!
 }
