@@ -34,13 +34,26 @@ struct StoreScene: View {
     
     func loadedView(_ offers: [Offer]) -> some View {
         List {
-            Section(footer: Text("The price you see here is artificial and will not be paid with real money. It does get transferred to the server so spend wisely.")) {
+            Section(footer: Text("The price you see here is artificial and will not be paid with real money. It does get substracted from your profile balance. Spend wisely.")) {
             ForEach(offers) { offer in
                 Button(action: {}) {
                     OfferRow(offer: offer)
                 }
             }
-        }
+            }
+            Section(header: Text("Pay out")) {
+                Button(action: {}) {
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text("Regular")
+                                .font(.title)
+                            Text("Add €4.00 to your profile balance")
+                        }
+                        Spacer()
+                        Text("1000 points")
+                    }.padding()
+                }
+            }
         }
     }
 }
