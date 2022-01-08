@@ -34,6 +34,7 @@ struct HomeScene: View {
             gamesContent
         }.refreshable {
             viewModel.loadGames()
+            viewModel.loadProfile()
         }
     }
 
