@@ -49,6 +49,14 @@ extension GameScene {
                         .sink {
                             appState[\.routing.gameScene] = $0
                         }
+                $game
+                        .removeDuplicates()
+                        .sink {
+                            guard case let .loaded(game) = $0 else {
+                                return
+                            }
+                            appState.value.consume(game: game)
+                        }
                 appState.map(\.routing.gameScene)
                         .removeDuplicates()
                         .weakAssign(to: \.routingState, on: self)

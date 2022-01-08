@@ -86,23 +86,7 @@ extension NewGameScene {
 
         private func gameCreated(_ game: Game) {
             container.appState.bulkUpdate { state in
-                switch state.userData.games {
-                case .notRequested:
-                    state.userData.games = .loaded([game])
-                case let .isLoading(last, cb):
-                    guard var previousGames = last else {
-                        state.userData.games = .isLoading(last: [game], cancelBag: cb)
-                        break
-                    }
-                    previousGames.insert(game, at: 0)
-                    state.userData.games = .isLoading(last: previousGames, cancelBag: cb)
-                case var .loaded(games):
-                    games.insert(game, at: 0)
-                    state.userData.games = .loaded(games)
-                default:
-                    break
-                }
-
+                state.consume(game: game)
                 state.routing.homeScene.showNewGameScene = false
                 state.routing.homeScene.gameId = game.id
             }
