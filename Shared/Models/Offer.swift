@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Offer: Identifiable {
+struct Offer: Identifiable, Decodable {
     var id: Int {
         offerId
     }

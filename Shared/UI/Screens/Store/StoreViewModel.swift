@@ -38,5 +38,9 @@ extension StoreScene {
                         .weakAssign(to: \.routingState, on: self)
             }
         }
+
+        func loadOffers() {
+            container.services.storeService.loadOffers(offers: loadableSubject(\.offers))
+        }
     }
 }
