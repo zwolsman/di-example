@@ -36,8 +36,17 @@ struct RemoteStoreService: StoreService {
                 .store(in: cancelBag)
     }
 
-    func purchase(offer: Offer, profile: LoadableSubject<Profile>) {
+    let cancelBag = CancelBag()
 
+    func purchase(offer: Offer, profile: LoadableSubject<Profile>) {
+//        profile.wrappedValue.setIsLoading(cancelBag: cancelBag)
+        provider
+                .requestPublisher(.purchase(offerId: offer.offerId))
+                .map(Profile.self)
+                .sinkToLoadable {
+                    profile.wrappedValue = $0
+                }
+                .store(in: cancelBag)
     }
 }
 

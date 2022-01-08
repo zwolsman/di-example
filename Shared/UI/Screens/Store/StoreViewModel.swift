@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 // MARK: - Routing
 
@@ -17,6 +18,7 @@ extension StoreScene {
         // State
         @Published var routingState: Routing
         @Published var offers: Loadable<[Offer]>
+        @Published var profile: Loadable<Profile> = .notRequested
 
         // Misc
         let container: DIContainer
@@ -43,6 +45,25 @@ extension StoreScene {
 
         func loadOffers() {
             container.services.storeService.loadOffers(offers: loadableSubject(\.offers))
+        }
+
+        func purchase(offer: Offer) {
+            let profileSubject = loadableSubject(\.profile).onSet {
+                guard case .loaded(_) = $0 else {
+                    return
+                }
+                self.purchasedOffer()
+            }
+
+            container.services.storeService.purchase(offer: offer, profile: profileSubject)
+        }
+
+        private func purchasedOffer() {
+            UINotificationFeedbackGenerator().notificationOccurred(.success)
+            container.appState.bulkUpdate { state in
+                state.routing.homeScene.showProfileScene = false
+                state.userData.profile = profile
+            }
         }
     }
 }

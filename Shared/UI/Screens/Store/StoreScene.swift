@@ -53,7 +53,7 @@ struct StoreScene: View {
         List {
             Section(footer: Text("The price you see here is artificial and will not be paid with real money. It does get subtracted from your profile balance. Spend wisely.")) {
                 ForEach(offers) { offer in
-                    Button(action: {}) {
+                    Button(action: { viewModel.purchase(offer: offer) }) {
                         OfferRow(offer: offer)
                     }
                 }

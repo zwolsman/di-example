@@ -9,7 +9,8 @@ import Foundation
 extension HomeScene {
     struct Routing: Equatable {
         var gameId: String?
-        var showNewGameScene: Bool = false
+        var showNewGameScene = false
+        var showProfileScene = false
     }
 }
 
@@ -60,7 +61,7 @@ extension HomeScene {
         }
 
         func loadProfile() {
-            container.services.profileService.loadProfile()
+            container.services.profileService.loadMe()
         }
 
         func deleteGame(id: String) {

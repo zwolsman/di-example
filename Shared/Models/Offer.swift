@@ -8,10 +8,10 @@
 import Foundation
 
 struct Offer: Identifiable, Decodable {
-    var id: Int {
+    var id: String {
         offerId
     }
-    var offerId: Int
+    var offerId: String
 
     var name: String
     var price: Double

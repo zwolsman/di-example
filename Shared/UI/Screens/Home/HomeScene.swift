@@ -200,11 +200,11 @@ private extension HomeScene {
 // MARK: - Displaying Profile Content
 
 private extension HomeScene {
-    func loadedProfileView(_ profile: Profile, showLoading: Bool) -> some View {
-        func profileView() -> some View {
-            ProfileScene(viewModel: .init(container: viewModel.container, profileType: .`self`, profile: .loaded(profile)))
-        }
+    var profileScene: some View {
+        ProfileScene(viewModel: .init(container: viewModel.container, profileType: .own, profile: viewModel.profile))
+    }
 
+    func loadedProfileView(_ profile: Profile, showLoading: Bool) -> some View {
         func profileRow() -> some View {
             HStack {
                 Circle()
@@ -221,9 +221,11 @@ private extension HomeScene {
             }
         }
 
-        return NavigationLink(destination: profileView()) {
-            profileRow()
-        }
+        return NavigationLink(
+                destination: profileScene,
+                isActive: $viewModel.routingState.showProfileScene,
+                label: profileRow
+        )
     }
 }
 

@@ -17,10 +17,10 @@ extension Profile {
 
 extension Offer {
     static let mockMany = [
-        Offer(offerId: 1, name: "SILVER", price: 2.0, points: 500, bonus: 0),
-        Offer(offerId: 2, name: "GOLD", price: 10.0, points: 5002, bonus: 2),
-        Offer(offerId: 3, name: "PLATINUM", price: 20, points: 10009, bonus: 9),
-        Offer(offerId: 4, name: "DIAMOND", price: 50.0, points: 25074, bonus: 74),
+        Offer(offerId: "1", name: "SILVER", price: 2.0, points: 500, bonus: 0),
+        Offer(offerId: "2", name: "GOLD", price: 10.0, points: 5002, bonus: 2),
+        Offer(offerId: "3", name: "PLATINUM", price: 20, points: 10009, bonus: 9),
+        Offer(offerId: "4", name: "DIAMOND", price: 50.0, points: 25074, bonus: 74),
     ]
     
     static let mock = mockMany[0]

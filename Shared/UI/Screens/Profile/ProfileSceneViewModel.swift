@@ -9,7 +9,7 @@ import SwiftUI
 
 extension ProfileScene {
     struct Routing: Equatable {
-        var showStore: Bool = false
+
     }
 }
 
@@ -47,27 +47,35 @@ extension ProfileScene {
         // MARK: - Side Effects
 
         func loadProfile() {
-
-        }
-
-        func signOut() {
-            UserDefaults.standard.removeObject(forKey: "user.id")
-            container.appState[\.userData.authenticated] = false
+            if let profileId = profileType.profileId {
+                container.services.profileService.loadProfile(id: profileId, profile: loadableSubject(\.profile))
+            } else {
+                container.services.profileService.loadMe()
+            }
         }
 
         func shareProfile() {
-            guard  let link = profile.value?.link, let data = URL(string: link) else {
-                return
-            }
-            let av = UIActivityViewController(activityItems: [data], applicationActivities: nil)
-            UIApplication.shared.windows.first?.rootViewController?.present(av, animated: true, completion: nil)
+//            guard  let link = profile.value?.link, let data = URL(string: link) else {
+//                return
+//            }
+//            let av = UIActivityViewController(activityItems: [data], applicationActivities: nil)
+//            UIApplication.shared.windows.first?.rootViewController?.present(av, animated: true, completion: nil)
         }
     }
 }
 
 extension ProfileScene {
     enum ProfileType: Equatable {
-        case `self`
+        case own
         case other(String)
+
+        var profileId: String? {
+            switch self {
+            case .own:
+                return nil
+            case let .other(profileId):
+                return profileId
+            }
+        }
     }
 }

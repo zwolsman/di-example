@@ -118,20 +118,21 @@ private extension ProfileScene {
 //
 //            achievementSection(profile.achievements)
 
-//            signOutButton()
-
-
-            NavigationLink("Go to store") {
-                StoreScene(viewModel: .init(container: viewModel.container))
+            NavigationLink(destination: storeScene) {
+                Text("Go to store")
             }
         }.listStyle(.insetGrouped)
+    }
+
+    private func storeScene() -> some View {
+        StoreScene(viewModel: .init(container: viewModel.container))
     }
 
     func editableSection(text: String, editAction: @escaping () -> ()) -> some View {
         HStack {
             Text(text)
             Spacer()
-            if (viewModel.profileType == .`self`) {
+            if (viewModel.profileType == .own) {
                 Button("Edit", action: editAction)
             }
         }
@@ -139,7 +140,7 @@ private extension ProfileScene {
 
     @ViewBuilder
     func highlightSection(_ highlights: [Game]) -> some View {
-        if (viewModel.profileType == .`self` || !highlights.isEmpty) {
+        if (viewModel.profileType == .own || !highlights.isEmpty) {
             Section(header: editableSection(text: "Highlights", editAction: {})) {
                 if (highlights.isEmpty) {
                     Text("Show off your highlights here.")
@@ -156,7 +157,7 @@ private extension ProfileScene {
 
     @ViewBuilder
     func achievementSection(_ achievements: [String]) -> some View {
-        if (viewModel.profileType == .`self` || !achievements.isEmpty) {
+        if (viewModel.profileType == .own || !achievements.isEmpty) {
             Section(header: editableSection(text: "Achievements", editAction: {})) {
                 if (achievements.isEmpty) {
                     Text("Show off your achievements here.")
@@ -171,23 +172,12 @@ private extension ProfileScene {
         }
     }
 
-    @ViewBuilder
-    func signOutButton() -> some View {
-        if (viewModel.profileType == .`self`) {
-            Section {
-                Button("Sign out", role: .destructive) {
-                    viewModel.signOut()
-                }
-                        .frame(maxWidth: .infinity)
-            }
-        }
-    }
 }
 
 struct ProfileScene_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            ProfileScene(viewModel: .init(container: .preview, profileType: .`self`, profile: .loaded(Profile.mock)))
+            ProfileScene(viewModel: .init(container: .preview, profileType: .own, profile: .loaded(Profile.mock)))
         }
 
         NavigationView {
