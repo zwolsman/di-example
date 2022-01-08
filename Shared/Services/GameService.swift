@@ -22,7 +22,27 @@ struct GamesResponse: Decodable {
     var games: [GameResponse]
 }
 
-struct GameResponse: Decodable {
+protocol BaseGameResponse: Decodable {
+    var id: String { get }
+    var tiles: [String] { get }
+    var stake: Int { get }
+    var next: Int? { get }
+    var multiplier: Double { get }
+    var state: State { get }
+    var secret: String { get }
+    var colorId: Int { get }
+    var plain: String? { get }
+    var initialBet: Int { get }
+    var bombs: Int { get }
+}
+
+enum State: String, Codable {
+    case inGame = "IN_GAME"
+    case hitBomb = "HIT_BOMB"
+    case cashedOut = "CASHED_OUT"
+}
+
+struct GameProfileResponse: BaseGameResponse {
     var id: String
     var tiles: [String]
     var stake: Int
@@ -35,16 +55,23 @@ struct GameResponse: Decodable {
     var initialBet: Int
     var bombs: Int
 
-    enum State: String, Codable {
-        case inGame = "IN_GAME"
-        case hitBomb = "HIT_BOMB"
-        case cashedOut = "CASHED_OUT"
-    }
+    var profile: Profile?
 }
 
-extension GameResponse {
+struct GameResponse: BaseGameResponse {
+    var id: String
+    var tiles: [String]
+    var stake: Int
+    var next: Int?
+    var multiplier: Double
+    var state: State
+    var secret: String
+    var colorId: Int
+    var plain: String?
+    var initialBet: Int
+    var bombs: Int
 
-    static func toDomain(response: Self) -> Game {
+    static func toDomain(response: BaseGameResponse) -> Game {
         let orderedTiles = response.tiles.compactMap(Tile.from(string:))
 
         let tiles = orderedTiles.reduce(into: [Int: Tile]()) {
@@ -65,6 +92,14 @@ extension GameResponse {
                 plain: response.plain,
                 lastTile: orderedTiles.last?.tile
         )
+    }
+}
+
+extension GameProfileResponse {
+    static func toDomain(response: Self) -> (game: Game, profile: Profile?) {
+        let game = GameResponse.toDomain(response: response)
+
+        return (game: game, profile: response.profile)
     }
 }
 
@@ -112,8 +147,14 @@ struct RemoteGameService: GameService {
 
         provider
                 .requestPublisher(.createGame(initialBet: initialBet, bombs: bombs, colorId: colorId))
-                .map(GameResponse.self)
-                .map(GameResponse.toDomain)
+                .map(GameProfileResponse.self)
+                .map(GameProfileResponse.toDomain)
+                .map {
+                    if let profile = $0.profile {
+                        appState.value.consume(profile: profile)
+                    }
+                    return $0.game
+                }
                 .sinkToLoadable {
                     game.wrappedValue = $0
                 }
@@ -132,8 +173,14 @@ struct RemoteGameService: GameService {
 
         provider
                 .requestPublisher(.guess(gameId: gameId, tileId: tileId))
-                .map(GameResponse.self)
-                .map(GameResponse.toDomain)
+                .map(GameProfileResponse.self)
+                .map(GameProfileResponse.toDomain)
+                .map {
+                    if let profile = $0.profile {
+                        appState.value.consume(profile: profile)
+                    }
+                    return $0.game
+                }
                 .sinkToLoadable {
                     game.wrappedValue = $0
                 }
@@ -146,8 +193,14 @@ struct RemoteGameService: GameService {
 
         provider
                 .requestPublisher(.cashOut(gameId: gameId))
-                .map(GameResponse.self)
-                .map(GameResponse.toDomain)
+                .map(GameProfileResponse.self)
+                .map(GameProfileResponse.toDomain)
+                .map {
+                    if let profile = $0.profile {
+                        appState.value.consume(profile: profile)
+                    }
+                    return $0.game
+                }
                 .sinkToLoadable {
                     game.wrappedValue = $0
                 }

@@ -19,4 +19,10 @@ extension AppState {
         }
     }
 
+    mutating func consume(profile: Profile) {
+        userData.profile = userData.profile.map { _ in
+            profile
+        }
+    }
+
 }
