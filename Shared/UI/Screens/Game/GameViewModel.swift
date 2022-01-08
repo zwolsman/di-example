@@ -103,24 +103,14 @@ extension GameScene {
         }
 
         private func createTileButtonConfig(tileId: Int) -> TileButton.Configuration {
-            let _game: Game
-            switch game {
-            case let .loaded(game):
-                _game = game
-            case let .isLoading(last, _):
-                if let game = last {
-                    _game = game
-                } else {
-                    fallthrough
-                }
-            default:
+            guard let game = game.value else {
                 return TileButton.Configuration(id: tileId)
             }
 
             return TileButton.Configuration(
                     id: tileId,
-                    tile: _game.tiles[tileId],
-                    color: _game.color
+                    tile: game.tiles[tileId],
+                    color: game.color
             ) { [weak self] in
                 self?.guess(tileId: tileId)
             }
