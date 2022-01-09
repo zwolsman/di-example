@@ -50,7 +50,11 @@ extension APIRepository: AuthorizedTargetType {
     }
 
     var baseURL: URL {
+        #if RELEASE
+        URL(string: "https://bombastic.joell.dev/api")!
+        #else
         URL(string: "http://192.168.1.120:8080/api")!
+        #endif
     }
 
     var path: String {
