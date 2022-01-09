@@ -46,7 +46,7 @@ struct ContentView: View {
 extension ContentView {
     class ViewModel: ObservableObject {
         // State
-        @Published var authenticated: Bool
+        @Published var authenticated: Bool = false
 
         // Misc
         let container: DIContainer
@@ -57,11 +57,9 @@ extension ContentView {
             self.container = container
             self.isRunningTests = isRunningTests
             let appState = container.appState
-            _authenticated = .init(initialValue: false)
 
             cancelBag.collect {
-                appState.map(\.userData.authenticated)
-                        .removeDuplicates()
+                appState.updates(for: \.userData.authenticated)
                         .weakAssign(to: \.authenticated, on: self)
             }
         }
@@ -69,6 +67,8 @@ extension ContentView {
         func validateUser() {
             guard let userId = UserDefaults.standard.string(forKey: "user.id"),
                   let accessToken = UserDefaults.standard.string(forKey: "access_token") else {
+                UserDefaults.standard.removeObject(forKey: "user.id")
+                UserDefaults.standard.removeObject(forKey: "access_token")
                 print("could not recover user")
                 authenticated = false
                 return
