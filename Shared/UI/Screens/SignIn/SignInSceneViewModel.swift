@@ -39,12 +39,10 @@ extension SignInScene {
                         .sink {
                             appState[\.routing.signInScene] = $0
                         }
-                appState.map(\.routing.signInScene)
-                        .removeDuplicates()
+                appState.updates(for: \.routing.signInScene)
                         .weakAssign(to: \.routingState, on: self)
 
-                appState.map(\.userData.authenticated)
-                        .removeDuplicates()
+                appState.updates(for: \.userData.authenticated)
                         .weakAssign(to: \.authenticated, on: self)
             }
         }
@@ -61,10 +59,6 @@ extension SignInScene {
                     let idToken = String(data: appleIDCredential.identityToken!, encoding: .utf8)!
                     let authCode = String(data: appleIDCredential.authorizationCode!, encoding: .utf8)!
                     let fullName = appleIDCredential.fullName
-
-                    print(userId)
-                    print(idToken)
-                    print(authCode)
 
                     if let fullName = fullName?.formatted(.name(style: .long)), let email = appleIDCredential.email {
                         print("registering user. name: \(fullName), email: \(email)")

@@ -33,7 +33,7 @@ struct HomeScene: View {
 
             gamesContent
         }.refreshable {
-            viewModel.refresh()
+            await viewModel.refresh()
         }
     }
 
