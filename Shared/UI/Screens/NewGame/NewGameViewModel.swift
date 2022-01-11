@@ -27,6 +27,17 @@ extension NewGameScene {
             Int.from(string: pointsText)
         }
 
+        var pointsRange: ClosedRange<Int> {
+            let end: Int
+            if let points = container.appState[\.userData.profile].value?.points {
+                end = points
+            } else {
+                end = Int.max
+            }
+
+            return 100...end
+        }
+
         @Published var newGame: Loadable<Game> = .notRequested
 
         var canCreateGame: Bool {
@@ -68,10 +79,14 @@ extension NewGameScene {
         // MARK: - Creating game
         func createGame() {
             let game = loadableSubject(\.newGame).onSet { [weak self] game in
-                guard case let .loaded(game) = game else {
-                    return
+                switch game {
+                case let .loaded(game):
+                    self?.gameCreated(game)
+                case .failed:
+                    UINotificationFeedbackGenerator().notificationOccurred(.error)
+                default:
+                    break
                 }
-                self?.gameCreated(game)
             }
             guard let points = points else {
                 print("Points are invalid")
@@ -95,14 +110,11 @@ extension NewGameScene {
         // MARK: - Modify points
 
         func setToMinPoints() {
-            pointsText = "100"
+            pointsText = "\(pointsRange.lowerBound.formatted())"
         }
 
         func setToMaxPoints() {
-            guard let profile = container.appState[\.userData.profile].value else {
-                return
-            }
-            pointsText = "\(profile.points.formatted())"
+            pointsText = "\(pointsRange.upperBound.formatted())"
         }
 
         func resetPoints() {
@@ -113,7 +125,13 @@ extension NewGameScene {
             guard let points = points else {
                 return
             }
-            pointsText = "\((points + diff).formatted())"
+
+            let diff = clamped(points + diff, to: pointsRange)
+            pointsText = "\(diff.formatted())"
+        }
+
+        private func clamped(_ num: Int, to range: ClosedRange<Int>) -> Int {
+            max(min(num, range.upperBound), range.lowerBound)
         }
     }
 }

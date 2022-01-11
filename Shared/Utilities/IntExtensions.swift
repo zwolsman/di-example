@@ -11,6 +11,7 @@ extension Int {
 
         return formatter.string(from: NSNumber(value: value))!
     }
+
     static func from(string: String) -> Int? {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
