@@ -69,7 +69,7 @@ extension HomeScene {
         }
 
         func deleteGame(id: String) {
-            container.services.gameService.removeGames(ids: [id])
+            container.services.gameService.delete(gameId: id)
         }
 
         func refresh() async {

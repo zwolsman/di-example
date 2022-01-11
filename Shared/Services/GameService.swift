@@ -14,8 +14,7 @@ protocol GameService {
     func create(game: LoadableSubject<Game>, initialBet: Int, color: Color, bombs: Int)
     func guess(game: LoadableSubject<Game>, gameId: String, tileId: Int)
     func cashOut(game: LoadableSubject<Game>, gameId: String)
-
-    func removeGames(ids: [String])
+    func delete(gameId: String)
 }
 
 struct GamesResponse: Decodable {
@@ -106,6 +105,7 @@ extension GameProfileResponse {
 struct RemoteGameService: GameService {
     let appState: Store<AppState>
     let provider: MoyaProvider<APIRepository>
+    let globalCancelBag = CancelBag()
 
     func loadGames() {
         let cancelBag = CancelBag()
@@ -207,8 +207,31 @@ struct RemoteGameService: GameService {
                 .store(in: cancelBag)
     }
 
-    func removeGames(ids: [String]) {
+    func delete(gameId: String) {
+        weak var weakAppState = appState
 
+        provider
+                .requestPublisher(.deleteGame(id: gameId))
+                .sinkToResult { result in
+                    switch result {
+
+                    case .success:
+                        guard let games = weakAppState?[\.userData.games].map({ games -> [Game] in
+                            var mutableGames = games
+                            mutableGames.removeAll(where: { $0.id == gameId })
+                            return mutableGames
+                        }) else {
+                            return
+                        }
+
+                        withAnimation {
+                            weakAppState?[\.userData.games] = games
+                        }
+                    case let .failure(err):
+                        print(err.localizedDescription)
+                    }
+                }
+                .store(in: globalCancelBag)
     }
 }
 
@@ -234,7 +257,7 @@ struct StubGameService: GameService {
 
     }
 
-    func removeGames(ids: [String]) {
+    func delete(gameId: String) {
 
     }
 }

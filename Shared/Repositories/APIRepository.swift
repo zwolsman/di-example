@@ -11,6 +11,7 @@ enum APIRepository {
     case profile(id: String? = nil)
     case games
     case game(id: String)
+    case deleteGame(id: String)
     case createGame(initialBet: Int, bombs: Int, colorId: Int)
     case guess(gameId: String, tileId: Int)
     case cashOut(gameId: String)
@@ -51,10 +52,12 @@ extension APIRepository: AuthorizedTargetType {
 
     var baseURL: URL {
         #if RELEASE
-        URL(string: "https://bombastic.joell.dev/api")!
+        let url = URL(string: "https://bombastic.joell.dev/api")!
         #else
-        URL(string: "http://192.168.1.120:8080/api")!
+        let url = URL(string: "http://192.168.1.120:8080/api")!
         #endif
+        print("api base url: \(url)")
+        return url
     }
 
     var path: String {
@@ -67,7 +70,7 @@ extension APIRepository: AuthorizedTargetType {
 
         case .games, .createGame:
             return "/v1/games"
-        case let .game(gameId):
+        case let .game(gameId), let .deleteGame(gameId):
             return "/v1/games/\(gameId)"
         case let .guess(gameId, _):
             return "/v1/games/\(gameId)/guess"
@@ -102,12 +105,14 @@ extension APIRepository: AuthorizedTargetType {
             return .get
         case .purchase:
             return .post
+        case .deleteGame:
+            return .delete
         }
     }
 
     var task: Task {
         switch self {
-        case .profile, .game, .games, .cashOut, .storeOffers, .purchase:
+        case .profile, .game, .games, .cashOut, .storeOffers, .purchase, .deleteGame:
             return .requestPlain
 
         case let .signUp(email, fullName, authCode, identityToken):
