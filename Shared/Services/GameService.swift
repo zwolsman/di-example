@@ -5,7 +5,7 @@
 import Combine
 import Foundation
 import SwiftUI
-import Moya
+import CombineMoya
 
 protocol GameService {
     func loadGames()
@@ -104,7 +104,7 @@ extension GameProfileResponse {
 
 struct RemoteGameService: GameService {
     let appState: Store<AppState>
-    let provider: MoyaProvider<APIRepository>
+    let provider: APIProvider
     let globalCancelBag = CancelBag()
 
     func loadGames() {

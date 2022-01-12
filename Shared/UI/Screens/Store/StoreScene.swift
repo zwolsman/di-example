@@ -33,8 +33,6 @@ struct StoreScene: View {
             loadedView(offers)
         case let .failed(error):
             Text(error.localizedDescription)
-        default:
-            Text("TODO")
         }
     }
 

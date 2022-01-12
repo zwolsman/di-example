@@ -3,7 +3,7 @@
 //
 
 import Foundation
-import Moya
+import CombineMoya
 
 protocol StoreService {
     func loadOffers(offers: LoadableSubject<[Offer]>)
@@ -15,11 +15,7 @@ struct OffersResponse: Decodable {
 }
 
 struct RemoteStoreService: StoreService {
-    let provider: MoyaProvider<APIRepository>
-
-    init(provider: MoyaProvider<APIRepository>) {
-        self.provider = provider
-    }
+    let provider: APIProvider
 
     func loadOffers(offers: LoadableSubject<[Offer]>) {
         let cancelBag = CancelBag()

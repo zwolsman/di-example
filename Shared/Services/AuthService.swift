@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 import Moya
+import CombineMoya
 
 protocol AuthService {
     func register(email: String, fullName: String, authCode: String, identityToken: String)
@@ -19,12 +20,8 @@ struct TokenResponse: Decodable {
     var accessToken: String
 }
 
-class RemoteAuthService: AuthService {
-    let provider: MoyaProvider<APIRepository>
-
-    init(provider: MoyaProvider<APIRepository>) {
-        self.provider = provider
-    }
+struct RemoteAuthService: AuthService {
+    let provider: APIProvider
 
     func register(email: String, fullName: String, authCode: String, identityToken: String)
             -> AnyPublisher<String, MoyaError> {
