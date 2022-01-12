@@ -16,8 +16,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "FD09F875FE63B3E46CE40A51"
                BuildableName = "Bomastic.app"
-               BlueprintName = "Bomastic (macOS)"
-               ReferencedContainer = "container:Bomastic.xcodeproj">
+               BlueprintName = "Bombastic (macOS)"
+               ReferencedContainer = "container:Bombastic.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,7 +35,7 @@
                BlueprintIdentifier = "FD09F0F60C7E6B1BB8244A9E"
                BuildableName = "Tests macOS.xctest"
                BlueprintName = "Tests macOS"
-               ReferencedContainer = "container:Bomastic.xcodeproj">
+               ReferencedContainer = "container:Bombastic.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -56,8 +56,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "FD09F875FE63B3E46CE40A51"
             BuildableName = "Bomastic.app"
-            BlueprintName = "Bomastic (macOS)"
-            ReferencedContainer = "container:Bomastic.xcodeproj">
+            BlueprintName = "Bombastic (macOS)"
+            ReferencedContainer = "container:Bombastic.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -73,8 +73,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "FD09F875FE63B3E46CE40A51"
             BuildableName = "Bomastic.app"
-            BlueprintName = "Bomastic (macOS)"
-            ReferencedContainer = "container:Bomastic.xcodeproj">
+            BlueprintName = "Bombastic (macOS)"
+            ReferencedContainer = "container:Bombastic.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
