@@ -57,7 +57,7 @@ private extension NewGameScene {
                 }
             }
 
-            Section(footer: Text("A game's initial bet should be higher than 100 points.")) {
+            Section(header: Text("Initial stake"), footer: Text("The minimal initial stake is a 100 points.")) {
                 VStack {
                     TextField("Points", text: $viewModel.pointsText)
                             .keyboardType(.numberPad)
@@ -70,7 +70,7 @@ private extension NewGameScene {
                         Button("MIN", action: viewModel.setToMinPoints)
                                 .pointButtonStyle()
 
-                        Button("0", action: viewModel.resetPoints)
+                        Button("x2", action: viewModel.doublePoints)
                                 .pointButtonStyle()
 
                         Button("MAX", action: viewModel.setToMaxPoints)

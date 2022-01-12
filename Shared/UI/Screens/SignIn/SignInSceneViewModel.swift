@@ -22,16 +22,17 @@ extension SignInScene {
     class ViewModel: ObservableObject {
         // State
         @Published var routingState: Routing
-        @Published var authenticated: Bool = false
+        @Published var authenticated: Loadable<Bool>
 
         // Misc
         let container: DIContainer
         private var cancelBag = CancelBag()
 
-        init(container: DIContainer) {
+        init(container: DIContainer, authenticated: Loadable<Bool> = .notRequested) {
             self.container = container
             let appState = container.appState
             _routingState = .init(initialValue: appState.value.routing.signInScene)
+            _authenticated = .init(initialValue: authenticated)
 
             cancelBag.collect {
                 $routingState
@@ -39,11 +40,15 @@ extension SignInScene {
                         .sink {
                             appState[\.routing.signInScene] = $0
                         }
+
+                $authenticated
+                        .removeDuplicates()
+                        .sink {
+                            appState[\.userData.authenticated] = $0
+                        }
+
                 appState.updates(for: \.routing.signInScene)
                         .weakAssign(to: \.routingState, on: self)
-
-                appState.updates(for: \.userData.authenticated)
-                        .weakAssign(to: \.authenticated, on: self)
             }
         }
 
@@ -52,40 +57,43 @@ extension SignInScene {
         }
 
         func onCompletion(result: Result<ASAuthorization, Error>) {
+            // Start showing the loading screen
+            authenticated.setIsLoading(cancelBag: cancelBag)
+
             switch result {
-            case .success(let authorization):
+            case let .success(authorization):
                 if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
                     let userId = appleIDCredential.user
                     let idToken = String(data: appleIDCredential.identityToken!, encoding: .utf8)!
                     let authCode = String(data: appleIDCredential.authorizationCode!, encoding: .utf8)!
                     let fullName = appleIDCredential.fullName
 
+                    let publisher: AnyPublisher<String, MoyaError>
                     if let fullName = fullName?.formatted(.name(style: .long)), let email = appleIDCredential.email {
                         print("registering user. name: \(fullName), email: \(email)")
-                        container
+                        publisher = container
                                 .services
                                 .authService
                                 .register(email: email, fullName: fullName, authCode: authCode, identityToken: idToken)
-                                .map {
-                                    (userId, $0)
-                                }
-                                .sinkToResult(onAuthResponse)
-                                .store(in: cancelBag)
                     } else {
-                        container
+                        publisher = container
                                 .services
                                 .authService
                                 .verify(authCode: authCode, identityToken: idToken)
-                                .map {
-                                    (userId, $0)
-                                }
-                                .sinkToResult(onAuthResponse)
-                                .store(in: cancelBag)
+
                     }
+
+                    publisher.sinkToLoadable { [self] in
+                                let result = $0.map { accessToken -> Bool in
+                                    self.onAccessToken(userId: userId, accessToken: accessToken)
+                                    return true
+                                }
+                                authenticated = result
+                            }
+                            .store(in: cancelBag)
                 }
-            case .failure(let error):
-                container.appState[\.userData.authenticated] = false
-                print(error)
+            case let .failure(error):
+                authenticated = .failed(error)
             }
         }
 
@@ -99,15 +107,16 @@ extension SignInScene {
         }
 
         private func onError(_ error: MoyaError) {
-            print("received error!")
             print(error)
+            authenticated = .failed(error)
+            print("received error!")
         }
 
         private func onAccessToken(userId: String, accessToken: String) {
             print("Received access token from api")
             UserDefaults.standard.set(accessToken, forKey: "access_token")
             UserDefaults.standard.set(userId, forKey: "user.id")
-            container.appState[\.userData.authenticated] = true
+            authenticated = .loaded(true)
         }
     }
 

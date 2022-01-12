@@ -10,13 +10,8 @@ import SwiftUI
 struct LoadingScreen: View {
     var body: some View {
         VStack {
-            HStack(spacing: 0) {
-                Text("Bomb")
-                    .fontWeight(.bold)
-                Text("astic")
-                    .fontWeight(.light)
-            }.font(.system(size: 42))
-                .padding(.bottom, 16)
+            BombasticLogo()
+                    .id("logo")
             ProgressView()
         }
     }

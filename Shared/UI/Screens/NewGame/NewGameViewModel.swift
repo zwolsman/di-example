@@ -28,14 +28,13 @@ extension NewGameScene {
         }
 
         var pointsRange: ClosedRange<Int> {
-            let end: Int
+            var end: Int
             if let points = container.appState[\.userData.profile].value?.points {
                 end = points
             } else {
                 end = Int.max
             }
-
-            return 100...end
+            return 0...end
         }
 
         @Published var newGame: Loadable<Game> = .notRequested
@@ -110,15 +109,18 @@ extension NewGameScene {
         // MARK: - Modify points
 
         func setToMinPoints() {
-            pointsText = "\(pointsRange.lowerBound.formatted())"
+            pointsText = "100"
         }
 
         func setToMaxPoints() {
             pointsText = "\(pointsRange.upperBound.formatted())"
         }
 
-        func resetPoints() {
-            pointsText = "0"
+        func doublePoints() {
+            guard let points = points else {
+                return
+            }
+            pointsText = (points * 2).formatted()
         }
 
         func modifyPoints(_ diff: Int) {
