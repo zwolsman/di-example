@@ -19,6 +19,7 @@ enum APIRepository {
     case verify(authCode: String, identityToken: String)
     case storeOffers
     case purchase(offerId: String)
+    case jwks
 }
 
 struct SignUpPayload: Codable {
@@ -84,6 +85,8 @@ extension APIRepository: AuthorizedTargetType {
             return "/v1/store/offers"
         case let .purchase(offerId):
             return "/v1/store/offers/\(offerId)/purchase"
+        case .jwks:
+            return "/v1/auth/keys"
         }
     }
 
@@ -107,12 +110,14 @@ extension APIRepository: AuthorizedTargetType {
             return .post
         case .deleteGame:
             return .delete
+        case .jwks:
+            return .get
         }
     }
 
     var task: Task {
         switch self {
-        case .profile, .game, .games, .cashOut, .storeOffers, .purchase, .deleteGame:
+        case .profile, .game, .games, .cashOut, .storeOffers, .purchase, .deleteGame, .jwks:
             return .requestPlain
 
         case let .signUp(email, fullName, authCode, identityToken):

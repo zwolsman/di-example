@@ -14,6 +14,7 @@ protocol AuthService {
     func register(email: String, fullName: String, authCode: String, identityToken: String)
             -> AnyPublisher<String, MoyaError>
     func verify(authCode: String, identityToken: String) -> AnyPublisher<String, MoyaError>
+    func verify(token: String) -> AnyPublisher<Bool, MoyaError>
 }
 
 struct TokenResponse: Decodable {
@@ -46,6 +47,13 @@ struct RemoteAuthService: AuthService {
                 .map(\.accessToken)
                 .eraseToAnyPublisher()
     }
+    
+    func verify(token: String) -> AnyPublisher<Bool, MoyaError> {
+        provider
+            .requestPublisher(.jwks)
+            .map { _ in true }
+            .eraseToAnyPublisher()
+    }
 }
 
 class StubAuthService: AuthService {
@@ -56,5 +64,9 @@ class StubAuthService: AuthService {
 
     func verify(authCode: String, identityToken: String) -> AnyPublisher<String, MoyaError> {
         Empty<String, MoyaError>().eraseToAnyPublisher()
+    }
+    
+    func verify(token: String) -> AnyPublisher<Bool, MoyaError> {
+        Empty<Bool, MoyaError>().eraseToAnyPublisher()
     }
 }
