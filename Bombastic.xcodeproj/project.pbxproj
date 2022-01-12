@@ -18,6 +18,7 @@
 		EA8CE5EA278F0EF50073C6DF /* CombineMoya in Frameworks */ = {isa = PBXBuildFile; productRef = EA8CE5E9278F0EF50073C6DF /* CombineMoya */; };
 		EA8CE5EC278F1ADA0073C6DF /* LoadingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8CE5EB278F1ADA0073C6DF /* LoadingScreen.swift */; };
 		EA8CE5ED278F1ADA0073C6DF /* LoadingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8CE5EB278F1ADA0073C6DF /* LoadingScreen.swift */; };
+		EA8CE5F3278F20AB0073C6DF /* JWTKit in Frameworks */ = {isa = PBXBuildFile; productRef = EA8CE5F2278F20AB0073C6DF /* JWTKit */; };
 		EAF7CE5727846BBB00292F77 /* SignInScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF7CE5627846BBB00292F77 /* SignInScene.swift */; };
 		EAF7CE5827846BBB00292F77 /* SignInScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF7CE5627846BBB00292F77 /* SignInScene.swift */; };
 		EAF7CE5A27846BCA00292F77 /* SignInSceneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF7CE5927846BCA00292F77 /* SignInSceneViewModel.swift */; };
@@ -218,6 +219,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EA8CE5EA278F0EF50073C6DF /* CombineMoya in Frameworks */,
+				EA8CE5F3278F20AB0073C6DF /* JWTKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -553,6 +555,7 @@
 			name = "Bombastic (iOS)";
 			packageProductDependencies = (
 				EA8CE5E9278F0EF50073C6DF /* CombineMoya */,
+				EA8CE5F2278F20AB0073C6DF /* JWTKit */,
 			);
 			productName = "di-example (iOS)";
 			productReference = FD09F90D59FC2234C9ED4100 /* Bombastic.app */;
@@ -589,6 +592,7 @@
 			mainGroup = FD09FD82250F6AC72F5A86AF;
 			packageReferences = (
 				EA8CE5E8278F0EF50073C6DF /* XCRemoteSwiftPackageReference "Moya" */,
+				EA8CE5F1278F20AB0073C6DF /* XCRemoteSwiftPackageReference "jwt-kit" */,
 			);
 			productRefGroup = FD09F89E3783FF659A6912AA /* Products */;
 			projectDirPath = "";
@@ -1132,6 +1136,14 @@
 				minimumVersion = 15.0.0;
 			};
 		};
+		EA8CE5F1278F20AB0073C6DF /* XCRemoteSwiftPackageReference "jwt-kit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/vapor/jwt-kit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1139,6 +1151,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = EA8CE5E8278F0EF50073C6DF /* XCRemoteSwiftPackageReference "Moya" */;
 			productName = CombineMoya;
+		};
+		EA8CE5F2278F20AB0073C6DF /* JWTKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EA8CE5F1278F20AB0073C6DF /* XCRemoteSwiftPackageReference "jwt-kit" */;
+			productName = JWTKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -78,24 +78,6 @@ extension ContentView {
                       return
                   }
             
-            container
-                .services
-                .authService
-                .verify(token: accessToken)
-                .replaceError(with: false)
-                .sink { [weak self] isValid in
-                    if isValid {
-                        self?.checkCredentialState(forUserID: userId)
-                    } else {
-                        self?.authenticated = false
-                        self?.finishVerification()
-                    }
-                }
-                .store(in: cancelBag)
-           
-        }
-        
-        private func checkCredentialState(forUserID userId: String) {
             let appleIDProvider = ASAuthorizationAppleIDProvider()
             appleIDProvider.getCredentialState(forUserID: userId) { [weak self] (credentialState, error) in
                 guard error == nil else {
@@ -106,10 +88,31 @@ extension ContentView {
                 }
                 
                 if credentialState == .authorized {
-                    self?.authenticated = true
+                    self?.verifyAccessToken(accessToken)
+                } else {
+                    self?.authenticated = false
                     self?.finishVerification()
                 }
             }
+           
+        }
+        
+        private func verifyAccessToken(_ token: String) {
+            container
+                .services
+                .authService
+                .verify(token: token)
+                .replaceError(with: false)
+                .sink { [weak self] isValid in
+                    if isValid {
+                        self?.authenticated = true
+                        self?.finishVerification()
+                    } else {
+                        self?.authenticated = false
+                        self?.finishVerification()
+                    }
+                }
+                .store(in: cancelBag)
         }
         
         private func finishVerification() {
