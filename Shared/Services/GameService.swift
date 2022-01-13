@@ -6,6 +6,7 @@ import Combine
 import Foundation
 import SwiftUI
 import CombineMoya
+import Moya
 
 protocol GameService {
     func loadGames()
@@ -155,6 +156,7 @@ struct RemoteGameService: GameService {
                     }
                     return $0.game
                 }
+                .extractProblem()
                 .sinkToLoadable {
                     game.wrappedValue = $0
                 }

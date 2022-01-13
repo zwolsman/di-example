@@ -24,17 +24,6 @@ extension NewGameScene {
         @Published var bombs: Bombs
         @Published var pointsText: String
 
-        @Published var didError: Bool = false
-        var problem: Problem? {
-            guard case let .failed(err) = newGame,
-                  let moyaError = err as? MoyaError,
-                  let problem = try? moyaError.response?.map(Problem.self) else {
-                return nil
-            }
-
-            return problem
-        }
-
         var points: Int? {
             Int.from(string: pointsText)
         }
@@ -49,7 +38,21 @@ extension NewGameScene {
             return 0...end
         }
 
-        @Published var newGame: Loadable<Game> = .notRequested
+        @Published
+        var newGame: Loadable<Game> = .notRequested {
+            didSet {
+                switch newGame {
+                case let .loaded(game):
+                    gameCreated(game)
+                case .failed:
+                    problem = newGame.problem
+                default:
+                    break
+                }
+            }
+        }
+
+        var problem: Problem?
 
         var canCreateGame: Bool {
             true
@@ -89,18 +92,6 @@ extension NewGameScene {
 
         // MARK: - Creating game
         func createGame() {
-            let game = loadableSubject(\.newGame).onSet { [weak self] game in
-                switch game {
-                case let .loaded(game):
-                    self?.gameCreated(game)
-                case .failed:
-                    UINotificationFeedbackGenerator().notificationOccurred(.error)
-                    self?.didError = true
-                default:
-                    break
-                }
-            }
-
             guard let points = points else {
                 print("Points are invalid")
                 return
@@ -109,7 +100,7 @@ extension NewGameScene {
             container
                     .services
                     .gameService
-                    .create(game: game, initialBet: points, color: color, bombs: bombs.rawValue)
+                    .create(game: loadableSubject(\.newGame), initialBet: points, color: color, bombs: bombs.rawValue)
         }
 
         private func gameCreated(_ game: Game) {
