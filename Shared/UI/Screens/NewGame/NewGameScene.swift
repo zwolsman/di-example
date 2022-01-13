@@ -91,6 +91,11 @@ private extension NewGameScene {
             Button("Create game", action: viewModel.createGame)
                     .disabled(!viewModel.canCreateGame)
         }
+                .alert("Something went wrong",
+                        isPresented: $viewModel.didError,
+                        presenting: viewModel.problem,
+                        actions: { _ in Text("OK") },
+                        message: { problem in Text(problem.detail) })
     }
 }
 
