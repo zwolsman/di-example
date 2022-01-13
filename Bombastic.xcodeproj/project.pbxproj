@@ -50,6 +50,7 @@
 		FD09F31D6B3BFA0509CE598D /* IntExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09FF814598510F430CCF7E /* IntExtensions.swift */; };
 		FD09F32BA54A3CF317C13A7F /* StoreScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F348F9657A39B65FD59A /* StoreScene.swift */; };
 		FD09F33C63938ECCCB6CB696 /* GameInfoScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09FD68F5134FFA25684DC0 /* GameInfoScene.swift */; };
+		FD09F3ACFBD43A4EA0C334A5 /* Problem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09FE742314A8A3E1E7683B /* Problem.swift */; };
 		FD09F3E825C14F69DE3FC476 /* RootViewAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F123C7D7D7651F1EB7EA /* RootViewAppearance.swift */; };
 		FD09F3F35208EB0C85A74832 /* OfferRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F349D530708BF4531E05 /* OfferRow.swift */; };
 		FD09F42235BF5235BBB33DD4 /* GameService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F9A14D9689675B846C1B /* GameService.swift */; };
@@ -111,6 +112,7 @@
 		FD09FE7289543151FCD37202 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD09F19B7A88FA15717F65D9 /* Assets.xcassets */; };
 		FD09FE74AC0317663B25AB37 /* di_exampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09FF8766D634D9BA897217 /* di_exampleApp.swift */; };
 		FD09FEA5C9849263D1A35F41 /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09FBA58D71B8E80BEF7A04 /* AppEnvironment.swift */; };
+		FD09FEB1FD34AB70459F0233 /* Problem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09FE742314A8A3E1E7683B /* Problem.swift */; };
 		FD09FEF7B8A167E1873B82BA /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F558B302AEAA879445DC /* Helpers.swift */; };
 		FD09FF4A3205B07E83ACACE3 /* NewGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09FF6B7EEF04340F0452A6 /* NewGameScene.swift */; };
 		FD09FF687E8EB6B4F2939D27 /* NewGameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F313CE0FB73B8C2F582D /* NewGameViewModel.swift */; };
@@ -188,6 +190,7 @@
 		FD09FCCD9F6776CFCA43EDCA /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		FD09FD68F5134FFA25684DC0 /* GameInfoScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameInfoScene.swift; sourceTree = "<group>"; };
 		FD09FE4E0FBB58BA95BCDC11 /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
+		FD09FE742314A8A3E1E7683B /* Problem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Problem.swift; sourceTree = "<group>"; };
 		FD09FE7D99454B46AE0D953F /* GameInfoViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameInfoViewModel.swift; sourceTree = "<group>"; };
 		FD09FF4C014523887D64D397 /* DetailRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailRow.swift; sourceTree = "<group>"; };
 		FD09FF6B7EEF04340F0452A6 /* NewGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewGameScene.swift; sourceTree = "<group>"; };
@@ -477,6 +480,7 @@
 				FD09F5BD5BBDFD365FCF8254 /* Profile.swift */,
 				FD09F9476825E189B7205A84 /* Tile.swift */,
 				EA0BB6412789C1E9007CC480 /* Offer.swift */,
+				FD09FE742314A8A3E1E7683B /* Problem.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -719,6 +723,7 @@
 				FD09FACABBD380289969BF13 /* ContentView.swift in Sources */,
 				FD09F6514E4C02AA247CB298 /* ContentViewModel.swift in Sources */,
 				FD09F0FD28E1A3BF84E2D925 /* BombasticLogo.swift in Sources */,
+				FD09F3ACFBD43A4EA0C334A5 /* Problem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -775,6 +780,7 @@
 				FD09FB54B78751EDC6E83B93 /* ContentView.swift in Sources */,
 				FD09F91D892A3032C01E05CE /* ContentViewModel.swift in Sources */,
 				FD09F2FBC17D1EC5B09CAB30 /* BombasticLogo.swift in Sources */,
+				FD09FEB1FD34AB70459F0233 /* Problem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -4,6 +4,7 @@
 
 import Foundation
 import SwiftUI
+import Moya
 
 // MARK: - Routing
 
@@ -22,6 +23,17 @@ extension NewGameScene {
         @Published var color: Color
         @Published var bombs: Bombs
         @Published var pointsText: String
+
+        @Published var didError: Bool = false
+        var problem: Problem? {
+            guard case let .failed(err) = newGame,
+                  let moyaError = err as? MoyaError,
+                  let problem = try? moyaError.response?.map(Problem.self) else {
+                return nil
+            }
+
+            return problem
+        }
 
         var points: Int? {
             Int.from(string: pointsText)
@@ -83,10 +95,12 @@ extension NewGameScene {
                     self?.gameCreated(game)
                 case .failed:
                     UINotificationFeedbackGenerator().notificationOccurred(.error)
+                    self?.didError = true
                 default:
                     break
                 }
             }
+
             guard let points = points else {
                 print("Points are invalid")
                 return
