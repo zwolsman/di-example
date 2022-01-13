@@ -24,7 +24,9 @@ extension AppEnvironment {
     private static func configureAPIRepository() -> APIProvider {
         APIProvider(
                 plugins: [
-                    AuthPlugin(tokenClosure: { UserDefaults.standard.string(forKey: "access_token") }),
+                    AccessTokenPlugin { _ in
+                        UserDefaults.standard.string(forKey: "access_token") ?? ""
+                    },
                     NetworkLoggerPlugin()
                 ]
         )

@@ -41,13 +41,13 @@ struct CreateGamePayload: Codable {
 }
 
 // MARK: - TargetType Protocol Implementation
-extension APIRepository: AuthorizedTargetType {
-    var needsAuth: Bool {
+extension APIRepository: AccessTokenAuthorizable, TargetType {
+    var authorizationType: AuthorizationType? {
         switch self {
-        case .signUp, .verify:
-            return false
+        case .signUp, .verify, .jwks:
+            return nil
         default:
-            return true
+            return .bearer
         }
     }
 
@@ -139,34 +139,4 @@ extension APIRepository: AuthorizedTargetType {
         ["Content-type": "application/json"]
     }
 
-}
-
-// MARK: - Auth plugin
-class TokenSource {
-    var token: String?
-
-    init() {
-    }
-}
-
-protocol AuthorizedTargetType: TargetType {
-    var needsAuth: Bool { get }
-}
-
-struct AuthPlugin: PluginType {
-    let tokenClosure: () -> String?
-
-    func prepare(_ request: URLRequest, target: TargetType) -> URLRequest {
-        guard
-                let token = tokenClosure(),
-                let target = target as? AuthorizedTargetType,
-                target.needsAuth
-                else {
-            return request
-        }
-
-        var request = request
-        request.addValue("Bearer " + token, forHTTPHeaderField: "Authorization")
-        return request
-    }
 }
