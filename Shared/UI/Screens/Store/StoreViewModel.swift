@@ -78,7 +78,10 @@ extension StoreScene {
         }
 
         private func purchasedOffer() {
+            #if os(iOS)
             UINotificationFeedbackGenerator().notificationOccurred(.success)
+            #endif
+
             container.appState.bulkUpdate { state in
                 state.routing.homeScene.showProfileScene = false
                 state.userData.profile = profile

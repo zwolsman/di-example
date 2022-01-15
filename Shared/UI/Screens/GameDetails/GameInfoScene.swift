@@ -15,8 +15,10 @@ struct GameInfoScene: View {
 
     var body: some View {
         content
+        #if os(iOS)
                 .navigationBarTitle("Game Info", displayMode: .inline)
                 .listStyle(.grouped)
+        #endif
                 .onReceive(inspection.notice) {
                     inspection.visit(self, $0)
                 }
@@ -42,7 +44,7 @@ private extension GameInfoScene {
 
     var loadingView: some View {
         VStack {
-            ActivityIndicatorView()
+            ProgressView()
             Button(action: {
                 viewModel.game.cancelLoading()
             }, label: { Text("Cancel loading") })

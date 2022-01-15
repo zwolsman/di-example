@@ -103,7 +103,9 @@ extension GameInfoScene {
             if hasPlain {
                 showPlain.toggle()
             } else {
+                #if os(iOS)
                 UINotificationFeedbackGenerator().notificationOccurred(.error)
+                #endif
             }
         }
     }

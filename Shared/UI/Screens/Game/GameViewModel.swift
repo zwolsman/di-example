@@ -120,7 +120,7 @@ extension GameScene {
             guard let result = game.lastTile else {
                 return
             }
-
+            #if os(iOS)
             switch result {
             case .bomb:
                 UINotificationFeedbackGenerator().notificationOccurred(.error)
@@ -129,13 +129,16 @@ extension GameScene {
             default:
                 break
             }
+            #endif
         }
 
         private func cashOutFeedback(game: Game) {
             guard game.isCashedOut else {
                 return
             }
+            #if os(iOS)
             UINotificationFeedbackGenerator().notificationOccurred(.success)
+            #endif
         }
     }
 }

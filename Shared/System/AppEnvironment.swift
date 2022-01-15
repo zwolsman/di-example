@@ -1,8 +1,9 @@
 //
 // Created by Marvin Zwolsman on 22/12/2021.
 //
-
+#if os(iOS)
 import UIKit
+#endif
 import Combine
 import Moya
 
@@ -25,7 +26,11 @@ extension AppEnvironment {
         APIProvider(
                 plugins: [
                     AccessTokenPlugin { _ in
+                        #if os(iOS)
                         UserDefaults.standard.string(forKey: "access_token") ?? ""
+                        #else
+                        "TODO"
+                        #endif
                     },
                     NetworkLoggerPlugin()
                 ]

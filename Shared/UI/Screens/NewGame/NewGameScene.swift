@@ -16,7 +16,9 @@ struct NewGameScene: View {
 
     var body: some View {
         content
+        #if os(iOS)
                 .listStyle(.grouped)
+        #endif
                 .navigationTitle("Create game")
                 .onReceive(inspection.notice) {
                     inspection.visit(self, $0)
@@ -38,7 +40,12 @@ private extension Button {
                 .frame(maxWidth: .infinity)
                 .background(
                         RoundedRectangle(cornerRadius: 8)
-                                .fill(Color(.systemGray5)))
+                        #if os(iOS)
+                            .fill(Color(uiColor: .systemGray5))
+                        #elseif os(macOS)
+                            .fill(Color(nsColor: .controlBackgroundColor))
+                        #endif
+                        )
     }
 }
 
@@ -60,7 +67,9 @@ private extension NewGameScene {
             Section(header: Text("Initial stake"), footer: Text("The minimal initial stake is a 100 points.")) {
                 VStack {
                     TextField("Points", text: $viewModel.pointsText)
+                    #if os(iOS)
                             .keyboardType(.numberPad)
+                    #endif
                             .multilineTextAlignment(.center)
                             .lineLimit(1)
                             .padding()

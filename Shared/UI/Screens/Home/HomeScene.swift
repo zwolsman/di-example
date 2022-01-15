@@ -16,12 +16,17 @@ struct HomeScene: View {
 
     var body: some View {
         content
+        #if os(iOS)
                 .navigationBarTitle("Home")
                 .listStyle(.grouped)
+        #elseif os(macOS)
+                .navigationTitle("Home")
+                .listStyle(.sidebar)
+                .frame(minWidth: 160)
+        #endif
                 .toolbar {
                     newGameButton
                 }
-                .navigationBarBackButtonHidden(true)
                 .onReceive(inspection.notice) {
                     inspection.visit(self, $0)
                 }
@@ -59,6 +64,7 @@ struct HomeScene: View {
     }
 
     private var newGameButton: some ToolbarContent {
+        #if os(iOS)
         ToolbarItem(placement: .navigationBarTrailing) {
             NavigationLink(
                     destination: NewGameScene(viewModel: .init(container: viewModel.container)),
@@ -67,6 +73,16 @@ struct HomeScene: View {
                 Label("Create game", systemImage: "plus")
             }.id("newGameButton")
         }
+        #else
+        ToolbarItem {
+            NavigationLink(
+                    destination: NewGameScene(viewModel: .init(container: viewModel.container)),
+                    isActive: $viewModel.routingState.showNewGameScene
+            ) {
+                Label("Create game", systemImage: "plus")
+            }.id("newGameButton")
+        }
+        #endif
     }
 }
 
@@ -82,7 +98,7 @@ private extension HomeScene {
         if let games = previouslyLoaded {
             loadedGamesView(games, showLoading: true)
         } else {
-            ActivityIndicatorView().padding()
+            ProgressView().padding()
         }
     }
 
@@ -176,7 +192,7 @@ private extension HomeScene {
         if let profile = previouslyLoaded {
             loadedProfileView(profile, showLoading: true)
         } else {
-            ActivityIndicatorView().padding()
+            ProgressView().padding()
         }
     }
 

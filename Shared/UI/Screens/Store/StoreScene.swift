@@ -15,8 +15,10 @@ struct StoreScene: View {
 
     var body: some View {
         content
+        #if os(iOS)
                 .navigationBarTitle("Store")
                 .listStyle(.grouped)
+        #endif
                 .onReceive(inspection.notice) {
                     inspection.visit(self, $0)
                 }
