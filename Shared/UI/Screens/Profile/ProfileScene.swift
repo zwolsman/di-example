@@ -15,7 +15,11 @@ struct ProfileScene: View {
 
     var body: some View {
         content
+        #if os(iOS)
                 .navigationBarTitle("Profile")
+        #elseif os(macOS)
+                .navigationTitle("Profile")
+        #endif
                 .toolbar {
                     shareProfileButton
                 }
@@ -35,11 +39,19 @@ struct ProfileScene: View {
     }
 
     private var shareProfileButton: some ToolbarContent {
+        #if os(iOS)
         ToolbarItem(placement: .navigationBarTrailing) {
             Button(action: viewModel.shareProfile) {
                 Label("Share", systemImage: "square.and.arrow.up")
             }
         }
+        #else
+        ToolbarItem {
+            Button(action: viewModel.shareProfile) {
+                Label("Share", systemImage: "square.and.arrow.up")
+            }
+        }
+        #endif
     }
 }
 
@@ -52,7 +64,7 @@ private extension ProfileScene {
 
     var loadingView: some View {
         VStack {
-            ActivityIndicatorView()
+            ProgressView()
             Button("Cancel loading") {
                 viewModel.profile.cancelLoading()
             }
@@ -112,8 +124,10 @@ private extension ProfileScene {
 
                 }
                         .padding(.bottom)
-            }.listRowSeparator(.hidden)
-
+            }
+            #if os(iOS)
+            .listRowSeparator(.hidden)
+            #endif
 //            highlightSection(profile.highlights)
 //
 //            achievementSection(profile.achievements)
@@ -123,7 +137,10 @@ private extension ProfileScene {
                     Text("Go to store")
                 }
             }
-        }.listStyle(.insetGrouped)
+        }
+        #if os(iOS)
+        .listStyle(.insetGrouped)
+        #endif
     }
 
     private func storeScene() -> some View {

@@ -15,6 +15,8 @@
 		EA0F9669278091220021A2E4 /* GameRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0F9667278091220021A2E4 /* GameRow.swift */; };
 		EA0F966B2781D4790021A2E4 /* PointsGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0F966A2781D4790021A2E4 /* PointsGrid.swift */; };
 		EA0F966C2781D4790021A2E4 /* PointsGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0F966A2781D4790021A2E4 /* PointsGrid.swift */; };
+		EA460D232793484100DDBEA3 /* CombineMoya in Frameworks */ = {isa = PBXBuildFile; productRef = EA460D222793484100DDBEA3 /* CombineMoya */; };
+		EA460D252793484100DDBEA3 /* JWTKit in Frameworks */ = {isa = PBXBuildFile; productRef = EA460D242793484100DDBEA3 /* JWTKit */; };
 		EA8CE5EA278F0EF50073C6DF /* CombineMoya in Frameworks */ = {isa = PBXBuildFile; productRef = EA8CE5E9278F0EF50073C6DF /* CombineMoya */; };
 		EA8CE5EC278F1ADA0073C6DF /* LoadingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8CE5EB278F1ADA0073C6DF /* LoadingScreen.swift */; };
 		EA8CE5ED278F1ADA0073C6DF /* LoadingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8CE5EB278F1ADA0073C6DF /* LoadingScreen.swift */; };
@@ -217,6 +219,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA460D232793484100DDBEA3 /* CombineMoya in Frameworks */,
+				EA460D252793484100DDBEA3 /* JWTKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -254,6 +258,13 @@
 				FD09F90ADBB9858E2327FC2F /* APIRepository.swift */,
 			);
 			path = Repositories;
+			sourceTree = "<group>";
+		};
+		EA460D212793484100DDBEA3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		EAF7CE5527846BAB00292F77 /* SignIn */ = {
@@ -419,6 +430,7 @@
 				FD09F719F0A552627C5BE88B /* macOS */,
 				FD09F9A1BF48AA7CEBD523EF /* Tests iOS */,
 				FD09F4A9A4830D787EB925F0 /* Tests macOS */,
+				EA460D212793484100DDBEA3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -534,6 +546,10 @@
 			dependencies = (
 			);
 			name = "Bombastic (macOS)";
+			packageProductDependencies = (
+				EA460D222793484100DDBEA3 /* CombineMoya */,
+				EA460D242793484100DDBEA3 /* JWTKit */,
+			);
 			productName = "di-example (macOS)";
 			productReference = FD09F8907D9CE8177350BFEF /* Bombastic.app */;
 			productType = "com.apple.product-type.application";
@@ -607,7 +623,7 @@
 			);
 			mainGroup = FD09FD82250F6AC72F5A86AF;
 			packageReferences = (
-				EA8CE5E8278F0EF50073C6DF /* XCRemoteSwiftPackageReference "Moya.git" */,
+				EA8CE5E8278F0EF50073C6DF /* XCRemoteSwiftPackageReference "Moya" */,
 				EA8CE5F1278F20AB0073C6DF /* XCRemoteSwiftPackageReference "jwt-kit" */,
 			);
 			productRefGroup = FD09F89E3783FF659A6912AA /* Products */;
@@ -837,10 +853,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = UV7YH72NQ8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -848,10 +867,11 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 11.6;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.zwolsman.di-example";
+				PRODUCT_BUNDLE_IDENTIFIER = dev.bombastic.app;
 				PRODUCT_NAME = Bombastic;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -863,10 +883,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = UV7YH72NQ8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -874,10 +897,11 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 11.6;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.zwolsman.di-example";
+				PRODUCT_BUNDLE_IDENTIFIER = dev.bombastic.app;
 				PRODUCT_NAME = Bombastic;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1148,7 +1172,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		EA8CE5E8278F0EF50073C6DF /* XCRemoteSwiftPackageReference "Moya.git" */ = {
+		EA8CE5E8278F0EF50073C6DF /* XCRemoteSwiftPackageReference "Moya" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Moya/Moya.git";
 			requirement = {
@@ -1167,9 +1191,19 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		EA460D222793484100DDBEA3 /* CombineMoya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EA8CE5E8278F0EF50073C6DF /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = CombineMoya;
+		};
+		EA460D242793484100DDBEA3 /* JWTKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EA8CE5F1278F20AB0073C6DF /* XCRemoteSwiftPackageReference "jwt-kit" */;
+			productName = JWTKit;
+		};
 		EA8CE5E9278F0EF50073C6DF /* CombineMoya */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = EA8CE5E8278F0EF50073C6DF /* XCRemoteSwiftPackageReference "Moya.git" */;
+			package = EA8CE5E8278F0EF50073C6DF /* XCRemoteSwiftPackageReference "Moya" */;
 			productName = CombineMoya;
 		};
 		EA8CE5F2278F20AB0073C6DF /* JWTKit */ = {

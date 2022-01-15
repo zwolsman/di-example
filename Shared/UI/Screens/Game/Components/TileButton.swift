@@ -84,6 +84,7 @@ struct TileButton: View {
                 }
             }
         }.allowsHitTesting(isEnabled)
+            .frame(maxWidth: 64, maxHeight: 64)
     }
 }
 

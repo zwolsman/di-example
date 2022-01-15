@@ -16,7 +16,11 @@ struct GameScene: View {
 
     var body: some View {
         content
+        #if os(iOS)
                 .navigationBarTitle("Game", displayMode: .inline)
+        #elseif os(macOS)
+                .navigationTitle("Game")
+        #endif
                 .toolbar {
                     gameDetailsButton
                 }
@@ -40,11 +44,19 @@ struct GameScene: View {
     }
 
     private var gameDetailsButton: some ToolbarContent {
+        #if os(iOS)
         ToolbarItem(placement: .navigationBarTrailing) {
             NavigationLink(destination: gameInfoScene) {
                 Label("Game details", systemImage: "info.circle")
             }
         }
+        #else
+        ToolbarItem {
+            NavigationLink(destination: gameInfoScene) {
+                Label("Game details", systemImage: "info.circle")
+            }
+        }
+        #endif
     }
 }
 
@@ -61,7 +73,7 @@ private extension GameScene {
             loadedView(game)
         } else {
             VStack {
-                ActivityIndicatorView()
+                ProgressView()
                 Button(action: {
                     viewModel.game.cancelLoading()
                 }, label: { Text("Cancel loading") })
@@ -88,6 +100,7 @@ private extension GameScene {
                     .padding(8)
                     .layoutPriority(1)
                     .allowsHitTesting(viewModel.canPlay)
+                    .buttonStyle(.plain)
 
             PointsGrid(items: [
                 .init(name: "Next", amount: game.next?.formatted() ?? "-"),
