@@ -15,6 +15,10 @@
 		EA0F9669278091220021A2E4 /* GameRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0F9667278091220021A2E4 /* GameRow.swift */; };
 		EA0F966B2781D4790021A2E4 /* PointsGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0F966A2781D4790021A2E4 /* PointsGrid.swift */; };
 		EA0F966C2781D4790021A2E4 /* PointsGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0F966A2781D4790021A2E4 /* PointsGrid.swift */; };
+		EA1741022809663000BA8F02 /* TransactionsScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1741012809663000BA8F02 /* TransactionsScene.swift */; };
+		EA1741032809663000BA8F02 /* TransactionsScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1741012809663000BA8F02 /* TransactionsScene.swift */; };
+		EA1741052809663D00BA8F02 /* TransactionsSceneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1741042809663D00BA8F02 /* TransactionsSceneViewModel.swift */; };
+		EA1741062809663D00BA8F02 /* TransactionsSceneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1741042809663D00BA8F02 /* TransactionsSceneViewModel.swift */; };
 		EA8CE5EA278F0EF50073C6DF /* CombineMoya in Frameworks */ = {isa = PBXBuildFile; productRef = EA8CE5E9278F0EF50073C6DF /* CombineMoya */; };
 		EA8CE5EC278F1ADA0073C6DF /* LoadingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8CE5EB278F1ADA0073C6DF /* LoadingScreen.swift */; };
 		EA8CE5ED278F1ADA0073C6DF /* LoadingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8CE5EB278F1ADA0073C6DF /* LoadingScreen.swift */; };
@@ -140,6 +144,8 @@
 		EA0F966327807CD20021A2E4 /* TileButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileButton.swift; sourceTree = "<group>"; };
 		EA0F9667278091220021A2E4 /* GameRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRow.swift; sourceTree = "<group>"; };
 		EA0F966A2781D4790021A2E4 /* PointsGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointsGrid.swift; sourceTree = "<group>"; };
+		EA1741012809663000BA8F02 /* TransactionsScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsScene.swift; sourceTree = "<group>"; };
+		EA1741042809663D00BA8F02 /* TransactionsSceneViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsSceneViewModel.swift; sourceTree = "<group>"; };
 		EA8CE5EB278F1ADA0073C6DF /* LoadingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingScreen.swift; sourceTree = "<group>"; };
 		EAF7CE51278466C100292F77 /* di-example (iOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "di-example (iOS).entitlements"; sourceTree = "<group>"; };
 		EAF7CE5627846BBB00292F77 /* SignInScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInScene.swift; sourceTree = "<group>"; };
@@ -259,6 +265,15 @@
 			path = Repositories;
 			sourceTree = "<group>";
 		};
+		EA1741002809661300BA8F02 /* Transactions */ = {
+			isa = PBXGroup;
+			children = (
+				EA1741012809663000BA8F02 /* TransactionsScene.swift */,
+				EA1741042809663D00BA8F02 /* TransactionsSceneViewModel.swift */,
+			);
+			path = Transactions;
+			sourceTree = "<group>";
+		};
 		EAF7CE5527846BAB00292F77 /* SignIn */ = {
 			isa = PBXGroup;
 			children = (
@@ -362,6 +377,7 @@
 		FD09F8A30A7E3A16F4725DAC /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				EA1741002809661300BA8F02 /* Transactions */,
 				EAF7CE5527846BAB00292F77 /* SignIn */,
 				FD09FE1422F37DA78B502E88 /* Home */,
 				FD09FF554F05F47843487217 /* Game */,
@@ -611,7 +627,7 @@
 			);
 			mainGroup = FD09FD82250F6AC72F5A86AF;
 			packageReferences = (
-				EA8CE5E8278F0EF50073C6DF /* XCRemoteSwiftPackageReference "Moya.git" */,
+				EA8CE5E8278F0EF50073C6DF /* XCRemoteSwiftPackageReference "Moya" */,
 				EA8CE5F1278F20AB0073C6DF /* XCRemoteSwiftPackageReference "jwt-kit" */,
 			);
 			productRefGroup = FD09F89E3783FF659A6912AA /* Products */;
@@ -698,6 +714,7 @@
 				FD09F26628DF5B040B8FF953 /* GameScene.swift in Sources */,
 				FD09F2F669B6EA802F1FF78C /* GameViewModel.swift in Sources */,
 				FD09FF4A3205B07E83ACACE3 /* NewGameScene.swift in Sources */,
+				EA1741022809663000BA8F02 /* TransactionsScene.swift in Sources */,
 				FD09FF687E8EB6B4F2939D27 /* NewGameViewModel.swift in Sources */,
 				FD09F6634FD13B6750C86FA1 /* ColorCell.swift in Sources */,
 				FD09F33C63938ECCCB6CB696 /* GameInfoScene.swift in Sources */,
@@ -707,6 +724,7 @@
 				FD09F0425FB9B197208468AE /* ProfileSceneViewModel.swift in Sources */,
 				FD09F1588B88D3C6D21E1D95 /* Profile.swift in Sources */,
 				EAF7CE5727846BBB00292F77 /* SignInScene.swift in Sources */,
+				EA1741052809663D00BA8F02 /* TransactionsSceneViewModel.swift in Sources */,
 				EAF7CE5D2784819000292F77 /* AuthService.swift in Sources */,
 				FD09F4F86EBA83168FE4B370 /* IntExtensions.swift in Sources */,
 				FD09F58CC9D69018037E9184 /* ProfileService.swift in Sources */,
@@ -743,6 +761,7 @@
 				EA0BB6432789C1EA007CC480 /* Offer.swift in Sources */,
 				FD09FA6213CB856ACF9919FE /* Helpers.swift in Sources */,
 				FD09FAB1D7CAEF194B96B97B /* Loadable.swift in Sources */,
+				EA1741062809663D00BA8F02 /* TransactionsSceneViewModel.swift in Sources */,
 				FD09F986D2BA7EEE84C8632B /* Game.swift in Sources */,
 				FD09FAEADE96F95A58117212 /* NetworkingHelpers.swift in Sources */,
 				FD09FAD38515155D36147923 /* CancelBag.swift in Sources */,
@@ -766,6 +785,7 @@
 				FD09F74D82A89CEB35BC890A /* ProfileSceneViewModel.swift in Sources */,
 				FD09FDEDB5E18DFB74E0A3D6 /* Profile.swift in Sources */,
 				FD09F31D6B3BFA0509CE598D /* IntExtensions.swift in Sources */,
+				EA1741032809663000BA8F02 /* TransactionsScene.swift in Sources */,
 				EAF7CE5827846BBB00292F77 /* SignInScene.swift in Sources */,
 				FD09F6B0BDF435C0AF5008A1 /* ProfileService.swift in Sources */,
 				FD09FBBF2C7283B1A462E177 /* ChunkedCollection.swift in Sources */,
@@ -1154,7 +1174,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		EA8CE5E8278F0EF50073C6DF /* XCRemoteSwiftPackageReference "Moya.git" */ = {
+		EA8CE5E8278F0EF50073C6DF /* XCRemoteSwiftPackageReference "Moya" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Moya/Moya.git";
 			requirement = {
@@ -1175,7 +1195,7 @@
 /* Begin XCSwiftPackageProductDependency section */
 		EA8CE5E9278F0EF50073C6DF /* CombineMoya */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = EA8CE5E8278F0EF50073C6DF /* XCRemoteSwiftPackageReference "Moya.git" */;
+			package = EA8CE5E8278F0EF50073C6DF /* XCRemoteSwiftPackageReference "Moya" */;
 			productName = CombineMoya;
 		};
 		EA8CE5F2278F20AB0073C6DF /* JWTKit */ = {
