@@ -70,25 +70,17 @@ private extension ProfileScene {
     func loadedView(_ profile: Profile) -> some View {
         List {
             Section {
-                VStack {
-                    ZStack {
-                        Circle()
-                                .foregroundColor(.secondary.opacity(0.2))
-                        Image(systemName: "person.crop.circle")
-                                .resizable()
-                                .frame(width: 48, height: 48)
-                                .padding()
-                    }
+                VStack(spacing: 4) {
                     Text(profile.name)
-                            .font(.headline)
+                        .fontWeight(.semibold)
 
-                    Label(profile.link, systemImage: "link")
-                            .font(.subheadline)
+                    Link(destination: URL(string: profile.link)!) {
+                        Text(profile.link)
+                            .font(.footnote)
                             .foregroundColor(.secondary)
-                            .padding(8)
-                            .padding(.trailing, 8)
-                            .background(.ultraThinMaterial)
-                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                    }
+                    .buttonStyle(.borderless)
+
                 }.padding()
                         .frame(maxWidth: .infinity)
 
