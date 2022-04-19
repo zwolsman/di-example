@@ -96,7 +96,7 @@ private extension ProfileScene {
                     VStack {
                         Text("\(profile.points.formatted())")
                                 .fontWeight(.bold)
-                        Text("Points")
+                        Text("Bits")
                     }
                     VStack {
                         Text("\(profile.games.formatted())")
@@ -118,16 +118,12 @@ private extension ProfileScene {
 //
 //            achievementSection(profile.achievements)
 
-            Section(footer: Text("Your balance is \(profile.balanceInEur.formatted(.currency(code: "EUR")))")) {
-                NavigationLink(destination: storeScene) {
-                    Text("Go to store")
+            Section {
+                NavigationLink(destination: TransactionsScene()) {
+                    Text("Manage bits")
                 }
             }
         }.listStyle(.insetGrouped)
-    }
-
-    private func storeScene() -> some View {
-        StoreScene(viewModel: .init(container: viewModel.container))
     }
 
     func editableSection(text: String, editAction: @escaping () -> Void) -> some View {

@@ -29,3 +29,17 @@ extension Offer {
     static let mockPointsBonus = mockMany[1]
     static let mockPayOut = mockMany.last!
 }
+
+extension Date {
+    static func from(_ year: Int, _ month: Int, _ day: Int) -> Date?
+    {
+        let gregorianCalendar = Calendar(identifier: .gregorian)
+        let dateComponents = DateComponents(calendar: gregorianCalendar, year: year, month: month, day: day)
+        return gregorianCalendar.date(from: dateComponents)
+    }
+}
+
+extension Transaction {
+    static let mockWithdraw = Transaction(type: .withdraw, amount: 15_000, timestamp: Date.from(2022, 4, 16)!)
+    static let mockDeposit = Transaction(type: .deposit, amount: 15_000, timestamp: Date.from(2022, 4, 11)!)
+}

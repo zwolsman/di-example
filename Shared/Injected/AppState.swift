@@ -28,7 +28,6 @@ extension AppState {
         var profileScene = ProfileScene.Routing()
         var signInScene = SignInScene.Routing()
         var storeScene = StoreScene.Routing()
-        var transactionsScene = TransactionsScene.Routing()
     }
 }
 

@@ -15,10 +15,11 @@
 		EA0F9669278091220021A2E4 /* GameRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0F9667278091220021A2E4 /* GameRow.swift */; };
 		EA0F966B2781D4790021A2E4 /* PointsGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0F966A2781D4790021A2E4 /* PointsGrid.swift */; };
 		EA0F966C2781D4790021A2E4 /* PointsGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0F966A2781D4790021A2E4 /* PointsGrid.swift */; };
-		EA1741022809663000BA8F02 /* TransactionsScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1741012809663000BA8F02 /* TransactionsScene.swift */; };
-		EA1741032809663000BA8F02 /* TransactionsScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1741012809663000BA8F02 /* TransactionsScene.swift */; };
-		EA1741052809663D00BA8F02 /* TransactionsSceneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1741042809663D00BA8F02 /* TransactionsSceneViewModel.swift */; };
-		EA1741062809663D00BA8F02 /* TransactionsSceneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1741042809663D00BA8F02 /* TransactionsSceneViewModel.swift */; };
+		EA17410B280C442800BA8F02 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA17410A280C442800BA8F02 /* Transaction.swift */; };
+		EA17410C280C442800BA8F02 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA17410A280C442800BA8F02 /* Transaction.swift */; };
+		EA17410F280C467100BA8F02 /* TransactionRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA17410E280C467100BA8F02 /* TransactionRow.swift */; };
+		EA174110280C467100BA8F02 /* TransactionRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA17410E280C467100BA8F02 /* TransactionRow.swift */; };
+		EA55065C280EA8FC00F884DA /* TransactionsScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA55065B280EA8FC00F884DA /* TransactionsScene.swift */; };
 		EA8CE5EA278F0EF50073C6DF /* CombineMoya in Frameworks */ = {isa = PBXBuildFile; productRef = EA8CE5E9278F0EF50073C6DF /* CombineMoya */; };
 		EA8CE5EC278F1ADA0073C6DF /* LoadingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8CE5EB278F1ADA0073C6DF /* LoadingScreen.swift */; };
 		EA8CE5ED278F1ADA0073C6DF /* LoadingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8CE5EB278F1ADA0073C6DF /* LoadingScreen.swift */; };
@@ -144,8 +145,9 @@
 		EA0F966327807CD20021A2E4 /* TileButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileButton.swift; sourceTree = "<group>"; };
 		EA0F9667278091220021A2E4 /* GameRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRow.swift; sourceTree = "<group>"; };
 		EA0F966A2781D4790021A2E4 /* PointsGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointsGrid.swift; sourceTree = "<group>"; };
-		EA1741012809663000BA8F02 /* TransactionsScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsScene.swift; sourceTree = "<group>"; };
-		EA1741042809663D00BA8F02 /* TransactionsSceneViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsSceneViewModel.swift; sourceTree = "<group>"; };
+		EA17410A280C442800BA8F02 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
+		EA17410E280C467100BA8F02 /* TransactionRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TransactionRow.swift; path = ../../../../../../../.Trash/TransactionRow.swift; sourceTree = "<group>"; };
+		EA55065B280EA8FC00F884DA /* TransactionsScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsScene.swift; sourceTree = "<group>"; };
 		EA8CE5EB278F1ADA0073C6DF /* LoadingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingScreen.swift; sourceTree = "<group>"; };
 		EAF7CE51278466C100292F77 /* di-example (iOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "di-example (iOS).entitlements"; sourceTree = "<group>"; };
 		EAF7CE5627846BBB00292F77 /* SignInScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInScene.swift; sourceTree = "<group>"; };
@@ -265,11 +267,19 @@
 			path = Repositories;
 			sourceTree = "<group>";
 		};
-		EA1741002809661300BA8F02 /* Transactions */ = {
+		EA17410D280C465700BA8F02 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				EA1741012809663000BA8F02 /* TransactionsScene.swift */,
-				EA1741042809663D00BA8F02 /* TransactionsSceneViewModel.swift */,
+				EA17410E280C467100BA8F02 /* TransactionRow.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		EA55065A280EA8D900F884DA /* Transactions */ = {
+			isa = PBXGroup;
+			children = (
+				EA17410D280C465700BA8F02 /* Components */,
+				EA55065B280EA8FC00F884DA /* TransactionsScene.swift */,
 			);
 			path = Transactions;
 			sourceTree = "<group>";
@@ -377,7 +387,7 @@
 		FD09F8A30A7E3A16F4725DAC /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				EA1741002809661300BA8F02 /* Transactions */,
+				EA55065A280EA8D900F884DA /* Transactions */,
 				EAF7CE5527846BAB00292F77 /* SignIn */,
 				FD09FE1422F37DA78B502E88 /* Home */,
 				FD09FF554F05F47843487217 /* Game */,
@@ -497,6 +507,7 @@
 				FD09F9476825E189B7205A84 /* Tile.swift */,
 				EA0BB6412789C1E9007CC480 /* Offer.swift */,
 				FD09FE742314A8A3E1E7683B /* Problem.swift */,
+				EA17410A280C442800BA8F02 /* Transaction.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -714,17 +725,16 @@
 				FD09F26628DF5B040B8FF953 /* GameScene.swift in Sources */,
 				FD09F2F669B6EA802F1FF78C /* GameViewModel.swift in Sources */,
 				FD09FF4A3205B07E83ACACE3 /* NewGameScene.swift in Sources */,
-				EA1741022809663000BA8F02 /* TransactionsScene.swift in Sources */,
 				FD09FF687E8EB6B4F2939D27 /* NewGameViewModel.swift in Sources */,
 				FD09F6634FD13B6750C86FA1 /* ColorCell.swift in Sources */,
 				FD09F33C63938ECCCB6CB696 /* GameInfoScene.swift in Sources */,
 				FD09F86D957AF00C43010F17 /* GameInfoViewModel.swift in Sources */,
 				FD09FC222066074638051C7F /* DetailRow.swift in Sources */,
 				FD09FBD352C969491F9621D9 /* ProfileScene.swift in Sources */,
+				EA17410F280C467100BA8F02 /* TransactionRow.swift in Sources */,
 				FD09F0425FB9B197208468AE /* ProfileSceneViewModel.swift in Sources */,
 				FD09F1588B88D3C6D21E1D95 /* Profile.swift in Sources */,
 				EAF7CE5727846BBB00292F77 /* SignInScene.swift in Sources */,
-				EA1741052809663D00BA8F02 /* TransactionsSceneViewModel.swift in Sources */,
 				EAF7CE5D2784819000292F77 /* AuthService.swift in Sources */,
 				FD09F4F86EBA83168FE4B370 /* IntExtensions.swift in Sources */,
 				FD09F58CC9D69018037E9184 /* ProfileService.swift in Sources */,
@@ -732,10 +742,12 @@
 				EA0BB6422789C1EA007CC480 /* Offer.swift in Sources */,
 				FD09F11B3FA10266E70E5E35 /* APIRepository.swift in Sources */,
 				FD09F25EF2CC50A62450E1AB /* Tile.swift in Sources */,
+				EA17410B280C442800BA8F02 /* Transaction.swift in Sources */,
 				FD09FAFFCEAC00E99E02BE67 /* GameStoreHelpers.swift in Sources */,
 				FD09F32BA54A3CF317C13A7F /* StoreScene.swift in Sources */,
 				EA8CE5EC278F1ADA0073C6DF /* LoadingScreen.swift in Sources */,
 				FD09F1F44CD81E1B1452D83E /* StoreViewModel.swift in Sources */,
+				EA55065C280EA8FC00F884DA /* TransactionsScene.swift in Sources */,
 				FD09F093CC4A1C9476B8DC95 /* OfferRow.swift in Sources */,
 				FD09FA7077ADA6D00075202F /* StoreService.swift in Sources */,
 				FD09FACABBD380289969BF13 /* ContentView.swift in Sources */,
@@ -761,7 +773,6 @@
 				EA0BB6432789C1EA007CC480 /* Offer.swift in Sources */,
 				FD09FA6213CB856ACF9919FE /* Helpers.swift in Sources */,
 				FD09FAB1D7CAEF194B96B97B /* Loadable.swift in Sources */,
-				EA1741062809663D00BA8F02 /* TransactionsSceneViewModel.swift in Sources */,
 				FD09F986D2BA7EEE84C8632B /* Game.swift in Sources */,
 				FD09FAEADE96F95A58117212 /* NetworkingHelpers.swift in Sources */,
 				FD09FAD38515155D36147923 /* CancelBag.swift in Sources */,
@@ -779,16 +790,17 @@
 				FD09F54AE485069265570C3C /* GameInfoScene.swift in Sources */,
 				FD09F51FDB21C670BA60103D /* GameInfoViewModel.swift in Sources */,
 				EA0F9669278091220021A2E4 /* GameRow.swift in Sources */,
+				EA174110280C467100BA8F02 /* TransactionRow.swift in Sources */,
 				FD09F8BA211598F14EE1B133 /* DetailRow.swift in Sources */,
 				FD09F9389520107697DCE200 /* ProfileScene.swift in Sources */,
 				EAF7CE5B27846BCA00292F77 /* SignInSceneViewModel.swift in Sources */,
 				FD09F74D82A89CEB35BC890A /* ProfileSceneViewModel.swift in Sources */,
 				FD09FDEDB5E18DFB74E0A3D6 /* Profile.swift in Sources */,
 				FD09F31D6B3BFA0509CE598D /* IntExtensions.swift in Sources */,
-				EA1741032809663000BA8F02 /* TransactionsScene.swift in Sources */,
 				EAF7CE5827846BBB00292F77 /* SignInScene.swift in Sources */,
 				FD09F6B0BDF435C0AF5008A1 /* ProfileService.swift in Sources */,
 				FD09FBBF2C7283B1A462E177 /* ChunkedCollection.swift in Sources */,
+				EA17410C280C442800BA8F02 /* Transaction.swift in Sources */,
 				FD09FA7A60D1EC77E3A12478 /* APIRepository.swift in Sources */,
 				FD09FC95D5DC81314C48F645 /* Tile.swift in Sources */,
 				FD09FCB40EE53D8FEF3385BF /* GameStoreHelpers.swift in Sources */,
