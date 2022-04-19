@@ -27,7 +27,6 @@ extension AppState {
         var newGameScene = NewGameScene.Routing()
         var profileScene = ProfileScene.Routing()
         var signInScene = SignInScene.Routing()
-        var storeScene = StoreScene.Routing()
     }
 }
 

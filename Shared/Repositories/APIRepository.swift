@@ -17,8 +17,6 @@ enum APIRepository {
     case cashOut(gameId: String)
     case signUp(email: String, fullName: String, authCode: String, identityToken: String)
     case verify(authCode: String, identityToken: String)
-    case storeOffers
-    case purchase(offerId: String)
     case jwks
 }
 
@@ -81,10 +79,6 @@ extension APIRepository: AccessTokenAuthorizable, TargetType {
             return "/v1/auth/sign-up"
         case .verify:
             return "/v1/auth/verify"
-        case .storeOffers:
-            return "/v1/store/offers"
-        case let .purchase(offerId):
-            return "/v1/store/offers/\(offerId)/purchase"
         case .jwks:
             return "/v1/auth/keys"
         }
@@ -104,10 +98,6 @@ extension APIRepository: AccessTokenAuthorizable, TargetType {
             return .put
         case .signUp, .verify:
             return .post
-        case .storeOffers:
-            return .get
-        case .purchase:
-            return .post
         case .deleteGame:
             return .delete
         case .jwks:
@@ -117,7 +107,7 @@ extension APIRepository: AccessTokenAuthorizable, TargetType {
 
     var task: Task {
         switch self {
-        case .profile, .game, .games, .cashOut, .storeOffers, .purchase, .deleteGame, .jwks:
+        case .profile, .game, .games, .cashOut, .deleteGame, .jwks:
             return .requestPlain
 
         case let .signUp(email, fullName, authCode, identityToken):
