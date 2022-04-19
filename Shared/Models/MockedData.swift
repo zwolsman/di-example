@@ -26,6 +26,6 @@ extension Date {
 }
 
 extension Transaction {
-    static let mockWithdraw = Transaction(type: .withdraw, amount: 15_000, timestamp: Date.from(2022, 4, 16)!)
-    static let mockDeposit = Transaction(type: .deposit, amount: 15_000, timestamp: Date.from(2022, 4, 11)!)
+    static let mockWithdraw = Transaction(type: .withdraw, amount: 15_000, timestamp: Date.from(2022, 4, 16)!, confirmed: true)
+    static let mockDeposit = Transaction(type: .deposit, amount: 15_000, timestamp: Date.from(2022, 4, 11)!, confirmed: true)
 }

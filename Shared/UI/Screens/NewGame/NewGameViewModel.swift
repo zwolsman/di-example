@@ -30,7 +30,7 @@ extension NewGameScene {
 
         var pointsRange: ClosedRange<Int> {
             var end: Int
-            if let points = container.appState[\.userData.profile].value?.points {
+            if let points = container.appState[\.userData.profile].value?.bits {
                 end = points
             } else {
                 end = Int.max

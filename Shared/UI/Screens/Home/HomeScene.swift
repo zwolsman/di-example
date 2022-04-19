@@ -203,7 +203,7 @@ private extension HomeScene {
                 VStack(alignment: .leading) {
                     Text(profile.name)
                             .foregroundColor(.primary)
-                    Text("You have \(profile.points.formatted()) points")
+                    Text("You have \(profile.bits.formatted()) bits")
                             .foregroundColor(.secondary)
                 }
             }

@@ -12,6 +12,7 @@ struct Transaction : Identifiable {
     let type: TransactionType
     let amount: Int
     let timestamp: Date
+    let confirmed: Bool
     
     enum TransactionType
     {

@@ -86,7 +86,7 @@ private extension ProfileScene {
 
                 LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]) {
                     VStack {
-                        Text("\(profile.points.formatted())")
+                        Text("\(profile.bits.formatted())")
                                 .fontWeight(.bold)
                         Text("Bits")
                     }
@@ -97,7 +97,7 @@ private extension ProfileScene {
                     }
 
                     VStack {
-                        Text("\(profile.totalEarnings.formatted())")
+                        Text("\(profile.bitsEarned.formatted())")
                                 .fontWeight(.bold)
                         Text("Earned")
                     }

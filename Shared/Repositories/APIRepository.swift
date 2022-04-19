@@ -51,9 +51,9 @@ extension APIRepository: AccessTokenAuthorizable, TargetType {
 
     var baseURL: URL {
 //        #if RELEASE
-        let url = URL(string: "https://bombastic.joell.dev/api")!
+//        let url = URL(string: "https://bombastic.joell.dev/api")!
 //        #else
-//        let url = URL(string: "http://192.168.1.120:8080/api")!
+        let url = URL(string: "http://192.168.1.120:8080/api")!
 //        #endif
         print("api base url: \(url)")
         return url

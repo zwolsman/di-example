@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		EA0BB6422789C1EA007CC480 /* Offer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0BB6412789C1E9007CC480 /* Offer.swift */; };
-		EA0BB6432789C1EA007CC480 /* Offer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0BB6412789C1E9007CC480 /* Offer.swift */; };
 		EA0F966427807CD20021A2E4 /* TileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0F966327807CD20021A2E4 /* TileButton.swift */; };
 		EA0F966527807CD20021A2E4 /* TileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0F966327807CD20021A2E4 /* TileButton.swift */; };
 		EA0F9668278091220021A2E4 /* GameRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0F9667278091220021A2E4 /* GameRow.swift */; };
@@ -133,7 +131,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		EA0BB6412789C1E9007CC480 /* Offer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Offer.swift; sourceTree = "<group>"; };
 		EA0F966327807CD20021A2E4 /* TileButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileButton.swift; sourceTree = "<group>"; };
 		EA0F9667278091220021A2E4 /* GameRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRow.swift; sourceTree = "<group>"; };
 		EA0F966A2781D4790021A2E4 /* PointsGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointsGrid.swift; sourceTree = "<group>"; };
@@ -473,7 +470,6 @@
 				FD09F3885A0C3242BF9BD156 /* MockedData.swift */,
 				FD09F5BD5BBDFD365FCF8254 /* Profile.swift */,
 				FD09F9476825E189B7205A84 /* Tile.swift */,
-				EA0BB6412789C1E9007CC480 /* Offer.swift */,
 				FD09FE742314A8A3E1E7683B /* Problem.swift */,
 				EA17410A280C442800BA8F02 /* Transaction.swift */,
 			);
@@ -707,7 +703,6 @@
 				FD09F4F86EBA83168FE4B370 /* IntExtensions.swift in Sources */,
 				FD09F58CC9D69018037E9184 /* ProfileService.swift in Sources */,
 				FD09FC9C160554C46AAB4153 /* ChunkedCollection.swift in Sources */,
-				EA0BB6422789C1EA007CC480 /* Offer.swift in Sources */,
 				FD09F11B3FA10266E70E5E35 /* APIRepository.swift in Sources */,
 				FD09F25EF2CC50A62450E1AB /* Tile.swift in Sources */,
 				EA17410B280C442800BA8F02 /* Transaction.swift in Sources */,
@@ -734,7 +729,6 @@
 				FD09F10CC14422D3B09D7845 /* Store.swift in Sources */,
 				EAF7CE5E2784819000292F77 /* AuthService.swift in Sources */,
 				FD09F42235BF5235BBB33DD4 /* GameService.swift in Sources */,
-				EA0BB6432789C1EA007CC480 /* Offer.swift in Sources */,
 				FD09FA6213CB856ACF9919FE /* Helpers.swift in Sources */,
 				FD09FAB1D7CAEF194B96B97B /* Loadable.swift in Sources */,
 				FD09F986D2BA7EEE84C8632B /* Game.swift in Sources */,
