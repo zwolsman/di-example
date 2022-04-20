@@ -103,7 +103,7 @@ private extension GameScene {
 
             Divider().padding([.top, .leading, .trailing])
 
-            Button("Collect points", action: viewModel.cashOut)
+            Button("Cash out", action: viewModel.cashOut)
                     .frame(maxWidth: .infinity)
                     .padding(.top)
                     .disabled(!viewModel.canPlay)

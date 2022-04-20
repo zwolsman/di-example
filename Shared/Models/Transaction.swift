@@ -7,16 +7,16 @@
 
 import Foundation
 
-struct Transaction : Identifiable {
-    let id = UUID()
+struct Transaction : Equatable, Codable  {
+    var txId: String
     let type: TransactionType
     let amount: Int
     let timestamp: Date
     let confirmed: Bool
     
-    enum TransactionType
+    enum TransactionType: String, Codable
     {
-        case deposit
-        case withdraw
+        case deposit = "DEPOSIT"
+        case withdraw = "WITHDRAW"
     }
 }

@@ -8,25 +8,63 @@
 import SwiftUI
 
 struct TransactionsScene: View {
+    @ObservedObject private(set) var viewModel: ViewModel
     
-    let address = "mrWmFpVs4eijT6PLrRYszX3xQroyxLpokG"
+    let inspection = Inspection<Self>()
+    
     var body: some View {
+        content
+            .navigationBarTitle("Manage bits")
+            .navigationBarTitleDisplayMode(.inline)
+            .onReceive(inspection.notice) {
+                inspection.visit(self, $0)
+            }
+    }
+    
+    @ViewBuilder
+    var content: some View {
+        switch viewModel.profile {
+        case .notRequested:
+            notRequestedView
+        case .isLoading:
+            loadingView
+        case let .loaded(profile):
+            loadedView(profile)
+        case let .failed(error):
+            Text(error.localizedDescription)
+        }
+    }
+    
+    var notRequestedView: some View {
+        Text("").onAppear(perform: viewModel.loadTransactions)
+    }
+    
+    var loadingView: some View {
+        HStack {
+            ProgressView()
+                .padding()
+            Text("Loading transactions")
+                .foregroundColor(.secondary)
+        }
+    }
+    
+    func loadedView(_ profile: ProfileWithTransactions) -> some View {
         List {
             Section(footer: Text("Your deposit address is private. Send only Bitcoin (BTC) to this address. Sending any other coins may reuslt in permanent loss. After 1 confirmation the bits will be added to your account.")) {
                 VStack(spacing: 8) {
                     Text("Marvin Zwolsman")
                         .fontWeight(.semibold)
                     
-                    Text(address)
+                    Text(profile.address)
                         .font(.footnote)
                         .multilineTextAlignment(.center)
                         .foregroundColor(.secondary)
                     
-                    Image(uiImage: QrCodeImage.generateQRCode(from: "bitcoin:\(address)"))
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 148, height: 148)
-                    .padding()
+                    Image(uiImage: QrCodeImage.generateQRCode(from: "bitcoin:\(profile.address)"))
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 148, height: 148)
+                        .padding()
                     
                 }
                 .frame(maxWidth: .infinity)
@@ -35,9 +73,11 @@ struct TransactionsScene: View {
             }
             
             Section(header: Text("Recent transactions")) {
-                TransactionRow(transaction: Transaction.mockDeposit)
-                TransactionRow(transaction: Transaction.mockDeposit)
-                TransactionRow(transaction: Transaction.mockDeposit)
+                if profile.transactions.isEmpty {
+                    Text("")
+                } else {
+                    ForEach(profile.transactions, id: \.txId, content: TransactionRow.init(transaction:))
+                }
             }
             Section(footer: Text("You cannot cash out until all deposit transactions have at least 3 confirmations. You can check the deposits and number of confirmations by clicking visiting blockchain.info and search for your deposit address.")) {
                 Button("Withdraw") {
@@ -45,20 +85,18 @@ struct TransactionsScene: View {
                 }
             }
         }
-        .navigationTitle("Manage bits")
-            .navigationBarTitleDisplayMode(.inline)
     }
 }
 
 struct QrCodeImage {
     static let context = CIContext()
     static let filter = CIFilter(name: "CIQRCodeGenerator")!
-
+    
     static func generateQRCode(from text: String) -> UIImage {
         var qrImage = UIImage(systemName: "xmark.circle") ?? UIImage()
         let data = Data(text.utf8)
         filter.setValue(data, forKey: "inputMessage")
-
+        
         let transform = CGAffineTransform(scaleX: 20, y: 20)
         if let outputImage = filter.outputImage?.transformed(by: transform) {
             if let image = context.createCGImage(
@@ -74,11 +112,11 @@ struct QrCodeImage {
 struct TransactionsScene_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            TransactionsScene()
+            TransactionsScene(viewModel: .init(container: .preview))
         }
         
         NavigationView {
-            TransactionsScene()
+            TransactionsScene(viewModel: .init(container: .preview))
         }.preferredColorScheme(.dark)
     }
 }

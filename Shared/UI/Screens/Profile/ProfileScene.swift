@@ -86,7 +86,7 @@ private extension ProfileScene {
 
                 LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]) {
                     VStack {
-                        Text("\(profile.bits.formatted())")
+                        Text("\(profile.bits.abbr())")
                                 .fontWeight(.bold)
                         Text("Bits")
                     }
@@ -111,7 +111,7 @@ private extension ProfileScene {
 //            achievementSection(profile.achievements)
 
             Section {
-                NavigationLink(destination: TransactionsScene()) {
+                NavigationLink(destination: TransactionsScene(viewModel: .init(container: viewModel.container))) {
                     Text("Manage bits")
                 }
             }

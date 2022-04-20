@@ -18,6 +18,7 @@ enum APIRepository {
     case signUp(email: String, fullName: String, authCode: String, identityToken: String)
     case verify(authCode: String, identityToken: String)
     case jwks
+    case transactions
 }
 
 struct SignUpPayload: Codable {
@@ -66,7 +67,8 @@ extension APIRepository: AccessTokenAuthorizable, TargetType {
                 return "/v1/profiles/me"
             }
             return "/v1/profiles/\(profileId)"
-
+        case .transactions:
+            return "/v1/profiles/me/transactions"
         case .games, .createGame:
             return "/v1/games"
         case let .game(gameId), let .deleteGame(gameId):
@@ -86,7 +88,7 @@ extension APIRepository: AccessTokenAuthorizable, TargetType {
 
     var method: Moya.Method {
         switch self {
-        case .profile:
+        case .profile, .transactions:
             return .get
         case .game, .games:
             return .get
@@ -107,7 +109,7 @@ extension APIRepository: AccessTokenAuthorizable, TargetType {
 
     var task: Task {
         switch self {
-        case .profile, .game, .games, .cashOut, .deleteGame, .jwks:
+        case .profile, .game, .games, .cashOut, .deleteGame, .jwks, .transactions:
             return .requestPlain
 
         case let .signUp(email, fullName, authCode, identityToken):

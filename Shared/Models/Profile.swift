@@ -11,3 +11,9 @@ struct Profile: Equatable, Codable {
     var bitsEarned: Int
     var link: String
 }
+
+struct ProfileWithTransactions: Equatable, Codable {
+    var name: String
+    var address: String
+    var transactions: [Transaction]
+}
