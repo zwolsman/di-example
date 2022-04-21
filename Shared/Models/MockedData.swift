@@ -28,4 +28,9 @@ extension Date {
 extension Transaction {
     static let mockWithdraw = Transaction(txId: "transaction-id-1", type: .withdraw, amount: 15_000, timestamp: Date.from(2022, 4, 16)!, confirmed: true)
     static let mockDeposit = Transaction(txId: "transaction-id-2", type: .deposit, amount: 15_000, timestamp: Date.from(2022, 4, 11)!, confirmed: true)
+    static let mockDepositNonFirmed = Transaction(txId: "transaction-id-3", type: .deposit, amount: 15_000, timestamp: Date.from(2022, 4, 11)!, confirmed: false)
+}
+
+extension ProfileWithTransactions {
+    static let mock = ProfileWithTransactions(name: "Marvin Zwolsman", address: "tb1qkt3yf6awy4ekeu93ch9r8gdcyv6dr8k25gdswk", transactions: [Transaction.mockDeposit, Transaction.mockDeposit, Transaction.mockWithdraw])
 }

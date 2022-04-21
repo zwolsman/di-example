@@ -79,7 +79,7 @@ struct TransactionsScene: View {
                     ForEach(profile.transactions, id: \.txId, content: TransactionRow.init(transaction:))
                 }
             }
-            Section(footer: Text("You cannot cash out until all deposit transactions have at least 3 confirmations. You can check the deposits and number of confirmations by clicking visiting blockchain.info and search for your deposit address.")) {
+            Section(footer: Text("You cannot cash out until all deposit transactions have at least 3 confirmations. You can check the deposits and number of confirmations by visiting blockchain.info and search for your deposit address.")) {
                 Button("Withdraw") {
                     
                 }
@@ -112,11 +112,11 @@ struct QrCodeImage {
 struct TransactionsScene_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            TransactionsScene(viewModel: .init(container: .preview))
+            TransactionsScene(viewModel: .init(container: .preview, profile: .loaded(ProfileWithTransactions.mock)))
         }
         
         NavigationView {
-            TransactionsScene(viewModel: .init(container: .preview))
+            TransactionsScene(viewModel: .init(container: .preview, profile: .loaded(ProfileWithTransactions.mock)))
         }.preferredColorScheme(.dark)
     }
 }
