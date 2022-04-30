@@ -176,7 +176,11 @@ private extension HomeScene {
         if let profile = previouslyLoaded {
             loadedProfileView(profile, showLoading: true)
         } else {
-            ActivityIndicatorView().padding()
+            HStack {
+                ProgressView()
+                    .padding()
+                Text("Loading profile")
+            }
         }
     }
 
