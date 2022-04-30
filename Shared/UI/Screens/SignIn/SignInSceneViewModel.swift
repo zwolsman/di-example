@@ -53,7 +53,7 @@ extension SignInScene {
         }
 
         func setupSignInRequest(request: ASAuthorizationAppleIDRequest) {
-            request.requestedScopes = [.fullName, .email]
+            request.requestedScopes = [.fullName]
         }
 
         func onCompletion(result: Result<ASAuthorization, Error>) {
@@ -69,12 +69,12 @@ extension SignInScene {
                     let fullName = appleIDCredential.fullName
 
                     let publisher: AnyPublisher<String, MoyaError>
-                    if let fullName = fullName?.formatted(.name(style: .long)), let email = appleIDCredential.email {
-                        print("registering user. name: \(fullName), email: \(email)")
+                    if let fullName = fullName?.formatted(.name(style: .long)) {
+                        print("registering user. name: \(fullName)")
                         publisher = container
                                 .services
                                 .authService
-                                .register(email: email, fullName: fullName, authCode: authCode, identityToken: idToken)
+                                .register(fullName: fullName, authCode: authCode, identityToken: idToken)
                     } else {
                         publisher = container
                                 .services

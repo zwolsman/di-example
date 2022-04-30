@@ -15,14 +15,13 @@ enum APIRepository {
     case createGame(initialBet: Int, bombs: Int, colorId: Int)
     case guess(gameId: String, tileId: Int)
     case cashOut(gameId: String)
-    case signUp(email: String, fullName: String, authCode: String, identityToken: String)
+    case signUp(fullName: String, authCode: String, identityToken: String)
     case verify(authCode: String, identityToken: String)
     case jwks
     case transactions
 }
 
 struct SignUpPayload: Codable {
-    var email: String
     var fullName: String
     var authCode: String
     var identityToken: String
@@ -52,10 +51,11 @@ extension APIRepository: AccessTokenAuthorizable, TargetType {
 
     var baseURL: URL {
 //        #if RELEASE
-//        let url = URL(string: "https://bombastic.joell.dev/api")!
+        let url = URL(string: "https://bombastic.joell.dev/api")!
 //        #else
-        let url = URL(string: "http://192.168.1.120:8080/api")!
+//        let url = URL(string: "http://192.168.1.120:8080/api")!
 //        #endif
+//        let url = URL(string: "http://172.28.244.43:8080/api")!
         print("api base url: \(url)")
         return url
     }
@@ -112,9 +112,9 @@ extension APIRepository: AccessTokenAuthorizable, TargetType {
         case .profile, .game, .games, .cashOut, .deleteGame, .jwks, .transactions:
             return .requestPlain
 
-        case let .signUp(email, fullName, authCode, identityToken):
+        case let .signUp(fullName, authCode, identityToken):
             let payload =
-                    SignUpPayload(email: email, fullName: fullName, authCode: authCode, identityToken: identityToken)
+                    SignUpPayload(fullName: fullName, authCode: authCode, identityToken: identityToken)
             return .requestJSONEncodable(payload)
         case let .verify(authCode, identityToken):
             let payload = VerifyPayload(authCode: authCode, identityToken: identityToken)
