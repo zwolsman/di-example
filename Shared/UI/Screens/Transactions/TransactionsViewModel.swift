@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 // MARK: - Routing
 
@@ -48,6 +49,11 @@ extension TransactionsScene {
 
         func loadTransactions() {
             container.services.profileService.loadProfileWithTransactions(profileWithTransaction: loadableSubject(\.profile))
+        }
+        
+        func qrImageAction() {
+            guard let address = profile.value?.address else { return }
+            UIPasteboard.general.string = address
         }
     }
 }

@@ -55,17 +55,20 @@ struct TransactionsScene: View {
                     Text("Marvin Zwolsman")
                         .fontWeight(.semibold)
                     
-                    Text(profile.address)
+                    Link(profile.address, destination: profile.addressUrl)
                         .font(.footnote)
                         .multilineTextAlignment(.center)
                         .foregroundColor(.secondary)
+                        .buttonStyle(.plain)
                     
-                    Image(uiImage: QrCodeImage.generateQRCode(from: "bitcoin:\(profile.address)"))
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 148, height: 148)
-                        .padding()
-                    
+                    Button(action: viewModel.qrImageAction) {
+                        Image(uiImage: QrCodeImage.generateQRCode(from: "bitcoin:\(profile.address)"))
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 148, height: 148)
+                            .padding()
+                    }
+                    .buttonStyle(.plain)
                 }
                 .frame(maxWidth: .infinity)
                 .padding()
@@ -85,6 +88,12 @@ struct TransactionsScene: View {
                 }
             }
         }
+    }
+}
+
+extension ProfileWithTransactions {
+    var addressUrl: URL {
+        URL(string: "https://www.blockchain.com/btc-testnet/address/\(address)")!
     }
 }
 
