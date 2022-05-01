@@ -70,33 +70,25 @@ private extension ProfileScene {
     func loadedView(_ profile: Profile) -> some View {
         List {
             Section {
-                VStack {
-                    ZStack {
-                        Circle()
-                                .foregroundColor(.secondary.opacity(0.2))
-                        Image(systemName: "person.crop.circle")
-                                .resizable()
-                                .frame(width: 48, height: 48)
-                                .padding()
-                    }
+                VStack(spacing: 4) {
                     Text(profile.name)
-                            .font(.headline)
+                        .fontWeight(.semibold)
 
-                    Label(profile.link, systemImage: "link")
-                            .font(.subheadline)
+                    Link(destination: URL(string: profile.link)!) {
+                        Text(profile.link)
+                            .font(.footnote)
                             .foregroundColor(.secondary)
-                            .padding(8)
-                            .padding(.trailing, 8)
-                            .background(.ultraThinMaterial)
-                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                    }
+                    .buttonStyle(.borderless)
+
                 }.padding()
                         .frame(maxWidth: .infinity)
 
                 LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]) {
                     VStack {
-                        Text("\(profile.points.formatted())")
+                        Text("\(profile.bits.formatted())")
                                 .fontWeight(.bold)
-                        Text("Points")
+                        Text("Bits")
                     }
                     VStack {
                         Text("\(profile.games.formatted())")
@@ -105,7 +97,7 @@ private extension ProfileScene {
                     }
 
                     VStack {
-                        Text("\(profile.totalEarnings.formatted())")
+                        Text("\(profile.bitsEarned.formatted())")
                                 .fontWeight(.bold)
                         Text("Earned")
                     }
@@ -118,16 +110,12 @@ private extension ProfileScene {
 //
 //            achievementSection(profile.achievements)
 
-            Section(footer: Text("Your balance is \(profile.balanceInEur.formatted(.currency(code: "EUR")))")) {
-                NavigationLink(destination: storeScene) {
-                    Text("Go to store")
+            Section {
+                NavigationLink(destination: TransactionsScene(viewModel: .init(container: viewModel.container))) {
+                    Text("Manage bits")
                 }
             }
         }.listStyle(.insetGrouped)
-    }
-
-    private func storeScene() -> some View {
-        StoreScene(viewModel: .init(container: viewModel.container))
     }
 
     func editableSection(text: String, editAction: @escaping () -> Void) -> some View {

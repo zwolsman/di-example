@@ -148,6 +148,7 @@ private extension HomeScene {
                     selection: $viewModel.routingState.gameId
             ) {
                 GameRow(game: game)
+                    .opacity(game.isActive ? 1 : 0.5)
             }
                     .swipeActions(edge: .trailing) {
                         if !game.isActive {
@@ -176,7 +177,11 @@ private extension HomeScene {
         if let profile = previouslyLoaded {
             loadedProfileView(profile, showLoading: true)
         } else {
-            ActivityIndicatorView().padding()
+            HStack {
+                ProgressView()
+                    .padding()
+                Text("Loading profile")
+            }
         }
     }
 
@@ -194,20 +199,15 @@ private extension HomeScene {
 
     func loadedProfileView(_ profile: Profile, showLoading: Bool) -> some View {
         func profileRow() -> some View {
-            HStack {
-                Circle()
-                        .frame(maxWidth: 48, maxHeight: 48)
-                        .aspectRatio(1.0, contentMode: .fill)
-                        .padding(.trailing, 8)
-
                 VStack(alignment: .leading) {
                     Text(profile.name)
-                            .foregroundColor(.primary)
-                    Text("You have \(profile.points.formatted()) points")
+                        .fontWeight(.semibold)
+                        .foregroundColor(.primary)
+                    Text("You have \(profile.bits.formatted()) bits")
                             .foregroundColor(.secondary)
-                }
+                }.frame(maxHeight: 48)
+                .padding(.leading, 2)
             }
-        }
 
         return NavigationLink(
                 destination: profileScene,

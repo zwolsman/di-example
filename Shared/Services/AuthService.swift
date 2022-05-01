@@ -12,7 +12,7 @@ import CombineMoya
 import JWTKit
 
 protocol AuthService {
-    func register(email: String, fullName: String, authCode: String, identityToken: String) -> AnyPublisher<String, MoyaError>
+    func register(fullName: String, authCode: String, identityToken: String) -> AnyPublisher<String, MoyaError>
     func verify(authCode: String, identityToken: String) -> AnyPublisher<String, MoyaError>
     func verify(token: String) -> AnyPublisher<Bool, Never>
 }
@@ -24,11 +24,10 @@ struct TokenResponse: Decodable {
 struct RemoteAuthService: AuthService {
     let provider: APIProvider
     
-    func register(email: String, fullName: String, authCode: String, identityToken: String) -> AnyPublisher<String, MoyaError> {
+    func register(fullName: String, authCode: String, identityToken: String) -> AnyPublisher<String, MoyaError> {
         provider
             .requestPublisher(
                 .signUp(
-                    email: email,
                     fullName: fullName,
                     authCode: authCode,
                     identityToken: identityToken
@@ -90,7 +89,7 @@ struct RemoteAuthService: AuthService {
 }
 
 class StubAuthService: AuthService {
-    func register(email: String, fullName: String, authCode: String, identityToken: String)
+    func register(fullName: String, authCode: String, identityToken: String)
     -> AnyPublisher<String, MoyaError> {
         Empty<String, MoyaError>().eraseToAnyPublisher()
     }

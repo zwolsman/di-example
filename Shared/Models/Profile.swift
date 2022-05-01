@@ -6,9 +6,14 @@ import Foundation
 
 struct Profile: Equatable, Codable {
     var name: String
-    var points: Int
+    var bits: Int
     var games: Int
-    var totalEarnings: Int
+    var bitsEarned: Int
     var link: String
-    var balanceInEur: Double
+}
+
+struct ProfileWithTransactions: Equatable, Codable {
+    var name: String
+    var address: String
+    var transactions: [Transaction]
 }

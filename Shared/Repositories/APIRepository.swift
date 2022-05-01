@@ -15,15 +15,13 @@ enum APIRepository {
     case createGame(initialBet: Int, bombs: Int, colorId: Int)
     case guess(gameId: String, tileId: Int)
     case cashOut(gameId: String)
-    case signUp(email: String, fullName: String, authCode: String, identityToken: String)
+    case signUp(fullName: String, authCode: String, identityToken: String)
     case verify(authCode: String, identityToken: String)
-    case storeOffers
-    case purchase(offerId: String)
     case jwks
+    case transactions
 }
 
 struct SignUpPayload: Codable {
-    var email: String
     var fullName: String
     var authCode: String
     var identityToken: String
@@ -57,6 +55,7 @@ extension APIRepository: AccessTokenAuthorizable, TargetType {
 //        #else
 //        let url = URL(string: "http://192.168.1.120:8080/api")!
 //        #endif
+//        let url = URL(string: "http://172.28.244.43:8080/api")!
         print("api base url: \(url)")
         return url
     }
@@ -68,7 +67,8 @@ extension APIRepository: AccessTokenAuthorizable, TargetType {
                 return "/v1/profiles/me"
             }
             return "/v1/profiles/\(profileId)"
-
+        case .transactions:
+            return "/v1/profiles/me/transactions"
         case .games, .createGame:
             return "/v1/games"
         case let .game(gameId), let .deleteGame(gameId):
@@ -81,10 +81,6 @@ extension APIRepository: AccessTokenAuthorizable, TargetType {
             return "/v1/auth/sign-up"
         case .verify:
             return "/v1/auth/verify"
-        case .storeOffers:
-            return "/v1/store/offers"
-        case let .purchase(offerId):
-            return "/v1/store/offers/\(offerId)/purchase"
         case .jwks:
             return "/v1/auth/keys"
         }
@@ -92,7 +88,7 @@ extension APIRepository: AccessTokenAuthorizable, TargetType {
 
     var method: Moya.Method {
         switch self {
-        case .profile:
+        case .profile, .transactions:
             return .get
         case .game, .games:
             return .get
@@ -104,10 +100,6 @@ extension APIRepository: AccessTokenAuthorizable, TargetType {
             return .put
         case .signUp, .verify:
             return .post
-        case .storeOffers:
-            return .get
-        case .purchase:
-            return .post
         case .deleteGame:
             return .delete
         case .jwks:
@@ -117,12 +109,12 @@ extension APIRepository: AccessTokenAuthorizable, TargetType {
 
     var task: Task {
         switch self {
-        case .profile, .game, .games, .cashOut, .storeOffers, .purchase, .deleteGame, .jwks:
+        case .profile, .game, .games, .cashOut, .deleteGame, .jwks, .transactions:
             return .requestPlain
 
-        case let .signUp(email, fullName, authCode, identityToken):
+        case let .signUp(fullName, authCode, identityToken):
             let payload =
-                    SignUpPayload(email: email, fullName: fullName, authCode: authCode, identityToken: identityToken)
+                    SignUpPayload(fullName: fullName, authCode: authCode, identityToken: identityToken)
             return .requestJSONEncodable(payload)
         case let .verify(authCode, identityToken):
             let payload = VerifyPayload(authCode: authCode, identityToken: identityToken)

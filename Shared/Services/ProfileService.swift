@@ -8,6 +8,7 @@ import CombineMoya
 
 protocol ProfileService {
     func loadProfile(id: String, profile: LoadableSubject<Profile>)
+    func loadProfileWithTransactions(profileWithTransaction: LoadableSubject<ProfileWithTransactions>)
     func loadMe()
 }
 
@@ -41,6 +42,22 @@ struct RemoteProfileService: ProfileService {
                 }
                 .store(in: cancelBag)
     }
+    
+    func loadProfileWithTransactions(profileWithTransaction: LoadableSubject<ProfileWithTransactions>) {
+        let cancelBag = CancelBag()
+        profileWithTransaction.wrappedValue.setIsLoading(cancelBag: cancelBag)
+        
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
+        
+        provider
+            .requestPublisher(.transactions)
+            .map(ProfileWithTransactions.self, using: decoder)
+            .sinkToLoadable {
+                profileWithTransaction.wrappedValue = $0
+            }
+            .store(in: cancelBag)
+    }
 }
 
 struct StubProfileService: ProfileService {
@@ -48,6 +65,10 @@ struct StubProfileService: ProfileService {
 
     }
 
+    func loadProfileWithTransactions(profileWithTransaction: LoadableSubject<ProfileWithTransactions>) {
+        
+    }
+    
     func loadMe() {
 
     }
