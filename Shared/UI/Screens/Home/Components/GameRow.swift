@@ -25,7 +25,7 @@ struct GameRow: View {
             VStack(alignment: .leading) {
                 Text("Game \(game.id)")
                         .lineLimit(1)
-                Text("Stake: \(game.stake)")
+                Text("Stake: \(game.stake) bits")
                         .foregroundColor(.secondary)
             }
                     .padding(.leading, 8)

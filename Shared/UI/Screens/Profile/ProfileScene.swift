@@ -86,7 +86,7 @@ private extension ProfileScene {
 
                 LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]) {
                     VStack {
-                        Text("\(profile.bits.abbr())")
+                        Text("\(profile.bits.formatted())")
                                 .fontWeight(.bold)
                         Text("Bits")
                     }

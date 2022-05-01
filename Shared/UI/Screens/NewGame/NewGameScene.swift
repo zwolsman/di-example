@@ -57,9 +57,9 @@ private extension NewGameScene {
                 }
             }
 
-            Section(header: Text("Initial stake"), footer: Text("The minimal initial stake is a 100 points.")) {
+            Section(header: Text("Initial stake"), footer: Text("The minimal initial stake is 100 bits.")) {
                 VStack {
-                    TextField("Points", text: $viewModel.pointsText)
+                    TextField("Bits", text: $viewModel.pointsText)
                             .keyboardType(.numberPad)
                             .multilineTextAlignment(.center)
                             .lineLimit(1)
