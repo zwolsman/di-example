@@ -7,7 +7,8 @@ import Foundation
 // swiftlint:disable line_length
 extension Game {
     static let mockedData = [
-        Game(tiles: [:], secret: "secret", stake: 100, next: 15, multiplier: 1, color: .red, isActive: true, isCashedOut: false, initialBet: 100, bombs: 3)
+        Game(tiles: [:], secret: "secret", stake: 100, next: 15, multiplier: 1, color: .red, isActive: true, isCashedOut: false, initialBet: 100, bombs: 3),
+        Game(tiles: [17:.points(amount: 13)], secret: "secret", stake: 113, next: 15, multiplier: 1, color: .blue, isActive: true, isCashedOut: false, initialBet: 100, bombs: 3)
     ]
 }
 
