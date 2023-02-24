@@ -12,13 +12,13 @@ import AuthenticationServices
 
 // MARK: - Routing
 
-extension SignInScene {
+extension WelcomeScene {
     struct Routing: Equatable {
 
     }
 }
 
-extension SignInScene {
+extension WelcomeScene {
     class ViewModel: ObservableObject {
         // State
         @Published var routingState: Routing
@@ -31,14 +31,14 @@ extension SignInScene {
         init(container: DIContainer, authenticated: Loadable<Bool> = .notRequested) {
             self.container = container
             let appState = container.appState
-            _routingState = .init(initialValue: appState.value.routing.signInScene)
+            _routingState = .init(initialValue: appState.value.routing.welcomeScene)
             _authenticated = .init(initialValue: authenticated)
 
             cancelBag.collect {
                 $routingState
                         .removeDuplicates()
                         .sink {
-                            appState[\.routing.signInScene] = $0
+                            appState[\.routing.welcomeScene] = $0
                         }
 
                 $authenticated
@@ -47,7 +47,7 @@ extension SignInScene {
                             appState[\.userData.authenticated] = $0
                         }
 
-                appState.updates(for: \.routing.signInScene)
+                appState.updates(for: \.routing.welcomeScene)
                         .weakAssign(to: \.routingState, on: self)
             }
         }

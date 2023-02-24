@@ -26,7 +26,8 @@ extension AppState {
         var gameDetailsScene = GameInfoScene.Routing()
         var newGameScene = NewGameScene.Routing()
         var profileScene = ProfileScene.Routing()
-        var signInScene = SignInScene.Routing()
+        var welcomeScene = WelcomeScene.Routing()
+        var connectWalletScene = ConnectWalletScene.Routing()
         var storeScene = StoreScene.Routing()
     }
 }

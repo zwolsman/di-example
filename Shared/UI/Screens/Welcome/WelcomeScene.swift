@@ -1,6 +1,6 @@
 //
-//  SignInScene.swift
-//  di-example
+//  WelcomeScene.swift
+//  William Checkspeare
 //
 //  Created by Marvin Zwolsman on 04/01/2022.
 //
@@ -8,7 +8,7 @@
 import SwiftUI
 import AuthenticationServices
 
-struct SignInScene: View {
+struct WelcomeScene: View {
     
     @ObservedObject var viewModel: ViewModel
     
@@ -29,7 +29,7 @@ struct SignInScene: View {
     }
 }
 
-extension SignInScene {
+extension WelcomeScene {
     var notRequestedView: some View {
         ZStack {
             VStack {
@@ -75,6 +75,6 @@ extension SignInScene {
 
 struct SignInScene_Previews: PreviewProvider {
     static var previews: some View {
-        SignInScene(viewModel: .init(container: .preview))
+        WelcomeScene(viewModel: .init(container: .preview))
     }
 }

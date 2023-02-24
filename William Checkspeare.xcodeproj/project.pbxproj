@@ -17,6 +17,10 @@
 		EA0F966C2781D4790021A2E4 /* PointsGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0F966A2781D4790021A2E4 /* PointsGrid.swift */; };
 		EA44AF4529A8AD9000585246 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA44AF4429A8AD9000585246 /* Fonts.swift */; };
 		EA44AF4629A8AD9000585246 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA44AF4429A8AD9000585246 /* Fonts.swift */; };
+		EA44AF4929A8AFC400585246 /* ConnectWalletScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA44AF4829A8AFC400585246 /* ConnectWalletScene.swift */; };
+		EA44AF4A29A8AFC400585246 /* ConnectWalletScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA44AF4829A8AFC400585246 /* ConnectWalletScene.swift */; };
+		EA44AF4C29A8AFD500585246 /* ConnectWalletSceneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA44AF4B29A8AFD500585246 /* ConnectWalletSceneViewModel.swift */; };
+		EA44AF4D29A8AFD600585246 /* ConnectWalletSceneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA44AF4B29A8AFD500585246 /* ConnectWalletSceneViewModel.swift */; };
 		EA8CE5EA278F0EF50073C6DF /* CombineMoya in Frameworks */ = {isa = PBXBuildFile; productRef = EA8CE5E9278F0EF50073C6DF /* CombineMoya */; };
 		EA8CE5EC278F1ADA0073C6DF /* LoadingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8CE5EB278F1ADA0073C6DF /* LoadingScreen.swift */; };
 		EA8CE5ED278F1ADA0073C6DF /* LoadingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8CE5EB278F1ADA0073C6DF /* LoadingScreen.swift */; };
@@ -24,10 +28,10 @@
 		EAA228AE29A4D38B003E16D8 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EAA228AC29A4D38B003E16D8 /* Info.plist */; };
 		EAA228B029A4D5ED003E16D8 /* carbon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EAA228AF29A4D5ED003E16D8 /* carbon.ttf */; };
 		EAA228B129A4D5ED003E16D8 /* carbon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EAA228AF29A4D5ED003E16D8 /* carbon.ttf */; };
-		EAF7CE5727846BBB00292F77 /* SignInScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF7CE5627846BBB00292F77 /* SignInScene.swift */; };
-		EAF7CE5827846BBB00292F77 /* SignInScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF7CE5627846BBB00292F77 /* SignInScene.swift */; };
-		EAF7CE5A27846BCA00292F77 /* SignInSceneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF7CE5927846BCA00292F77 /* SignInSceneViewModel.swift */; };
-		EAF7CE5B27846BCA00292F77 /* SignInSceneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF7CE5927846BCA00292F77 /* SignInSceneViewModel.swift */; };
+		EAF7CE5727846BBB00292F77 /* WelcomeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF7CE5627846BBB00292F77 /* WelcomeScene.swift */; };
+		EAF7CE5827846BBB00292F77 /* WelcomeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF7CE5627846BBB00292F77 /* WelcomeScene.swift */; };
+		EAF7CE5A27846BCA00292F77 /* WelcomeSceneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF7CE5927846BCA00292F77 /* WelcomeSceneViewModel.swift */; };
+		EAF7CE5B27846BCA00292F77 /* WelcomeSceneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF7CE5927846BCA00292F77 /* WelcomeSceneViewModel.swift */; };
 		EAF7CE5D2784819000292F77 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF7CE5C2784819000292F77 /* AuthService.swift */; };
 		EAF7CE5E2784819000292F77 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF7CE5C2784819000292F77 /* AuthService.swift */; };
 		FD09F005492A8178CB168300 /* RootViewAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F123C7D7D7651F1EB7EA /* RootViewAppearance.swift */; };
@@ -146,12 +150,14 @@
 		EA0F9667278091220021A2E4 /* GameRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRow.swift; sourceTree = "<group>"; };
 		EA0F966A2781D4790021A2E4 /* PointsGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointsGrid.swift; sourceTree = "<group>"; };
 		EA44AF4429A8AD9000585246 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
+		EA44AF4829A8AFC400585246 /* ConnectWalletScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectWalletScene.swift; sourceTree = "<group>"; };
+		EA44AF4B29A8AFD500585246 /* ConnectWalletSceneViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectWalletSceneViewModel.swift; sourceTree = "<group>"; };
 		EA8CE5EB278F1ADA0073C6DF /* LoadingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingScreen.swift; sourceTree = "<group>"; };
 		EAA228AC29A4D38B003E16D8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EAA228AF29A4D5ED003E16D8 /* carbon.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = carbon.ttf; sourceTree = "<group>"; };
 		EAF7CE51278466C100292F77 /* di-example (iOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "di-example (iOS).entitlements"; sourceTree = "<group>"; };
-		EAF7CE5627846BBB00292F77 /* SignInScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInScene.swift; sourceTree = "<group>"; };
-		EAF7CE5927846BCA00292F77 /* SignInSceneViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInSceneViewModel.swift; sourceTree = "<group>"; };
+		EAF7CE5627846BBB00292F77 /* WelcomeScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeScene.swift; sourceTree = "<group>"; };
+		EAF7CE5927846BCA00292F77 /* WelcomeSceneViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeSceneViewModel.swift; sourceTree = "<group>"; };
 		EAF7CE5C2784819000292F77 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		FD09F123C7D7D7651F1EB7EA /* RootViewAppearance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewAppearance.swift; sourceTree = "<group>"; };
 		FD09F132D9D7BD8F69BA8EB5 /* GameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -266,6 +272,15 @@
 			path = Repositories;
 			sourceTree = "<group>";
 		};
+		EA44AF4729A8AF0B00585246 /* ConnectWallet */ = {
+			isa = PBXGroup;
+			children = (
+				EA44AF4829A8AFC400585246 /* ConnectWalletScene.swift */,
+				EA44AF4B29A8AFD500585246 /* ConnectWalletSceneViewModel.swift */,
+			);
+			path = ConnectWallet;
+			sourceTree = "<group>";
+		};
 		EAA228A229A4C315003E16D8 /* fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -281,13 +296,13 @@
 			path = iOS;
 			sourceTree = "<group>";
 		};
-		EAF7CE5527846BAB00292F77 /* SignIn */ = {
+		EAF7CE5527846BAB00292F77 /* Welcome */ = {
 			isa = PBXGroup;
 			children = (
-				EAF7CE5627846BBB00292F77 /* SignInScene.swift */,
-				EAF7CE5927846BCA00292F77 /* SignInSceneViewModel.swift */,
+				EAF7CE5627846BBB00292F77 /* WelcomeScene.swift */,
+				EAF7CE5927846BCA00292F77 /* WelcomeSceneViewModel.swift */,
 			);
-			path = SignIn;
+			path = Welcome;
 			sourceTree = "<group>";
 		};
 		FD09F01AFA0C5823EAC8289E /* Content */ = {
@@ -385,7 +400,8 @@
 		FD09F8A30A7E3A16F4725DAC /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				EAF7CE5527846BAB00292F77 /* SignIn */,
+				EAF7CE5527846BAB00292F77 /* Welcome */,
+				EA44AF4729A8AF0B00585246 /* ConnectWallet */,
 				FD09FE1422F37DA78B502E88 /* Home */,
 				FD09FF554F05F47843487217 /* Game */,
 				FD09F6F697F7C30D84344017 /* NewGame */,
@@ -716,7 +732,7 @@
 				FD09FEA5C9849263D1A35F41 /* AppEnvironment.swift in Sources */,
 				FD09F29C1964F7E04DB747E5 /* ActivityIndicatorView.swift in Sources */,
 				EA0F966427807CD20021A2E4 /* TileButton.swift in Sources */,
-				EAF7CE5A27846BCA00292F77 /* SignInSceneViewModel.swift in Sources */,
+				EAF7CE5A27846BCA00292F77 /* WelcomeSceneViewModel.swift in Sources */,
 				FD09F238EDD1001A3928D9FF /* MockedData.swift in Sources */,
 				FD09F9C86F28F6F77856701C /* HomeScene.swift in Sources */,
 				FD09F4C73588DEB592E81AE5 /* HomeViewModel.swift in Sources */,
@@ -728,13 +744,14 @@
 				FD09FF687E8EB6B4F2939D27 /* NewGameViewModel.swift in Sources */,
 				FD09F6634FD13B6750C86FA1 /* ColorCell.swift in Sources */,
 				FD09F33C63938ECCCB6CB696 /* GameInfoScene.swift in Sources */,
+				EA44AF4C29A8AFD500585246 /* ConnectWalletSceneViewModel.swift in Sources */,
 				EA44AF4529A8AD9000585246 /* Fonts.swift in Sources */,
 				FD09F86D957AF00C43010F17 /* GameInfoViewModel.swift in Sources */,
 				FD09FC222066074638051C7F /* DetailRow.swift in Sources */,
 				FD09FBD352C969491F9621D9 /* ProfileScene.swift in Sources */,
 				FD09F0425FB9B197208468AE /* ProfileSceneViewModel.swift in Sources */,
 				FD09F1588B88D3C6D21E1D95 /* Profile.swift in Sources */,
-				EAF7CE5727846BBB00292F77 /* SignInScene.swift in Sources */,
+				EAF7CE5727846BBB00292F77 /* WelcomeScene.swift in Sources */,
 				EAF7CE5D2784819000292F77 /* AuthService.swift in Sources */,
 				FD09F4F86EBA83168FE4B370 /* IntExtensions.swift in Sources */,
 				FD09F58CC9D69018037E9184 /* ProfileService.swift in Sources */,
@@ -745,6 +762,7 @@
 				FD09FAFFCEAC00E99E02BE67 /* GameStoreHelpers.swift in Sources */,
 				FD09F32BA54A3CF317C13A7F /* StoreScene.swift in Sources */,
 				EA8CE5EC278F1ADA0073C6DF /* LoadingScreen.swift in Sources */,
+				EA44AF4929A8AFC400585246 /* ConnectWalletScene.swift in Sources */,
 				FD09F1F44CD81E1B1452D83E /* StoreViewModel.swift in Sources */,
 				FD09F093CC4A1C9476B8DC95 /* OfferRow.swift in Sources */,
 				FD09FA7077ADA6D00075202F /* StoreService.swift in Sources */,
@@ -780,6 +798,7 @@
 				FD09F4580AD468D5C3EE9AF8 /* MockedData.swift in Sources */,
 				FD09FC6D0608EA2425E50624 /* HomeScene.swift in Sources */,
 				FD09F9E8906F919390541D85 /* HomeViewModel.swift in Sources */,
+				EA44AF4A29A8AFC400585246 /* ConnectWalletScene.swift in Sources */,
 				FD09F78BC9818FE7AC443B45 /* Publisher+WeakAssign.swift in Sources */,
 				FD09FDD639130C3E795A2C02 /* GameScene.swift in Sources */,
 				FD09FBA751637AFEC3CF67EA /* GameViewModel.swift in Sources */,
@@ -791,11 +810,11 @@
 				EA0F9669278091220021A2E4 /* GameRow.swift in Sources */,
 				FD09F8BA211598F14EE1B133 /* DetailRow.swift in Sources */,
 				FD09F9389520107697DCE200 /* ProfileScene.swift in Sources */,
-				EAF7CE5B27846BCA00292F77 /* SignInSceneViewModel.swift in Sources */,
+				EAF7CE5B27846BCA00292F77 /* WelcomeSceneViewModel.swift in Sources */,
 				FD09F74D82A89CEB35BC890A /* ProfileSceneViewModel.swift in Sources */,
 				FD09FDEDB5E18DFB74E0A3D6 /* Profile.swift in Sources */,
 				FD09F31D6B3BFA0509CE598D /* IntExtensions.swift in Sources */,
-				EAF7CE5827846BBB00292F77 /* SignInScene.swift in Sources */,
+				EAF7CE5827846BBB00292F77 /* WelcomeScene.swift in Sources */,
 				FD09F6B0BDF435C0AF5008A1 /* ProfileService.swift in Sources */,
 				FD09FBBF2C7283B1A462E177 /* ChunkedCollection.swift in Sources */,
 				FD09FA7A60D1EC77E3A12478 /* APIRepository.swift in Sources */,
@@ -808,6 +827,7 @@
 				EA8CE5ED278F1ADA0073C6DF /* LoadingScreen.swift in Sources */,
 				FD09FB54B78751EDC6E83B93 /* ContentView.swift in Sources */,
 				FD09F91D892A3032C01E05CE /* ContentViewModel.swift in Sources */,
+				EA44AF4D29A8AFD600585246 /* ConnectWalletSceneViewModel.swift in Sources */,
 				FD09F2FBC17D1EC5B09CAB30 /* BombasticLogo.swift in Sources */,
 				FD09FEB1FD34AB70459F0233 /* Problem.swift in Sources */,
 			);

@@ -33,7 +33,7 @@ struct ContentView: View {
         case .isLoading:
             LoadingScreen()
         case .loaded(false), .failed:
-            SignInScene(viewModel: .init(container: viewModel.container, authenticated: viewModel.authenticated))
+            WelcomeScene(viewModel: .init(container: viewModel.container, authenticated: viewModel.authenticated))
         case .loaded(true):
             HomeScene(viewModel: .init(container: viewModel.container))
         }
