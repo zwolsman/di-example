@@ -51,9 +51,8 @@ struct GameScene: View {
     private var gameHeaderText: some ToolbarContent {
         ToolbarItem(placement: .principal) {
             Text("Game")
-            .font(.custom("Carbon Bold",  size: UIFont.preferredFont(forTextStyle: .title3).pointSize)
-            )
-            .textCase(.uppercase)
+                .font(.carbon(forTextStyle: .title3))
+                .textCase(.uppercase)
         }
     }
 }

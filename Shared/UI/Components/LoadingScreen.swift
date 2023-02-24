@@ -8,17 +8,28 @@
 import SwiftUI
 
 struct LoadingScreen: View {
+    var reason: String? = nil
+    
     var body: some View {
         VStack {
-            BombasticLogo()
-                    .id("logo")
+            Image("william portret")
+                .padding(.bottom)
+            if let reason {
+                Text(reason + "...")
+                    .padding(.bottom)
+            }
             ProgressView()
+                .tint(.accentColor)
         }
+        .preferredColorScheme(.dark)
+        .font(.carbon())
+        .textCase(.uppercase)
     }
 }
 
 struct LoadingScreen_Previews: PreviewProvider {
     static var previews: some View {
-        LoadingScreen()
+        LoadingScreen(reason: "Authenticating")
+        LoadingScreen(reason: nil)
     }
 }

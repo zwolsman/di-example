@@ -15,6 +15,7 @@ struct BombasticApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView(viewModel: .init(container: environment.container))
+                .preferredColorScheme(.dark)
         }
     }
 }

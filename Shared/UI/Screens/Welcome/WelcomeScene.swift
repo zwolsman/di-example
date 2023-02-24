@@ -50,16 +50,16 @@ extension WelcomeScene {
                     .font(.carbon(forTextStyle: .subheadline))
                 
                 Spacer()
-                Button {
-                } label: {
+                NavigationLink(destination: ConnectWalletScene(viewModel: .init(container: viewModel.container))) {
                     Text("Let's start")
-                        .padding(8)
+                    .padding(8)
+                    .frame(maxWidth: .infinity)
+                    .foregroundColor(.white)
+                    .padding()
+                    .background(.black)
                 }
-                .frame(maxWidth: .infinity)
-                .foregroundColor(.white)
-                .padding()
-                .background(.black)
             }
+            .foregroundColor(.black)
             .padding(16)
             .font(.carbon())
             .textCase(.uppercase)
@@ -76,5 +76,6 @@ extension WelcomeScene {
 struct SignInScene_Previews: PreviewProvider {
     static var previews: some View {
         WelcomeScene(viewModel: .init(container: .preview))
+            .preferredColorScheme(.dark)
     }
 }
