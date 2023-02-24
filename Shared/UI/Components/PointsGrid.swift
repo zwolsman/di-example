@@ -15,9 +15,12 @@ struct PointsGrid: View {
         LazyVGrid(columns: columns) {
             ForEach(items) { item in
                 VStack {
+                    Text(item.name)
+                        .opacity(0.6)
+                        .padding(.bottom, 4)
                     Text(item.amount)
                         .bold()
-                    Text(item.name)
+                    
                 }
             }
         }

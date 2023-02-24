@@ -9,13 +9,13 @@ import SwiftUI
 import AuthenticationServices
 
 struct SignInScene: View {
-
+    
     @ObservedObject var viewModel: ViewModel
-
+    
     var body: some View {
         content
     }
-
+    
     @ViewBuilder
     var content: some View {
         switch viewModel.authenticated {
@@ -31,22 +31,45 @@ struct SignInScene: View {
 
 extension SignInScene {
     var notRequestedView: some View {
-        VStack {
-            BombasticLogo()
-                    .id("logo")
-
-            Text("The more greens you find on the 5x5 grid, the higher your multiplier. Try not to hit any mines or your game will end!")
-                    .foregroundColor(.secondary)
-                    .multilineTextAlignment(.center)
+        ZStack {
+            VStack {
+                Spacer()
+                Image("william")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                
+            }.ignoresSafeArea()
+            VStack {
+                Image("check home")
                     .padding()
-
-            SignInWithAppleButton(.signIn,
-                    onRequest: viewModel.setupSignInRequest(request:),
-                    onCompletion: viewModel.onCompletion(result:))
-                    .frame(width: 280, height: 40)
-                    .padding()
-            Spacer()
-        }.padding()
+                
+                Text("To burn, or not to burn")
+                    .font(.carbon(forTextStyle: .title1))
+                
+                Text("By william checkspeare")
+                    .font(.carbon(forTextStyle: .subheadline))
+                
+                Spacer()
+                Button {
+                } label: {
+                    Text("Let's start")
+                        .padding(8)
+                }
+                .frame(maxWidth: .infinity)
+                .foregroundColor(.white)
+                .padding()
+                .background(.black)
+            }
+            .padding(16)
+            .font(.carbon())
+            .textCase(.uppercase)
+        }
+        .background(
+            Image("bg-gradient")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .ignoresSafeArea()
+        )
     }
 }
 

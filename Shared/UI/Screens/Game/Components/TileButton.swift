@@ -70,19 +70,34 @@ struct TileButton: View {
             return ""
         }
     }
-
+    
+    @ViewBuilder
+    private var foregroundImage: some View {
+        switch tile {
+        case .bomb(true):
+            Image("bomb white")
+        case .bomb(false):
+            Image("bomb black")
+        case .loading:
+            ProgressView()
+        default:
+            Image("check")
+        }
+    }
+    
     var body: some View {
         Button(action: action) {
             ZStack {
-                Rectangle()
-                        .foregroundColor(tileColor)
-                        .aspectRatio(1, contentMode: .fit)
-                Text(text)
-                        .foregroundColor(textColor)
-                if tile == .loading {
-                    ProgressView()
-                }
+                Image("check background")
+                    .resizable()
+                    .renderingMode(.template)
+                    .tint(tileColor)
+                    .scaledToFit()
+                
+                foregroundImage
             }
+            .padding()
+            .background(Color("grey two"))
         }.allowsHitTesting(isEnabled)
     }
 }
