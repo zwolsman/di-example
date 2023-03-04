@@ -1,0 +1,10 @@
+//
+//  prod.xcconfig
+//  William Checkspeare
+//
+//  Created by Marvin Zwolsman on 04/03/2023.
+//
+
+API_SCHEME = https
+API_BASE = localhost:8080/api
+ISSUER = williamcheckspeare.com

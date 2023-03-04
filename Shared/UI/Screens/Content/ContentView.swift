@@ -33,9 +33,9 @@ struct ContentView: View {
         case .isLoading:
             LoadingScreen()
         case .loaded(false), .failed:
-            WelcomeScene(viewModel: .init(container: viewModel.container, authenticated: viewModel.authenticated))
+            WelcomeScene(viewModel: .init(container: viewModel.container))
         case .loaded(true):
-            HomeScene(viewModel: .init(container: viewModel.container))
+            NewGameScene(viewModel: .init(container: viewModel.container))
         }
     }
 

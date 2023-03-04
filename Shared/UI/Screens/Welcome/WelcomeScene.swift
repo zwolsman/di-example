@@ -18,19 +18,6 @@ struct WelcomeScene: View {
     
     @ViewBuilder
     var content: some View {
-        switch viewModel.authenticated {
-        case .notRequested, .failed, .loaded(false):
-            notRequestedView
-        case .isLoading:
-            LoadingScreen()
-        default:
-            Text("TODO")
-        }
-    }
-}
-
-extension WelcomeScene {
-    var notRequestedView: some View {
         ZStack {
             VStack {
                 Spacer()
@@ -50,7 +37,7 @@ extension WelcomeScene {
                     .font(.carbon(forTextStyle: .subheadline))
                 
                 Spacer()
-                NavigationLink(destination: ConnectWalletScene(viewModel: .init(container: viewModel.container))) {
+                NavigationLink(destination: ConnectWalletScene(viewModel: .init(container: viewModel.container, authenticated: viewModel.authenticated))) {
                     Text("Let's start")
                     .padding(8)
                     .frame(maxWidth: .infinity)
@@ -72,6 +59,7 @@ extension WelcomeScene {
         )
     }
 }
+
 
 struct SignInScene_Previews: PreviewProvider {
     static var previews: some View {

@@ -13,14 +13,14 @@ struct ConnectWalletScene: View {
     @ObservedObject var viewModel: ViewModel
     
     var body: some View {
-            content
+        content
             .font(.carbon())
             .textCase(.uppercase)
-        .navigationBarTitle("Connect wallet", displayMode: .inline)
-        .toolbar {
-            headerText
-        }
-        .navigationBarBackButtonHidden()
+            .navigationBarTitle("Connect wallet", displayMode: .inline)
+            .toolbar {
+                headerText
+            }
+            .navigationBarBackButtonHidden()
         
     }
     
@@ -33,14 +33,28 @@ struct ConnectWalletScene: View {
     }
     
     @ViewBuilder
-    var content: some View {
+    private var content: some View {
+        switch viewModel.authenticated {
+        case .isLoading:
+            LoadingScreen(reason: "Authenticating")
+        default:
+            notRequestedView
+        }
+    }
+}
+
+// MARK: - Displaying Content
+
+private extension ConnectWalletScene {
+    @ViewBuilder
+    var notRequestedView: some View {
         VStack {
             Spacer()
             Image("william portret")
             Image("signature")
                 .padding()
             Spacer()
-            Button(action: {}) {
+            Button(action: viewModel.connectMetamask) {
                 HStack {
                     Image("metamask")
                     Text("Metamask")

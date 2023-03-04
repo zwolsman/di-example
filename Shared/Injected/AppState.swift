@@ -46,6 +46,7 @@ extension AppState {
     static var preview: AppState {
         var state = AppState()
         state.userData.games = .loaded(Game.mockedData)
+        state.userData.profile = .loaded(Profile.mock)
         return state
     }
 }

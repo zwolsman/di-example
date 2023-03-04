@@ -33,51 +33,10 @@ extension ContentView {
         }
 
         func loadAuthenticationState() {
-            container.appState[\.userData.authenticated].setIsLoading(cancelBag: cancelBag)
-
-            func resetUserDefaults() {
-                UserDefaults.standard.removeObject(forKey: "user.id")
-                UserDefaults.standard.removeObject(forKey: "access_token")
-            }
-
-            guard let userId = UserDefaults.standard.string(forKey: "user.id"),
-                  let accessToken = UserDefaults.standard.string(forKey: "access_token") else {
-                resetUserDefaults()
-                print("could not recover user")
-                container.appState[\.userData.authenticated] = .loaded(false)
-                return
-            }
-
-            let appleIDProvider = ASAuthorizationAppleIDProvider()
-            appleIDProvider.getCredentialState(forUserID: userId) { [weak self] (credentialState, error) in
-                guard error == nil else {
-                    print(error!)
-                    resetUserDefaults()
-                    self?.container.appState[\.userData.authenticated] = .loaded(false)
-                    return
-                }
-
-                if credentialState == .authorized {
-                    self?.verifyAccessToken(accessToken)
-                } else {
-                    resetUserDefaults()
-                    self?.container.appState[\.userData.authenticated] = .loaded(false)
-                }
-            }
-
+//            container.appState[\.userData.authenticated].setIsLoading(cancelBag: cancelBag)
+//            let hasAuth = UserDefaults.standard.string(forKey: "access_token") != nil
+//            container.appState[\.userData.authenticated] = .loaded(hasAuth)
+            container.appState[\.userData.authenticated] = .loaded(false)
         }
-
-        private func verifyAccessToken(_ token: String) {
-            weak var weakAppState = container.appState
-            container
-                    .services
-                    .authService
-                    .verify(token: token)
-                    .sinkToLoadable {
-                        weakAppState?[\.userData.authenticated] = $0
-                    }
-                    .store(in: cancelBag)
-        }
-
     }
 }

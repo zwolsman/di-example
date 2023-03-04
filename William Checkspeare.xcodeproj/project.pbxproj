@@ -28,6 +28,14 @@
 		EAA228AE29A4D38B003E16D8 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EAA228AC29A4D38B003E16D8 /* Info.plist */; };
 		EAA228B029A4D5ED003E16D8 /* carbon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EAA228AF29A4D5ED003E16D8 /* carbon.ttf */; };
 		EAA228B129A4D5ED003E16D8 /* carbon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EAA228AF29A4D5ED003E16D8 /* carbon.ttf */; };
+		EAD449E529AD176000D78D32 /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD449E429AD176000D78D32 /* Styles.swift */; };
+		EAD449E629AD176000D78D32 /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD449E429AD176000D78D32 /* Styles.swift */; };
+		EAD449EC29B3567B00D78D32 /* metamask-ios-sdk in Frameworks */ = {isa = PBXBuildFile; productRef = EAD449EB29B3567B00D78D32 /* metamask-ios-sdk */; };
+		EAD449EE29B369EC00D78D32 /* EIP55.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD449ED29B369EC00D78D32 /* EIP55.swift */; };
+		EAD449EF29B369EC00D78D32 /* EIP55.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD449ED29B369EC00D78D32 /* EIP55.swift */; };
+		EAD449F229B3D74A00D78D32 /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = EAD449F129B3D74A00D78D32 /* CryptoSwift */; };
+		EAD449F429B3D89200D78D32 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD449F329B3D89200D78D32 /* Configuration.swift */; };
+		EAD449F529B3D89200D78D32 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD449F329B3D89200D78D32 /* Configuration.swift */; };
 		EAF7CE5727846BBB00292F77 /* WelcomeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF7CE5627846BBB00292F77 /* WelcomeScene.swift */; };
 		EAF7CE5827846BBB00292F77 /* WelcomeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF7CE5627846BBB00292F77 /* WelcomeScene.swift */; };
 		EAF7CE5A27846BCA00292F77 /* WelcomeSceneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF7CE5927846BCA00292F77 /* WelcomeSceneViewModel.swift */; };
@@ -109,7 +117,7 @@
 		FD09FBBF2C7283B1A462E177 /* ChunkedCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F6D03BB9F5697B475658 /* ChunkedCollection.swift */; };
 		FD09FBD352C969491F9621D9 /* ProfileScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F2D3B37A40850ED95C18 /* ProfileScene.swift */; };
 		FD09FC222066074638051C7F /* DetailRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09FF4C014523887D64D397 /* DetailRow.swift */; };
-		FD09FC63D13AAB58151B0097 /* di_exampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09FF8766D634D9BA897217 /* di_exampleApp.swift */; };
+		FD09FC63D13AAB58151B0097 /* CheckpotApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09FF8766D634D9BA897217 /* CheckpotApp.swift */; };
 		FD09FC6D0608EA2425E50624 /* HomeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09FAC1723B10A7276A3135 /* HomeScene.swift */; };
 		FD09FC95D5DC81314C48F645 /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F9476825E189B7205A84 /* Tile.swift */; };
 		FD09FC9C160554C46AAB4153 /* ChunkedCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F6D03BB9F5697B475658 /* ChunkedCollection.swift */; };
@@ -119,7 +127,7 @@
 		FD09FDD639130C3E795A2C02 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F132D9D7BD8F69BA8EB5 /* GameScene.swift */; };
 		FD09FDEDB5E18DFB74E0A3D6 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F5BD5BBDFD365FCF8254 /* Profile.swift */; };
 		FD09FE7289543151FCD37202 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD09F19B7A88FA15717F65D9 /* Assets.xcassets */; };
-		FD09FE74AC0317663B25AB37 /* di_exampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09FF8766D634D9BA897217 /* di_exampleApp.swift */; };
+		FD09FE74AC0317663B25AB37 /* CheckpotApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09FF8766D634D9BA897217 /* CheckpotApp.swift */; };
 		FD09FEA5C9849263D1A35F41 /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09FBA58D71B8E80BEF7A04 /* AppEnvironment.swift */; };
 		FD09FEB1FD34AB70459F0233 /* Problem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09FE742314A8A3E1E7683B /* Problem.swift */; };
 		FD09FEF7B8A167E1873B82BA /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD09F558B302AEAA879445DC /* Helpers.swift */; };
@@ -155,6 +163,11 @@
 		EA8CE5EB278F1ADA0073C6DF /* LoadingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingScreen.swift; sourceTree = "<group>"; };
 		EAA228AC29A4D38B003E16D8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EAA228AF29A4D5ED003E16D8 /* carbon.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = carbon.ttf; sourceTree = "<group>"; };
+		EAD449E429AD176000D78D32 /* Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Styles.swift; sourceTree = "<group>"; };
+		EAD449ED29B369EC00D78D32 /* EIP55.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EIP55.swift; sourceTree = "<group>"; };
+		EAD449F329B3D89200D78D32 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
+		EAD449F629B3D90700D78D32 /* dev.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = dev.xcconfig; sourceTree = "<group>"; };
+		EAD449F929B3D93400D78D32 /* prod.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = prod.xcconfig; sourceTree = "<group>"; };
 		EAF7CE51278466C100292F77 /* di-example (iOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "di-example (iOS).entitlements"; sourceTree = "<group>"; };
 		EAF7CE5627846BBB00292F77 /* WelcomeScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeScene.swift; sourceTree = "<group>"; };
 		EAF7CE5927846BCA00292F77 /* WelcomeSceneViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeSceneViewModel.swift; sourceTree = "<group>"; };
@@ -208,7 +221,7 @@
 		FD09FF4C014523887D64D397 /* DetailRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailRow.swift; sourceTree = "<group>"; };
 		FD09FF6B7EEF04340F0452A6 /* NewGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewGameScene.swift; sourceTree = "<group>"; };
 		FD09FF814598510F430CCF7E /* IntExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntExtensions.swift; sourceTree = "<group>"; };
-		FD09FF8766D634D9BA897217 /* di_exampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = di_exampleApp.swift; sourceTree = "<group>"; };
+		FD09FF8766D634D9BA897217 /* CheckpotApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckpotApp.swift; sourceTree = "<group>"; };
 		FD09FFB561E0CCBB9125B141 /* Tests iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD09FFBF463C40BA727189E7 /* Tests_iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_iOS.swift; sourceTree = "<group>"; };
 		FD09FFDB346D35154BEAF35F /* StoreViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreViewModel.swift; sourceTree = "<group>"; };
@@ -240,6 +253,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAD449EC29B3567B00D78D32 /* metamask-ios-sdk in Frameworks */,
+				EAD449F229B3D74A00D78D32 /* CryptoSwift in Frameworks */,
 				EA8CE5EA278F0EF50073C6DF /* CombineMoya in Frameworks */,
 				EA8CE5F3278F20AB0073C6DF /* JWTKit in Frameworks */,
 			);
@@ -348,7 +363,7 @@
 				EAA228A229A4C315003E16D8 /* fonts */,
 				EA0F966E2781DC090021A2E4 /* Repositories */,
 				FD09F19B7A88FA15717F65D9 /* Assets.xcassets */,
-				FD09FF8766D634D9BA897217 /* di_exampleApp.swift */,
+				FD09FF8766D634D9BA897217 /* CheckpotApp.swift */,
 				FD09F56F1D6F772555EE4A56 /* Injected */,
 				FD09F081654D65E36E4D5E26 /* UI */,
 				FD09FE6FF31B78D923C715D8 /* Utilities */,
@@ -454,6 +469,8 @@
 		FD09FD82250F6AC72F5A86AF = {
 			isa = PBXGroup;
 			children = (
+				EAD449F929B3D93400D78D32 /* prod.xcconfig */,
+				EAD449F629B3D90700D78D32 /* dev.xcconfig */,
 				EAA228AF29A4D5ED003E16D8 /* carbon.ttf */,
 				EAF7CE51278466C100292F77 /* di-example (iOS).entitlements */,
 				FD09F89E3783FF659A6912AA /* Products */,
@@ -509,6 +526,9 @@
 				FD09F6D03BB9F5697B475658 /* ChunkedCollection.swift */,
 				FD09F282D44EB977A543DD2D /* GameStoreHelpers.swift */,
 				EA44AF4429A8AD9000585246 /* Fonts.swift */,
+				EAD449E429AD176000D78D32 /* Styles.swift */,
+				EAD449ED29B369EC00D78D32 /* EIP55.swift */,
+				EAD449F329B3D89200D78D32 /* Configuration.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -617,6 +637,8 @@
 			packageProductDependencies = (
 				EA8CE5E9278F0EF50073C6DF /* CombineMoya */,
 				EA8CE5F2278F20AB0073C6DF /* JWTKit */,
+				EAD449EB29B3567B00D78D32 /* metamask-ios-sdk */,
+				EAD449F129B3D74A00D78D32 /* CryptoSwift */,
 			);
 			productName = "di-example (iOS)";
 			productReference = FD09F90D59FC2234C9ED4100 /* William Checkspeare.app */;
@@ -653,6 +675,8 @@
 			packageReferences = (
 				EA8CE5E8278F0EF50073C6DF /* XCRemoteSwiftPackageReference "Moya" */,
 				EA8CE5F1278F20AB0073C6DF /* XCRemoteSwiftPackageReference "jwt-kit" */,
+				EAD449EA29B3567B00D78D32 /* XCRemoteSwiftPackageReference "metamask-ios-sdk" */,
+				EAD449F029B3D74A00D78D32 /* XCRemoteSwiftPackageReference "CryptoSwift" */,
 			);
 			productRefGroup = FD09F89E3783FF659A6912AA /* Products */;
 			projectDirPath = "";
@@ -716,17 +740,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FD09FC63D13AAB58151B0097 /* di_exampleApp.swift in Sources */,
+				FD09FC63D13AAB58151B0097 /* CheckpotApp.swift in Sources */,
 				FD09F85223E9052A8ADBB373 /* AppState.swift in Sources */,
 				FD09FA0F1E7CF63519C5F59A /* DependencyInjector.swift in Sources */,
+				EAD449F429B3D89200D78D32 /* Configuration.swift in Sources */,
 				FD09F7962B77C09A1D4A1A1E /* ServicesContainer.swift in Sources */,
 				FD09F005492A8178CB168300 /* RootViewAppearance.swift in Sources */,
 				FD09FB15D682CA726AAD8E14 /* Store.swift in Sources */,
 				FD09F0908019834CDF2828BA /* GameService.swift in Sources */,
 				FD09FEF7B8A167E1873B82BA /* Helpers.swift in Sources */,
 				FD09F0C7C94AFB9751EF0102 /* Loadable.swift in Sources */,
+				EAD449EE29B369EC00D78D32 /* EIP55.swift in Sources */,
 				FD09F6E8EC6607F680D277FD /* Game.swift in Sources */,
 				FD09F79F08473B33A5F3B274 /* NetworkingHelpers.swift in Sources */,
+				EAD449E529AD176000D78D32 /* Styles.swift in Sources */,
 				EA0F9668278091220021A2E4 /* GameRow.swift in Sources */,
 				FD09F8355D47D34A8AE5ADD5 /* CancelBag.swift in Sources */,
 				FD09FEA5C9849263D1A35F41 /* AppEnvironment.swift in Sources */,
@@ -777,12 +804,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FD09FE74AC0317663B25AB37 /* di_exampleApp.swift in Sources */,
+				FD09FE74AC0317663B25AB37 /* CheckpotApp.swift in Sources */,
 				FD09FD814EB03D64B1D1CDEE /* AppState.swift in Sources */,
 				FD09F8574C7F4946F9B928A7 /* DependencyInjector.swift in Sources */,
 				EA0F966527807CD20021A2E4 /* TileButton.swift in Sources */,
 				FD09FBA5B2D1081F2C261B5E /* ServicesContainer.swift in Sources */,
 				FD09F3E825C14F69DE3FC476 /* RootViewAppearance.swift in Sources */,
+				EAD449EF29B369EC00D78D32 /* EIP55.swift in Sources */,
 				FD09F10CC14422D3B09D7845 /* Store.swift in Sources */,
 				EA44AF4629A8AD9000585246 /* Fonts.swift in Sources */,
 				EAF7CE5E2784819000292F77 /* AuthService.swift in Sources */,
@@ -804,7 +832,9 @@
 				FD09FBA751637AFEC3CF67EA /* GameViewModel.swift in Sources */,
 				FD09F066FBB74C871A7D24AA /* NewGameScene.swift in Sources */,
 				FD09F10A5144FA043364321F /* NewGameViewModel.swift in Sources */,
+				EAD449E629AD176000D78D32 /* Styles.swift in Sources */,
 				FD09F1F182CA4452BB6461A7 /* ColorCell.swift in Sources */,
+				EAD449F529B3D89200D78D32 /* Configuration.swift in Sources */,
 				FD09F54AE485069265570C3C /* GameInfoScene.swift in Sources */,
 				FD09F51FDB21C670BA60103D /* GameInfoViewModel.swift in Sources */,
 				EA0F9669278091220021A2E4 /* GameRow.swift in Sources */,
@@ -895,10 +925,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = UV7YH72NQ8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -908,8 +941,9 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.6;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.zwolsman.di-example";
+				PRODUCT_BUNDLE_IDENTIFIER = com.william.checkpot.app;
 				PRODUCT_NAME = "William Checkspeare";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -922,10 +956,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = UV7YH72NQ8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -935,8 +972,9 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.6;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.zwolsman.di-example";
+				PRODUCT_BUNDLE_IDENTIFIER = com.william.checkpot.app;
 				PRODUCT_NAME = "William Checkspeare";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -945,6 +983,7 @@
 		};
 		FD09F7ACF7131BF200C34D87 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EAD449F629B3D90700D78D32 /* dev.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -1006,6 +1045,7 @@
 		};
 		FD09F82273B8960AA771F829 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EAD449F929B3D93400D78D32 /* prod.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -1086,19 +1126,19 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = iOS/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Checkpot;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = dev.bombastic.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.william.checkpot.app;
 				PRODUCT_NAME = "William Checkspeare";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
@@ -1137,19 +1177,19 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = iOS/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Checkpot;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = dev.bombastic.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.william.checkpot.app;
 				PRODUCT_NAME = "William Checkspeare";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
@@ -1227,6 +1267,22 @@
 				minimumVersion = 4.0.0;
 			};
 		};
+		EAD449EA29B3567B00D78D32 /* XCRemoteSwiftPackageReference "metamask-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/MetaMask/metamask-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.0;
+			};
+		};
+		EAD449F029B3D74A00D78D32 /* XCRemoteSwiftPackageReference "CryptoSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/krzyzanowskim/CryptoSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1239,6 +1295,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = EA8CE5F1278F20AB0073C6DF /* XCRemoteSwiftPackageReference "jwt-kit" */;
 			productName = JWTKit;
+		};
+		EAD449EB29B3567B00D78D32 /* metamask-ios-sdk */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EAD449EA29B3567B00D78D32 /* XCRemoteSwiftPackageReference "metamask-ios-sdk" */;
+			productName = "metamask-ios-sdk";
+		};
+		EAD449F129B3D74A00D78D32 /* CryptoSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EAD449F029B3D74A00D78D32 /* XCRemoteSwiftPackageReference "CryptoSwift" */;
+			productName = CryptoSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

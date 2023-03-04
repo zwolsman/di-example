@@ -15,23 +15,20 @@ enum APIRepository {
     case createGame(initialBet: Int, bombs: Int, colorId: Int)
     case guess(gameId: String, tileId: Int)
     case cashOut(gameId: String)
-    case signUp(email: String, fullName: String, authCode: String, identityToken: String)
-    case verify(authCode: String, identityToken: String)
+    case siwe(address: String)
+    case verify(message: String, signatue: String)
     case storeOffers
     case purchase(offerId: String)
     case jwks
 }
 
 struct SignUpPayload: Codable {
-    var email: String
-    var fullName: String
-    var authCode: String
-    var identityToken: String
+    var address: String
 }
 
 struct VerifyPayload: Codable {
-    var authCode: String
-    var identityToken: String
+    var message: String
+    var signature: String
 }
 
 struct CreateGamePayload: Codable {
@@ -44,7 +41,7 @@ struct CreateGamePayload: Codable {
 extension APIRepository: AccessTokenAuthorizable, TargetType {
     var authorizationType: AuthorizationType? {
         switch self {
-        case .signUp, .verify, .jwks:
+        case .siwe, .verify, .jwks:
             return nil
         default:
             return .bearer
@@ -52,11 +49,9 @@ extension APIRepository: AccessTokenAuthorizable, TargetType {
     }
 
     var baseURL: URL {
-//        #if RELEASE
-        let url = URL(string: "https://bombastic.joell.dev/api")!
-//        #else
-//        let url = URL(string: "http://192.168.1.120:8080/api")!
-//        #endif
+        let scheme: String = try! Configuration.value(for: "API_SCHEME")
+        let base: String = try! Configuration.value(for: "API_BASE")
+        let url = URL(string: "\(scheme)://\(base)")!
         print("api base url: \(url)")
         return url
     }
@@ -77,8 +72,8 @@ extension APIRepository: AccessTokenAuthorizable, TargetType {
             return "/v1/games/\(gameId)/guess"
         case let .cashOut(gameId):
             return "/v1/games/\(gameId)/cash-out"
-        case .signUp:
-            return "/v1/auth/sign-up"
+        case .siwe:
+            return "/v1/auth/siwe"
         case .verify:
             return "/v1/auth/verify"
         case .storeOffers:
@@ -102,7 +97,7 @@ extension APIRepository: AccessTokenAuthorizable, TargetType {
             return .put
         case .cashOut:
             return .put
-        case .signUp, .verify:
+        case .siwe, .verify:
             return .post
         case .storeOffers:
             return .get
@@ -119,13 +114,11 @@ extension APIRepository: AccessTokenAuthorizable, TargetType {
         switch self {
         case .profile, .game, .games, .cashOut, .storeOffers, .purchase, .deleteGame, .jwks:
             return .requestPlain
-
-        case let .signUp(email, fullName, authCode, identityToken):
-            let payload =
-                    SignUpPayload(email: email, fullName: fullName, authCode: authCode, identityToken: identityToken)
+        case let .siwe(address):
+            let payload = SignUpPayload(address: address)
             return .requestJSONEncodable(payload)
-        case let .verify(authCode, identityToken):
-            let payload = VerifyPayload(authCode: authCode, identityToken: identityToken)
+        case let .verify(message, signature):
+            let payload = VerifyPayload(message: message, signature: signature)
             return .requestJSONEncodable(payload)
         case let .createGame(initialBet, bombs, colorId):
             let payload = CreateGamePayload(initialBet: initialBet, bombs: bombs, colorId: colorId)

@@ -96,7 +96,7 @@ struct TileButton: View {
                 
                 foregroundImage
             }
-            .padding()
+            .padding(12)
             .background(Color("grey two"))
         }.allowsHitTesting(isEnabled)
     }

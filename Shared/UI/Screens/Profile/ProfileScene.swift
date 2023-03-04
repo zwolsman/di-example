@@ -82,13 +82,13 @@ private extension ProfileScene {
                     Text(profile.name)
                             .font(.headline)
 
-                    Label(profile.link, systemImage: "link")
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
-                            .padding(8)
-                            .padding(.trailing, 8)
-                            .background(.ultraThinMaterial)
-                            .clipShape(RoundedRectangle(cornerRadius: 8))
+//                    Label(profile.link, systemImage: "link")
+//                            .font(.subheadline)
+//                            .foregroundColor(.secondary)
+//                            .padding(8)
+//                            .padding(.trailing, 8)
+//                            .background(.ultraThinMaterial)
+//                            .clipShape(RoundedRectangle(cornerRadius: 8))
                 }.padding()
                         .frame(maxWidth: .infinity)
 
@@ -103,12 +103,12 @@ private extension ProfileScene {
                                 .fontWeight(.bold)
                         Text("Games")
                     }
-
-                    VStack {
-                        Text("\(profile.totalEarnings.formatted())")
-                                .fontWeight(.bold)
-                        Text("Earned")
-                    }
+//
+//                    VStack {
+//                        Text("\(profile.totalEarnings.formatted())")
+//                                .fontWeight(.bold)
+//                        Text("Earned")
+//                    }
 
                 }
                         .padding(.bottom)
@@ -118,11 +118,11 @@ private extension ProfileScene {
 //
 //            achievementSection(profile.achievements)
 
-            Section(footer: Text("Your balance is \(profile.balanceInEur.formatted(.currency(code: "EUR")))")) {
-                NavigationLink(destination: storeScene) {
-                    Text("Go to store")
-                }
-            }
+//            Section(footer: Text("Your balance is \(profile.balanceInEur.formatted(.currency(code: "EUR")))")) {
+//                NavigationLink(destination: storeScene) {
+//                    Text("Go to store")
+//                }
+//            }
         }.listStyle(.insetGrouped)
     }
 

@@ -10,13 +10,18 @@ import Combine
 import Moya
 import CombineMoya
 import JWTKit
+import CryptoSwift
 
 protocol AuthService {
-    func register(email: String, fullName: String, authCode: String, identityToken: String) -> AnyPublisher<String, MoyaError>
-    func verify(authCode: String, identityToken: String) -> AnyPublisher<String, MoyaError>
     func verify(token: String) -> AnyPublisher<Bool, Never>
+    
+    func verify(message: String, signature: String) -> AnyPublisher<String, MoyaError>
+    func siwe(address: String) -> AnyPublisher<String, MoyaError>
 }
 
+struct SiweResponse: Decodable {
+    var message: String
+}
 struct TokenResponse: Decodable {
     var accessToken: String
 }
@@ -24,30 +29,19 @@ struct TokenResponse: Decodable {
 struct RemoteAuthService: AuthService {
     let provider: APIProvider
     
-    func register(email: String, fullName: String, authCode: String, identityToken: String) -> AnyPublisher<String, MoyaError> {
+    func siwe(address: String) -> AnyPublisher<String, MoyaError> {
         provider
             .requestPublisher(
-                .signUp(
-                    email: email,
-                    fullName: fullName,
-                    authCode: authCode,
-                    identityToken: identityToken
-                )
+                .siwe(address: address)
             )
-            .map(TokenResponse.self)
-            .flatMap { response in
-                verify(token: response.accessToken)
-                    .filter { $0 }
-                    .map { _ in
-                        response.accessToken
-                    }
-            }
+            .map(SiweResponse.self)
+            .map(\.message)
             .eraseToAnyPublisher()
     }
     
-    func verify(authCode: String, identityToken: String) -> AnyPublisher<String, MoyaError> {
+    func verify(message: String, signature: String) -> AnyPublisher<String, MoyaError> {
         provider
-            .requestPublisher(.verify(authCode: authCode, identityToken: identityToken))
+            .requestPublisher(.verify(message: message, signatue: signature))
             .map(TokenResponse.self)
             .flatMap { response in
                 verify(token: response.accessToken)
@@ -84,18 +78,18 @@ struct RemoteAuthService: AuthService {
         
         
         func verify(using signer: JWTSigner) throws {
-            try self.audience.verifyIntendedAudience(includes: "dev.bombastic.app")
+            try self.audience.verifyIntendedAudience(includes: Bundle.main.bundleIdentifier!)
         }
     }
 }
 
 class StubAuthService: AuthService {
-    func register(email: String, fullName: String, authCode: String, identityToken: String)
+    func siwe(address: String)
     -> AnyPublisher<String, MoyaError> {
         Empty<String, MoyaError>().eraseToAnyPublisher()
     }
     
-    func verify(authCode: String, identityToken: String) -> AnyPublisher<String, MoyaError> {
+    func verify(message: String, signature: String) -> AnyPublisher<String, MoyaError> {
         Empty<String, MoyaError>().eraseToAnyPublisher()
     }
     

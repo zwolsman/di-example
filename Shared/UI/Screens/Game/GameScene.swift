@@ -109,18 +109,15 @@ private extension GameScene {
                 .init(name: "Mult", amount: "\(game.multiplier.formatted())X")
             ])
             .padding(.vertical, 24)
+            .padding([.leading, .top, .trailing], 32)
             Spacer()
             
+                
             Button("Collect points", action: viewModel.cashOut)
-                .padding()
-                .padding(.vertical, 8)
-                .foregroundColor(.black)
-                .frame(maxWidth: .infinity)
-                .background(Color.accentColor)
+                .primaryButtonStyle()
                 .disabled(!viewModel.canPlay)
+                .padding()
         }
-        .padding(32)
-        .padding(.bottom, 8)
         .font(.custom("Carbon Bold",  size: UIFont.preferredFont(forTextStyle: .body).pointSize)
         )
         .textCase(.uppercase)

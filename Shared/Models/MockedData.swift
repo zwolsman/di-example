@@ -12,8 +12,8 @@ extension Game {
 }
 
 extension Profile {
-    static let mock = Profile(name: "Marvin Zwolsman", points: 1000, games: 56, totalEarnings: 65213, link: "bombastic.dev/u/123456", balanceInEur: 50.0)
-    static let mockWithHighlights = Profile(name: "Nicole Choi", points: 1000, games: 56, totalEarnings: 65213, link: "bombastic.dev/u/654321", balanceInEur: 100.0)
+    static let mock = Profile(name: "Marvin Zwolsman", points: 1000, games: 56, address: "0x17e237b7e8640a69a1b5452d1a7b1872b14444df")
+    static let mockWithHighlights = Profile(name: "Babs", points: 1000, games: 56, address: "0xC0FFEE")
 }
 
 extension Offer {
