@@ -37,6 +37,7 @@ extension Game {
 
 extension Game {
     static var colors = [
+        Color("check color"),
         Color.red,
         Color.orange,
         Color.yellow,
