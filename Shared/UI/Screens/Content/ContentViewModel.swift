@@ -33,10 +33,19 @@ extension ContentView {
         }
 
         func loadAuthenticationState() {
-//            container.appState[\.userData.authenticated].setIsLoading(cancelBag: cancelBag)
-//            let hasAuth = UserDefaults.standard.string(forKey: "access_token") != nil
-//            container.appState[\.userData.authenticated] = .loaded(hasAuth)
-            container.appState[\.userData.authenticated] = .loaded(false)
+            container.appState[\.userData.authenticated].setIsLoading(cancelBag: cancelBag)
+            if let token = UserDefaults.standard.string(forKey: "access_token") {
+                container
+                    .services
+                    .authService
+                    .verify(token: token)
+                    .sinkToLoadable {
+                        self.container.appState[\.userData.authenticated] = $0
+                    }
+                    .store(in: cancelBag)
+            } else {
+                container.appState[\.userData.authenticated] = .loaded(false)
+            }
         }
     }
 }

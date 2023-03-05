@@ -19,7 +19,7 @@ struct GameScene: View {
             .navigationBarTitle("Game", displayMode: .inline)
             .toolbar {
                 gameHeaderText
-                gameDetailsButton
+                gameInfoButton
             }
             .onReceive(inspection.notice) {
                 inspection.visit(self, $0)
@@ -36,17 +36,16 @@ struct GameScene: View {
         case let .failed(error): failedView(error)
         }
     }
-    
-    private var gameInfoScene: GameInfoScene {
-        .init(viewModel: .init(container: viewModel.container, gameId: viewModel.gameId, game: viewModel.game))
-    }
-    
-    private var gameDetailsButton: some ToolbarContent {
+
+    private var gameInfoButton: some ToolbarContent {
         ToolbarItem(placement: .navigationBarTrailing) {
-            NavigationLink(destination: gameInfoScene) {
-                Label("Game details", systemImage: "info.circle")
+            if let game = viewModel.game.value {
+                    NavigationLink(destination: GameInfoScene(viewModel: .init(container: viewModel.container, game: game))) {
+                        Label("Game details", systemImage: "info.circle")
+                    }
             }
         }
+        
     }
     private var gameHeaderText: some ToolbarContent {
         ToolbarItem(placement: .principal) {
@@ -61,7 +60,7 @@ struct GameScene: View {
 
 private extension GameScene {
     var notRequestedView: some View {
-        Text("").onAppear(perform: viewModel.loadGame)
+        Text("Oh no")
     }
     
     @ViewBuilder
@@ -118,19 +117,22 @@ private extension GameScene {
                 .disabled(!viewModel.canPlay)
                 .padding()
         }
-        .font(.custom("Carbon Bold",  size: UIFont.preferredFont(forTextStyle: .body).pointSize)
-        )
+        .font(.carbon())
         .textCase(.uppercase)
+        .padding([.leading, .top, .trailing], 24)
     }
 }
 
 struct GameDetailScene_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            GameScene(viewModel: .init(container: .preview, id: Game.mockedData[0].id))
+            GameScene(viewModel: .init(container: .preview))
         }
         NavigationView {
-            GameScene(viewModel: .init(container: .preview, id: Game.mockedData[0].id, game: .loaded(Game.mockedData[0])))
+            GameScene(viewModel: .init(container: .preview, game: .loaded(Game.mockedData[0])))
+        }
+        NavigationView {
+            GameScene(viewModel: .init(container: .preview, game: .loaded(Game.mockedData[1])))
         }
     }
 }

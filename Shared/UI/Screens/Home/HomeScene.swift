@@ -110,7 +110,7 @@ private extension HomeScene {
 
     func gamesSection(_ games: [Game]) -> some View {
         func gameView(game: Game) -> some View {
-            GameScene(viewModel: .init(container: viewModel.container, id: game.id, game: .loaded(game)))
+            GameScene(viewModel: .init(container: viewModel.container, game: .loaded(game)))
         }
 
         func highlightButton(_ game: Game) -> some View {

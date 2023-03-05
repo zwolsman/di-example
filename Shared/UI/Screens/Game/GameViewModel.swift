@@ -9,7 +9,7 @@ import SwiftUI
 
 extension GameScene {
     struct Routing: Equatable {
-
+        var game: Game? = nil
     }
 }
 
@@ -35,28 +35,25 @@ extension GameScene {
         // Misc
         let container: DIContainer
         private var cancelBag = CancelBag()
-        let gameId: String
 
-        init(container: DIContainer, id: String, game: Loadable<Game> = .notRequested) {
+        init(container: DIContainer, game: Loadable<Game> = .notRequested) {
             self.container = container
             let appState = container.appState
             _routingState = .init(initialValue: appState.value.routing.gameScene)
             _game = .init(initialValue: game)
-            gameId = id
 
             cancelBag.collect {
+                $game
+                    .removeDuplicates()
+                    .sink {
+                        self.routingState.game = $0.value
+                    }
+
                 $routingState
                         .sink {
                             appState[\.routing.gameScene] = $0
                         }
-                $game
-                        .removeDuplicates()
-                        .sink {
-                            guard case let .loaded(game) = $0 else {
-                                return
-                            }
-                            appState.value.consume(game: game)
-                        }
+                
                 appState.map(\.routing.gameScene)
                         .removeDuplicates()
                         .weakAssign(to: \.routingState, on: self)
@@ -65,29 +62,27 @@ extension GameScene {
 
         // MARK: - Side Effects
 
-        func loadGame() {
-            container.services.gameService
-                    .load(game: loadableSubject(\.game), gameId: gameId)
-        }
-
         func cashOut() {
             let gameSubject = loadableSubject(\.game).onSet { [weak self] game in
                 guard case let .loaded(game) = game else {
                     return
                 }
-                self?.cashOutFeedback(game: game)
-            }
 
+                self?.guessFeedback(game: game)
+            }
+            
+            guard let gameId = game.value?.id else { return }
             container
-                    .services
-                    .gameService
-                    .cashOut(game: gameSubject, gameId: gameId)
+                .services
+                .gameService
+                .cashOut(game: gameSubject, gameId: gameId)
 
         }
 
         func guess(tileId: Int) {
             // TODO: ideal world
             // loadableSubject(\.game).onLoaded(notificationFeedback(game:))
+            
             let gameSubject = loadableSubject(\.game).onSet { [weak self] game in
                 guard case let .loaded(game) = game else {
                     return
@@ -96,6 +91,7 @@ extension GameScene {
                 self?.guessFeedback(game: game)
             }
 
+            guard let gameId = game.value?.id else { return }
             container
                     .services
                     .gameService

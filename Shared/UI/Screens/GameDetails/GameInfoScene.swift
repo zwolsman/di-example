@@ -1,56 +1,40 @@
 //
 //  GameDetailsScene.swift
-//  di-example
+//  Checkpot
 //
 //  Created by Marvin Zwolsman on 22/12/2021.
 //
 //
 
 import SwiftUI
+import UIKit
 
 struct GameInfoScene: View {
     @ObservedObject private(set) var viewModel: ViewModel
-
     let inspection = Inspection<Self>()
 
     var body: some View {
         content
                 .navigationBarTitle("Game Info", displayMode: .inline)
-                .listStyle(.grouped)
+                .toolbar {
+                    headerText
+                }
                 .onReceive(inspection.notice) {
                     inspection.visit(self, $0)
                 }
     }
 
+    private var headerText: some ToolbarContent {
+        ToolbarItem(placement: .principal) {
+            Text("Game info")
+                .font(.carbon(forTextStyle: .title3))
+                .textCase(.uppercase)
+        }
+    }
+    
     @ViewBuilder
     private var content: some View {
-        switch viewModel.game {
-        case .notRequested: notRequestedView
-        case .isLoading: loadingView
-        case let .loaded(game): loadedView(game)
-        case let .failed(error): failedView(error)
-        }
-    }
-}
-
-// MARK: - Loading Content
-
-private extension GameInfoScene {
-    var notRequestedView: some View {
-        Text("").onAppear(perform: viewModel.loadGame)
-    }
-
-    var loadingView: some View {
-        VStack {
-            ActivityIndicatorView()
-            Button(action: {
-                viewModel.game.cancelLoading()
-            }, label: { Text("Cancel loading") })
-        }
-    }
-
-    func failedView(_ error: Error) -> some View {
-        Text(error.localizedDescription)
+        loadedView(viewModel.game)
     }
 }
 
@@ -58,47 +42,119 @@ private extension GameInfoScene {
 
 private extension GameInfoScene {
     func loadedView(_ game: Game) -> some View {
-        List {
-            basicInfo(game)
-            secretInfo(game)
-        }
-    }
+        VStack(alignment: .leading) {
+            ZStack {
+                Image("check background")
+                    .renderingMode(.template)
+                    .foregroundColor(.accentColor)
+                    
+                Image("check")
+            }
+            .padding(.bottom)
+            
+            Text("we believe that transparency, fairness, and trust are the foundation of a strong gaming community. That's why we're building a game where these values are at the forefront.\n\n" +
+                 
+                 "To ensure transparency and fairness, we use the SHA256 algorithm to hash three random tiles and a server-generated string.\n\n" +
 
-    private func basicInfo(_ game: Game) -> some View {
-        Section(header: Text("Info")) {
-            DetailRow(left: Text("Initial stake"), right: Text("\(viewModel.initialStake) points"))
-                    .onTapGesture(perform: viewModel.toggleAbbreviatePoints)
-            DetailRow(left: Text("Stake"), right: Text("\(viewModel.stake) points"))
-                    .onTapGesture(perform: viewModel.toggleAbbreviatePoints)
-            DetailRow(left: Text("Multiplier"), right: Text(game.multiplier.formatted()))
-            DetailRow(left: Text("Bombs"), right: Text("\(game.bombs)"))
-            DetailRow(left: Text("Color"), right: ColorCell(color: game.color))
-        }
-    }
-
-    private func secretInfo(_ game: Game) -> some View {
-        Section(header: Text("Game secret"), footer: secretFooter()) {
-            Text(viewModel.showPlain ? viewModel.plain : viewModel.secret)
-                    .multilineTextAlignment(.center)
-                    .font(.system(.body, design: .monospaced))
-                    .frame(maxWidth: .infinity)
-                    .onTapGesture {
-                        viewModel.toggleSecret()
+                 "Before your first tile choice, we show you the hash result. After the game, reveal the secret by tapping the result. ")
+            .padding(.bottom)
+            
+            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 1), count: 4), spacing: 1) {
+                Text("Initial")
+                    .modifier(TableHeaderModifier())
+                Text("Stake")
+                    .modifier(TableHeaderModifier())
+                Text("Mult")
+                    .modifier(TableHeaderModifier())
+                Text("Bombs")
+                    .modifier(TableHeaderModifier())
+                Text(viewModel.initialStake + "pts")
+                    .modifier(TableCellModifier())
+                Text(viewModel.stake + "pts")
+                    .modifier(TableCellModifier())
+                Text(viewModel.game.multiplier.formatted() + "x")
+                    .modifier(TableCellModifier())
+                Text("\(viewModel.game.bombs)")
+                    .modifier(TableCellModifier())
+            }.background(Color("grey"))
+                .padding(1)
+                .background(Color("grey"))
+            
+            Text("Game checksum")
+                .padding(.top)
+            HStack {
+                Text(viewModel.secret)
+                    .font(.carbon(size: 12))
+                    .textCase(.none)
+                    .lineLimit(2)
+                    .foregroundColor(.black)
+                    .padding()
+                Spacer()
+                    
+                Button(action: viewModel.copyChecksum) {
+                    Image(systemName: "square.on.square")
+                        .renderingMode(.template)
+                        .tint(.black)
+                }
+                .padding()
+                .aspectRatio(1, contentMode: .fit)
+                .frame(maxHeight: .infinity)
+                .background(Color.accentColor)
+            }
+            .frame(maxWidth: .infinity)
+            .background(Color.white)
+            .fixedSize(horizontal: false, vertical: true)
+            
+            
+                Text("Game secret")
+                    .padding(.top)
+                HStack {
+                    if let secret = game.plain {
+                        Text(secret)
+                            .font(.carbon(size: 12))
+                            .textCase(.none)
+                            .lineLimit(2)
+                            .foregroundColor(.black)
+                            .padding()
+                        
+                    } else {
+                        Text("Finish the game to reveal the secret")
+                            .font(.carbon(size: 12))
+                            .lineLimit(2)
+                            .foregroundColor(Color("grey"))
+                            .padding()
                     }
+                    Spacer()
+                    Button(action: viewModel.copySecret) {
+                        Image(systemName: "square.on.square")
+                            .renderingMode(.template)
+                            .foregroundColor(Color("grey"))
+                    }
+                    .padding()
+                    .aspectRatio(1, contentMode: .fit)
+                    .frame(maxHeight: .infinity)
+                    .background(Color.accentColor)
+                    .disabled(game.plain == nil)
+                }
+                .frame(maxWidth: .infinity)
+                .background(Color.white)
+                .fixedSize(horizontal: false, vertical: true)
+            
+            Spacer()
         }
-    }
-
-    func secretFooter() -> Text {
-        // swiftlint:disable line_length
-        Text("When a new game is started, three of the twenty-five tiles are chosen as mines. " +
-                "The three tiles (represented as numbers from 1 to 25,) coupled with a random string generated by the server are hashed using SHA256. " +
-                "The result of the hash function is shown to you before you make your first tile choice. Once the game is over you can reveal the secret by tapping on the result of the hash function.")
-        // swiftlint:enable line_length
+        .font(.carbon())
+        .textCase(.uppercase)
+        .padding()
     }
 }
 
 struct GameDetailsScene_Previews: PreviewProvider {
     static var previews: some View {
-        GameInfoScene(viewModel: .init(container: .preview, gameId: Game.mockedData[0].id))
+        NavigationView {
+            GameInfoScene(viewModel: .init(container: .preview, game: Game.mockedData[0]))
+        }.preferredColorScheme(.dark)
+        NavigationView {
+            GameInfoScene(viewModel: .init(container: .preview, game: Game.mockedData[1]))
+        }.preferredColorScheme(.dark)
     }
 }

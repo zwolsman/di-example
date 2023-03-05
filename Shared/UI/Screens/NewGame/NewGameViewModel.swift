@@ -4,6 +4,7 @@
 
 import Foundation
 import SwiftUI
+import UIKit
 import Moya
 
 // MARK: - Routing
@@ -24,6 +25,8 @@ extension NewGameScene {
         @Published var bombs: Int
         @Published var pointsText: String
         @Published var profile: Loadable<Profile>
+        @Published var newGame: Loadable<Game> = .notRequested
+        @Published var isInGame: Bool = false
         
         var points: Int? {
             Int.from(string: pointsText)
@@ -69,19 +72,6 @@ extension NewGameScene {
             return 100...userPoints
         }
         
-        @Published
-        var newGame: Loadable<Game> = .notRequested {
-            didSet {
-                switch newGame {
-                case let .loaded(game):
-                    gameCreated(game)
-                case .failed:
-                    problem = newGame.problem
-                default:
-                    break
-                }
-            }
-        }
         
         var problem: Problem?
         
@@ -116,9 +106,21 @@ extension NewGameScene {
                     .sink {
                         appState[\.routing.newGameScene] = $0
                     }
-                appState.map(\.routing.newGameScene)
-                    .removeDuplicates()
+
+                $newGame
+                    .sink {
+                        appState[\.routing.newGameScene.game] = $0.value
+                    }
+                
+                appState
+                    .updates(for: \.routing.gameScene.game)
+                    .receive(on: RunLoop.main) // TODO: why?
+                    .weakAssign(to: \.routingState.game, on: self)
+
+                appState
+                    .updates(for: \.routing.newGameScene)
                     .weakAssign(to: \.routingState, on: self)
+                
                 appState
                         .updates(for: \.userData.profile)
                         .weakAssign(to: \.profile, on: self)
@@ -134,22 +136,16 @@ extension NewGameScene {
         // MARK: - Creating game
 
         func createGame() {
-            guard let points = points else {
+            guard let points else {
                 print("Points are invalid")
                 return
             }
             
+            isInGame = true
             container
                 .services
                 .gameService
                 .create(game: loadableSubject(\.newGame), initialBet: points, color: color, bombs: bombs)
-        }
-        
-        private func gameCreated(_ game: Game) {
-            container.appState.bulkUpdate { state in
-//                state.consume(game: game)
-                state.routing.newGameScene.game = game
-            }
         }
         
         // MARK: - Modify points

@@ -25,50 +25,30 @@ struct TileButton: View {
 
         switch tile {
         case .bomb(true):
-            return Color("BombTileColor")
+            return Color.black
         case .bomb(false):
-            return Color("TileColor")
+            return Color.white
         case .loading:
             return Color("TileColor")
         case .points:
             return gameColor
         }
     }
-
-    private var textColor: Color {
-        guard let tile = tile else {
-            return .clear
+    
+    private var tileBackroundColor: Color {
+        guard let tile else {
+            return Color("grey two")
         }
-
-        switch tile {
-        case .points:
-            return .white
-        case .bomb(true):
-            return .white
-        case .bomb(false):
-            return .primary
-        case .loading:
-            return .clear
+        
+        if case .bomb(true) = tile {
+            return Color("BombTileColor")
+        } else {
+            return Color("grey two")
         }
     }
-
+    
     private var isEnabled: Bool {
         tile == nil
-    }
-
-    private var text: String {
-        guard let tile = tile else {
-            return ""
-        }
-
-        switch tile {
-        case .bomb:
-            return "BOMB"
-        case let .points(amount):
-            return amount.abbr()
-        case .loading:
-            return ""
-        }
     }
     
     @ViewBuilder
@@ -76,12 +56,22 @@ struct TileButton: View {
         switch tile {
         case .bomb(true):
             Image("bomb white")
+                .resizable()
+                .scaledToFit()
+                .padding(8)
         case .bomb(false):
             Image("bomb black")
+                .resizable()
+                .scaledToFit()
+                .padding(8)
         case .loading:
             ProgressView()
         default:
             Image("check")
+                .resizable()
+                .scaledToFit()
+                .padding(8)
+                
         }
     }
     
@@ -97,7 +87,7 @@ struct TileButton: View {
                 foregroundImage
             }
             .padding(12)
-            .background(Color("grey two"))
+            .background(tileBackroundColor)
         }.allowsHitTesting(isEnabled)
     }
 }

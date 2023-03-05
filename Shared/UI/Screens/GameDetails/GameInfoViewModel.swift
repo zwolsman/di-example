@@ -18,27 +18,20 @@ extension GameInfoScene {
     class ViewModel: ObservableObject {
         // State
         @Published var routingState: Routing
-        @Published var game: Loadable<Game>
+        @Published var game: Game
         @Published var showPlain: Bool = false
         @Published var abbreviatePoints: Bool = true
 
         var secret: String {
-            guard let game = game.value else {
-                return ""
-            }
-
             return game.secret.chunked(into: 4).joined(separator: " ")
         }
 
         var hasPlain: Bool {
-            guard let _ = game.value?.plain else {
-                return false
-            }
-            return true
+            return game.plain != nil
         }
 
         var plain: String {
-            guard let plain = game.value?.plain else {
+            guard let plain = game.plain else {
                 return "\n\n\n"
             }
 
@@ -46,10 +39,6 @@ extension GameInfoScene {
         }
 
         var initialStake: String {
-            guard let game = game.value else {
-                return ""
-            }
-
             if abbreviatePoints {
                 return game.initialBet.abbr()
             } else {
@@ -58,10 +47,6 @@ extension GameInfoScene {
         }
 
         var stake: String {
-            guard let game = game.value else {
-                return ""
-            }
-
             if abbreviatePoints {
                 return game.stake.abbr()
             } else {
@@ -72,14 +57,13 @@ extension GameInfoScene {
         // Misc
         let container: DIContainer
         private var cancelBag = CancelBag()
-        var gameId: String
 
-        init(container: DIContainer, gameId: String, game: Loadable<Game> = .notRequested) {
+        init(container: DIContainer, game: Game) {
             self.container = container
             let appState = container.appState
             _routingState = .init(initialValue: appState.value.routing.gameDetailsScene)
             _game = .init(initialValue: game)
-            self.gameId = gameId
+            
             cancelBag.collect {
                 $routingState
                         .sink {
@@ -91,14 +75,19 @@ extension GameInfoScene {
             }
         }
 
-        func loadGame() {
-            container.services.gameService.load(game: loadableSubject(\.game), gameId: gameId)
-        }
-
         func toggleAbbreviatePoints() {
             abbreviatePoints.toggle()
         }
 
+        func copySecret() {
+            guard let plain = game.plain else { return }
+            UIPasteboard.general.string = plain
+        }
+        
+        func copyChecksum() {
+            UIPasteboard.general.string = secret
+        }
+        
         func toggleSecret() {
             if hasPlain {
                 showPlain.toggle()

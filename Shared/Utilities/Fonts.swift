@@ -11,4 +11,7 @@ extension Font {
     static func carbon(forTextStyle style: UIFont.TextStyle = .body) -> Font {
         .custom("Carbon Bold",  size: UIFont.preferredFont(forTextStyle: style).pointSize)
     }
+    static func carbon(size: Int) -> Font {
+        .custom("Carbon Bold",  size: CGFloat(size))
+    }
 }

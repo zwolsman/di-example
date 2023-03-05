@@ -180,14 +180,15 @@ private extension NewGameScene {
             
             Spacer()
             
+            if let game = viewModel.routingState.game {
+                NavigationLink(destination: GameScene(viewModel: .init(container: viewModel.container, game: .loaded(game))), isActive: $viewModel.isInGame) {
+                    EmptyView()
+                }
+            }
+            
             Button("Create Game", action: viewModel.createGame)
                 .primaryButtonStyle()
                 .disabled(!viewModel.canCreateGame)
-            
-            
-            if let game = viewModel.routingState.game {
-                NavigationLink(LocalizedStringKey("bla"), destination: GameScene(viewModel: .init(container: viewModel.container, id: game.id, game: .loaded(game))), isActive: .constant(true))
-            }
         }
         .padding()
         .alert(item: $viewModel.problem) {

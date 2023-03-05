@@ -28,3 +28,20 @@ extension Button {
             .border(selected ? Color.accentColor : Color("grey"))
     }
 }
+
+struct TableCellModifier : ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .padding(.vertical, 8)
+            .frame(maxWidth: .infinity)
+            .background(Color.black)
+    }
+}
+
+struct TableHeaderModifier : ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .modifier(TableCellModifier())
+            .foregroundColor(Color("grey"))
+    }
+}
