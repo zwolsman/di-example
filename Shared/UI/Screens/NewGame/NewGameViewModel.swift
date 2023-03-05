@@ -132,6 +132,7 @@ extension NewGameScene {
         }
         
         // MARK: - Creating game
+
         func createGame() {
             guard let points = points else {
                 print("Points are invalid")

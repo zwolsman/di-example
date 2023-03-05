@@ -8,6 +8,7 @@
 import SwiftUI
 
 extension Button {
+    @warn_unqualified_access
     func primaryButtonStyle() -> some View {
         self
             .padding()
@@ -16,21 +17,14 @@ extension Button {
             .background(Color.accentColor)
     }
     
-    func selectedButtonStyle() -> some View {
+    @warn_unqualified_access
+    func selectedableButtonStyle(selected: Bool) -> some View {
         self
             .frame(maxWidth: .infinity)
             .scaledToFill()
             .padding(16)
-            .foregroundColor(.black)
-            .background(Color.accentColor)
-    }
-    
-    func nonSelectedButtonStyle() -> some View {
-        self
-            .frame(maxWidth: .infinity)
-            .scaledToFill()
-            .padding(16)
-            .border(Color("grey"))
-            .foregroundColor(Color("grey"))
+            .foregroundColor(selected ? .black : Color("grey"))
+            .background(selected ? Color.accentColor : Color("grey two"))
+            .border(selected ? Color.accentColor : Color("grey"))
     }
 }
