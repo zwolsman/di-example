@@ -25,6 +25,8 @@ extension ConnectWalletScene {
         @Published var routingState: Routing
         @Published var authenticated: Loadable<Bool>
         
+        var problem: Problem?
+        
         // Misc
         let container: DIContainer
         private var cancelBag = CancelBag()
@@ -98,6 +100,7 @@ extension ConnectWalletScene {
                         .verify(message: message, signature: signature)
                 }
                 .sinkToLoadable { accessToken in
+                    print(accessToken)
                     if let token = accessToken.value {
                         self.onAccessToken(accessToken: token)
                     }
@@ -109,7 +112,7 @@ extension ConnectWalletScene {
         
         private func onAccessToken(accessToken: String) {
             print("Received access token from api")
-            UserDefaults.standard.set(accessToken, forKey: "access_token")
+            container.appState[\.userData.accessToken] = accessToken
         }
     }
     

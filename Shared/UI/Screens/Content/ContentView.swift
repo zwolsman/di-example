@@ -32,8 +32,10 @@ struct ContentView: View {
             notRequestedView
         case .isLoading:
             LoadingScreen()
-        case .loaded(false), .failed:
+        case .loaded(false):
             WelcomeScene(viewModel: .init(container: viewModel.container))
+        case .failed(_):
+            NoProfileScene()
         case .loaded(true):
             NewGameScene(viewModel: .init(container: viewModel.container))
         }

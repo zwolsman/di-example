@@ -20,6 +20,9 @@ struct ConnectWalletScene: View {
             .toolbar {
                 headerText
             }
+            .alert(item: $viewModel.problem) {
+                $0.alert
+            }
             .navigationBarBackButtonHidden()
         
     }

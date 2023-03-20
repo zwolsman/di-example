@@ -13,9 +13,10 @@ struct AppState: Equatable {
 
 extension AppState {
     struct UserData: Equatable {
-        var authenticated: Loadable<Bool> = .notRequested
+        var authenticated: Loadable<Bool> = .loaded(false)
         var games: Loadable<[Game]> = .notRequested
         var profile: Loadable<Profile> = .notRequested
+        var accessToken: String? = nil
     }
 }
 

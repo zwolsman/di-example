@@ -20,7 +20,6 @@ extension ContentView {
         init(container: DIContainer,
              authenticated: Loadable<Bool> = .notRequested,
              isRunningTests: Bool = ProcessInfo.processInfo.isRunningTests) {
-            print("content view created")
             self.container = container
             self.isRunningTests = isRunningTests
             let appState = container.appState
@@ -33,19 +32,20 @@ extension ContentView {
         }
 
         func loadAuthenticationState() {
-            container.appState[\.userData.authenticated].setIsLoading(cancelBag: cancelBag)
-            if let token = UserDefaults.standard.string(forKey: "access_token") {
-                container
-                    .services
-                    .authService
-                    .verify(token: token)
-                    .sinkToLoadable {
-                        self.container.appState[\.userData.authenticated] = $0
-                    }
-                    .store(in: cancelBag)
-            } else {
-                container.appState[\.userData.authenticated] = .loaded(false)
-            }
+//            container.appState[\.userData.authenticated].setIsLoading(cancelBag: cancelBag)
+//            container.appState[\.userData.authenticated] = .loaded(false)
+//            if let token = UserDefaults.standard.string(forKey: "access_token") {
+//                container
+//                    .services
+//                    .authService
+//                    .verify(token: token)
+//                    .sinkToLoadable {
+//                        self.container.appState[\.userData.authenticated] = $0
+//                    }
+//                    .store(in: cancelBag)
+//            } else {
+//                container.appState[\.userData.authenticated] = .loaded(false)
+//            }
         }
     }
 }

@@ -6,5 +6,5 @@
 //
 
 API_SCHEME = https
-API_BASE = localhost:8080/api
-ISSUER = williamcheckspeare.com
+API_BASE = checkpot.herokuapp.com/api
+ISSUER = checkpot.herokuapp.com

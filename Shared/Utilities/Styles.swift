@@ -18,6 +18,15 @@ extension Button {
     }
     
     @warn_unqualified_access
+    func secondaryButtonStyle() -> some View {
+        self
+            .padding()
+            .foregroundColor(.black)
+            .frame(maxWidth: .infinity)
+            .background(Color.white)
+    }
+    
+    @warn_unqualified_access
     func selectedableButtonStyle(selected: Bool) -> some View {
         self
             .frame(maxWidth: .infinity)

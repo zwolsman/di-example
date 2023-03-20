@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Alamofire/Alamofire.git",
       "state" : {
-        "revision" : "f82c23a8a7ef8dc1a49a8bfc6a96883e79121864",
-        "version" : "5.5.0"
+        "revision" : "78424be314842833c04bc3bef5b72e85fff99204",
+        "version" : "5.6.4"
       }
     },
     {
@@ -23,8 +23,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/vapor/jwt-kit",
       "state" : {
-        "revision" : "1822bb0abf0a31a4b5078ec19061c548835253b5",
-        "version" : "4.3.0"
+        "revision" : "dcd78f07e092ac9138327e2bfbb0687a55a80850",
+        "version" : "4.8.0"
       }
     },
     {
@@ -32,8 +32,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/MetaMask/metamask-ios-sdk",
       "state" : {
-        "revision" : "ada7983f9c1eff3382e831a46c4aa85d336c3cbd",
-        "version" : "0.1.0"
+        "revision" : "dd1bd3b77edea5fb3defd0a9b4d314fff57d3114",
+        "version" : "0.1.1"
       }
     },
     {
@@ -41,8 +41,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Moya/Moya.git",
       "state" : {
-        "revision" : "9b906860e3c3c09032879465c471e6375829593f",
-        "version" : "15.0.0"
+        "revision" : "c263811c1f3dbf002be9bd83107f7cdc38992b26",
+        "version" : "15.0.3"
       }
     },
     {
@@ -59,8 +59,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/ReactiveX/RxSwift.git",
       "state" : {
-        "revision" : "7c17a6ccca06b5c107cfa4284e634562ddaf5951",
-        "version" : "6.2.0"
+        "revision" : "b4307ba0b6425c0ba4178e138799946c3da594f8",
+        "version" : "6.5.0"
       }
     },
     {
@@ -86,8 +86,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-crypto.git",
       "state" : {
-        "revision" : "a8911e0fadc25aef1071d582355bd1037a176060",
-        "version" : "2.0.4"
+        "revision" : "da0fe44138ab86e380f40a2acbd8a611b07d3f64",
+        "version" : "2.4.0"
       }
     }
   ],

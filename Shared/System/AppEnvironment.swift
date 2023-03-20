@@ -14,18 +14,18 @@ extension AppEnvironment {
 
     static func bootstrap() -> AppEnvironment {
         let appState = Store<AppState>(AppState())
-        let provider = configureAPIRepository()
+        let provider = configureAPIRepository(appState: appState)
         let services = configuredServices(appState: appState, provider: provider)
 
         let diContainer = DIContainer(appState: appState, services: services)
         return AppEnvironment(container: diContainer)
     }
 
-    private static func configureAPIRepository() -> APIProvider {
+    private static func configureAPIRepository(appState: Store<AppState>) -> APIProvider {
         APIProvider(
                 plugins: [
                     AccessTokenPlugin { _ in
-                        UserDefaults.standard.string(forKey: "access_token") ?? ""
+                        appState.value.userData.accessToken ?? ""
                     },
                     NetworkLoggerPlugin()
                 ]
