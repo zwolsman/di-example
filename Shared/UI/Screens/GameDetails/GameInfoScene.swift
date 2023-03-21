@@ -61,6 +61,7 @@ private extension GameInfoScene {
             }
             
         }
+        .padding([.leading, .top, .trailing], 24)
         .font(.carbon())
         .textCase(.uppercase)
         .padding()
@@ -72,9 +73,15 @@ private extension GameInfoScene {
             Image("signature")
                 .padding(.vertical)
             Spacer()
-            Button("I'm ready!", action: {}) //TODO: add routing
-                .primaryButtonStyle()
-                .padding(.bottom)
+            NavigationLink {
+                ConnectWalletScene(viewModel: .init(container: viewModel.container, authenticated: .loaded(false)))
+            } label: {
+                Text("I'm ready!")
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .foregroundColor(.black)
+                    .background(Color.accentColor)
+            }
         }
     }
     private func transparencyView(_ game: Game) -> some View {
@@ -203,11 +210,19 @@ struct GameDetailsScene_Previews: PreviewProvider {
         NavigationView {
             GameInfoScene(viewModel: .init(container: .preview, game: Game.mockedData[0]))
         }.preferredColorScheme(.dark)
+            .previewDisplayName("Actice normal game")
         NavigationView {
             GameInfoScene(viewModel: .init(container: .preview, game: Game.mockedData[1]))
         }.preferredColorScheme(.dark)
+            .previewDisplayName("Finished normal game")
         NavigationView {
             GameInfoScene(viewModel: .init(container: .preview, game: Game.mockedData[2]))
         }.preferredColorScheme(.dark)
+            .previewDisplayName("Active practice game")
+        NavigationView {
+            GameInfoScene(viewModel: .init(container: .preview, game: Game.mockedData[3]))
+        }.preferredColorScheme(.dark)
+            .previewDisplayName("Finished practice game")
+            
     }
 }

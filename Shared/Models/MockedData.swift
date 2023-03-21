@@ -12,6 +12,7 @@ extension Game {
         Game(tiles: [1:.points(amount: 10), 10: .points(amount: 10)], secret: "f6fc84c9f21c24907d6bee6eec38cabab5fa9a7be8c4a7827fe9e56f245bd2d5", stake: 100, next: 15, multiplier: 1, color: .red, isActive: false, isCashedOut: true, initialBet: 100, bombs: 3, plain: "25-18-15-Xzwg7Tq9WYPmzKHu"),
         
         Game(tiles: [:], secret: "f6fc84c9f21c24907d6bee6eec38cabab5fa9a7be8c4a7827fe9e56f245bd2d5", stake: 100, next: 0, multiplier: 1, color: .red, isActive: true, isCashedOut: false, initialBet: 0, bombs: 3, practice: true),
+        Game(tiles: [1: .bomb(revealedByUser: true)], secret: "f6fc84c9f21c24907d6bee6eec38cabab5fa9a7be8c4a7827fe9e56f245bd2d5", stake: 100, next: 0, multiplier: 1, color: .red, isActive: false, isCashedOut: false, initialBet: 0, bombs: 3, plain: "1-18-15-Xzwg7Tq9WYPmzKHu", practice: true),
     ]
 }
 

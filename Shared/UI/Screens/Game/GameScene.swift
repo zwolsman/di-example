@@ -133,9 +133,16 @@ private extension GameScene {
                 Button("Try again", action: viewModel.createPracticeGame)
                         .secondaryButtonStyle()
                         .padding(.horizontal)
-                    Button("Connect to wallet", action: {})
-                        .primaryButtonStyle()
+                NavigationLink {
+                    ConnectWalletScene(viewModel: .init(container: viewModel.container, authenticated: .loaded(false)))
+                } label: {
+                    Text("Connect wallet")
                         .padding()
+                        .frame(maxWidth: .infinity)
+                        .foregroundColor(.black)
+                        .background(Color.accentColor)
+                }
+                .padding([.horizontal, .bottom])
             }
             
             if !game.practice {
@@ -151,22 +158,26 @@ private extension GameScene {
     }
 }
 
-struct GameDetailScene_Previews: PreviewProvider {
+struct GameScene_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             GameScene(viewModel: .init(container: .preview))
-        }
+        }.previewDisplayName("No game data")
         
         NavigationView {
             GameScene(viewModel: .init(container: .preview, game: .loaded(Game.mockedData[0])))
-        }
+        }.previewDisplayName("Normal game")
         
         NavigationView {
             GameScene(viewModel: .init(container: .preview, game: .loaded(Game.mockedData[1])))
-        }
+        }.previewDisplayName("Finished normal game")
         
         NavigationView {
             GameScene(viewModel: .init(container: .preview, game: .loaded(Game.mockedData[2])))
-        }
+        }.previewDisplayName("Practice game")
+        
+        NavigationView {
+            GameScene(viewModel: .init(container: .preview, game: .loaded(Game.mockedData[3])))
+        }.previewDisplayName("Finished practice game")
     }
 }
