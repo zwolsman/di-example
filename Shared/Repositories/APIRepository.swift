@@ -13,7 +13,9 @@ enum APIRepository {
     case game(id: String)
     case deleteGame(id: String)
     case createGame(initialBet: Int, bombs: Int, colorId: Int)
+    case createPracticeGame
     case guess(gameId: String, tileId: Int)
+    case practiceGuess(gameId: String, tileId: Int)
     case cashOut(gameId: String)
     case siwe(address: String)
     case verify(message: String, signatue: String)
@@ -82,6 +84,10 @@ extension APIRepository: AccessTokenAuthorizable, TargetType {
             return "/v1/store/offers/\(offerId)/purchase"
         case .jwks:
             return "/v1/auth/keys"
+        case .createPracticeGame:
+            return "/v1/practice"
+        case let .practiceGuess(gameId: gameId, tileId: _):
+            return "/v1/practice/\(gameId)/guess"
         }
     }
 
@@ -91,9 +97,9 @@ extension APIRepository: AccessTokenAuthorizable, TargetType {
             return .get
         case .game, .games:
             return .get
-        case .createGame:
+        case .createGame, .createPracticeGame:
             return .post
-        case .guess:
+        case .guess, .practiceGuess:
             return .put
         case .cashOut:
             return .put
@@ -112,7 +118,7 @@ extension APIRepository: AccessTokenAuthorizable, TargetType {
 
     var task: Task {
         switch self {
-        case .profile, .game, .games, .cashOut, .storeOffers, .purchase, .deleteGame, .jwks:
+        case .profile, .game, .games, .cashOut, .storeOffers, .purchase, .deleteGame, .jwks, .createPracticeGame:
             return .requestPlain
         case let .siwe(address):
             let payload = SignUpPayload(address: address)
@@ -123,7 +129,7 @@ extension APIRepository: AccessTokenAuthorizable, TargetType {
         case let .createGame(initialBet, bombs, colorId):
             let payload = CreateGamePayload(initialBet: initialBet, bombs: bombs, colorId: colorId)
             return .requestJSONEncodable(payload)
-        case let .guess(_, tileId):
+        case let .guess(_, tileId), let .practiceGuess(_, tileId):
             return .requestParameters(parameters: ["tileId": tileId], encoding: URLEncoding.queryString)
         }
     }

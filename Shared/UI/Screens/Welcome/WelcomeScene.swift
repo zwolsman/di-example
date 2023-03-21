@@ -37,14 +37,32 @@ struct WelcomeScene: View {
                     .font(.carbon(forTextStyle: .subheadline))
                 
                 Spacer()
+
                 NavigationLink(destination: ConnectWalletScene(viewModel: .init(container: viewModel.container, authenticated: viewModel.authenticated))) {
-                    Text("Let's start")
+                    Text("Connect wallet")
                     .padding(8)
                     .frame(maxWidth: .infinity)
                     .foregroundColor(.white)
                     .padding()
                     .background(.black)
                 }
+                
+                Button(action: viewModel.createPracticeGame) {
+                    Text("Quick play")
+                        .foregroundColor(.black)
+                        .padding(8)
+                        .frame(maxWidth: .infinity)
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(.white)
+                }
+                
+                if let game = viewModel.routingState.practiceGame {
+                    NavigationLink(destination: GameScene(viewModel: .init(container: viewModel.container, game: .loaded(game))), isActive: $viewModel.isInGame) {
+                        EmptyView()
+                    }
+                }
+                
             }
             .foregroundColor(.black)
             .padding(16)
@@ -61,9 +79,11 @@ struct WelcomeScene: View {
 }
 
 
-struct SignInScene_Previews: PreviewProvider {
+struct WelcomeScene_Previews: PreviewProvider {
     static var previews: some View {
-        WelcomeScene(viewModel: .init(container: .preview))
-            .preferredColorScheme(.dark)
+        NavigationView {
+            WelcomeScene(viewModel: .init(container: .preview))
+                .preferredColorScheme(.dark)
+        }
     }
 }

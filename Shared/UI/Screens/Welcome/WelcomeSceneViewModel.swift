@@ -14,7 +14,7 @@ import AuthenticationServices
 
 extension WelcomeScene {
     struct Routing: Equatable {
-
+        var practiceGame: Game? = nil
     }
 }
 
@@ -23,6 +23,8 @@ extension WelcomeScene {
         // State
         @Published var routingState: Routing
         @Published var authenticated: Loadable<Bool>
+        @Published var isInGame: Bool = false
+        @Published var newGame: Loadable<Game> = .notRequested
 
         // Misc
         let container: DIContainer
@@ -40,12 +42,25 @@ extension WelcomeScene {
                         .sink {
                             appState[\.routing.welcomeScene] = $0
                         }
+                
+                $newGame
+                    .sink {
+                        appState[\.routing.welcomeScene.practiceGame] = $0.value
+                    }
 
                 appState.updates(for: \.routing.welcomeScene)
                         .weakAssign(to: \.routingState, on: self)
                 appState.updates(for: \.userData.authenticated)
                         .weakAssign(to: \.authenticated, on: self)
             }
+        }
+        
+        func createPracticeGame() {
+            isInGame = true
+            container
+                .services
+                .practiceService
+                .create(game: loadableSubject(\.newGame))
         }
     }
 

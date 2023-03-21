@@ -38,12 +38,14 @@ extension AppEnvironment {
         let profileService = RemoteProfileService(appState: appState, provider: provider)
         let authService = RemoteAuthService(provider: provider)
         let storeService = RemoteStoreService(provider: provider)
+        let practiceService = RemotePracticeService(provider: provider)
 
         return .init(
                 gameService: gameService,
                 profileService: profileService,
                 authService: authService,
-                storeService: storeService
+                storeService: storeService,
+                practiceService: practiceService
         )
     }
 }

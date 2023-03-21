@@ -27,6 +27,8 @@
 		EA8CE5EC278F1ADA0073C6DF /* LoadingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8CE5EB278F1ADA0073C6DF /* LoadingScreen.swift */; };
 		EA8CE5ED278F1ADA0073C6DF /* LoadingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8CE5EB278F1ADA0073C6DF /* LoadingScreen.swift */; };
 		EA8CE5F3278F20AB0073C6DF /* JWTKit in Frameworks */ = {isa = PBXBuildFile; productRef = EA8CE5F2278F20AB0073C6DF /* JWTKit */; };
+		EA8E913D29CA433B0071752B /* PracticeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8E913C29CA433B0071752B /* PracticeService.swift */; };
+		EA8E913E29CA433B0071752B /* PracticeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8E913C29CA433B0071752B /* PracticeService.swift */; };
 		EAA228AE29A4D38B003E16D8 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EAA228AC29A4D38B003E16D8 /* Info.plist */; };
 		EAA228B029A4D5ED003E16D8 /* carbon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EAA228AF29A4D5ED003E16D8 /* carbon.ttf */; };
 		EAA228B129A4D5ED003E16D8 /* carbon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EAA228AF29A4D5ED003E16D8 /* carbon.ttf */; };
@@ -168,6 +170,7 @@
 		EA44AF4B29A8AFD500585246 /* ConnectWalletSceneViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectWalletSceneViewModel.swift; sourceTree = "<group>"; };
 		EA8B68F729B4F6E30052ADB8 /* CheckpotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckpotView.swift; sourceTree = "<group>"; };
 		EA8CE5EB278F1ADA0073C6DF /* LoadingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingScreen.swift; sourceTree = "<group>"; };
+		EA8E913C29CA433B0071752B /* PracticeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeService.swift; sourceTree = "<group>"; };
 		EAA228AC29A4D38B003E16D8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EAA228AF29A4D5ED003E16D8 /* carbon.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = carbon.ttf; sourceTree = "<group>"; };
 		EAC32DCE29C48504001329EE /* NoProfileScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoProfileScene.swift; sourceTree = "<group>"; };
@@ -465,6 +468,7 @@
 				FD09F383BCF902A7AF0863B0 /* ProfileService.swift */,
 				EAF7CE5C2784819000292F77 /* AuthService.swift */,
 				FD09F56E8BA1F5D82EA1B232 /* StoreService.swift */,
+				EA8E913C29CA433B0071752B /* PracticeService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -799,6 +803,7 @@
 				FD09FBD352C969491F9621D9 /* ProfileScene.swift in Sources */,
 				FD09F0425FB9B197208468AE /* ProfileSceneViewModel.swift in Sources */,
 				FD09F1588B88D3C6D21E1D95 /* Profile.swift in Sources */,
+				EA8E913D29CA433B0071752B /* PracticeService.swift in Sources */,
 				EAF7CE5727846BBB00292F77 /* WelcomeScene.swift in Sources */,
 				EAF7CE5D2784819000292F77 /* AuthService.swift in Sources */,
 				FD09F4F86EBA83168FE4B370 /* IntExtensions.swift in Sources */,
@@ -870,6 +875,7 @@
 				FD09F6B0BDF435C0AF5008A1 /* ProfileService.swift in Sources */,
 				FD09FBBF2C7283B1A462E177 /* ChunkedCollection.swift in Sources */,
 				FD09FA7A60D1EC77E3A12478 /* APIRepository.swift in Sources */,
+				EA8E913E29CA433B0071752B /* PracticeService.swift in Sources */,
 				FD09FC95D5DC81314C48F645 /* Tile.swift in Sources */,
 				FD09FCB40EE53D8FEF3385BF /* GameStoreHelpers.swift in Sources */,
 				EAC32DD029C48504001329EE /* NoProfileScene.swift in Sources */,
@@ -1146,7 +1152,7 @@
 				CODE_SIGN_ENTITLEMENTS = iOS/iOS.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = UV7YH72NQ8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1198,7 +1204,7 @@
 				CODE_SIGN_ENTITLEMENTS = iOS/iOS.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = UV7YH72NQ8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;

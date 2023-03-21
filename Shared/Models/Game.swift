@@ -21,6 +21,7 @@ struct Game: Equatable, Identifiable {
     var plain: String?
 
     var lastTile: Tile?
+    var practice: Bool = false
 }
 
 extension Game {

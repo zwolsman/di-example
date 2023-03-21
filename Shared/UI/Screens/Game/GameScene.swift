@@ -49,7 +49,7 @@ struct GameScene: View {
     }
     private var gameHeaderText: some ToolbarContent {
         ToolbarItem(placement: .principal) {
-            Text("Game")
+            Text(viewModel.header)
                 .font(.carbon(forTextStyle: .title3))
                 .textCase(.uppercase)
         }
@@ -102,20 +102,48 @@ private extension GameScene {
             .allowsHitTesting(viewModel.canPlay)
             .background(Color("grey two"), ignoresSafeAreaEdges: [])
             
-            PointsGrid(items: [
-                .init(name: "Next", amount: game.next?.formatted() ?? "-"),
-                .init("Stake", amount: game.stake),
-                .init(name: "Mult", amount: "\(game.multiplier.formatted())X")
-            ])
-            .padding(.vertical, 24)
-            .padding([.leading, .top, .trailing], 32)
+            
+            if game.practice {
+                PointsGrid(items: [
+                    .init(name: "Bombs", amount: game.bombs.formatted()),
+                    .init(name: "Mult", amount: "\(game.multiplier.formatted())X")
+                ])
+                .padding(.vertical, 24)
+                .padding([.leading, .top, .trailing], 32)
+            } else {
+                PointsGrid(items: [
+                    .init(name: "Next", amount: game.next?.formatted() ?? "-"),
+                    .init("Stake", amount: game.stake),
+                    .init(name: "Mult", amount: "\(game.multiplier.formatted())X")
+                ])
+                .padding(.vertical, 24)
+                .padding([.leading, .top, .trailing], 32)
+            }
+            
+            if game.practice {
+                Text("This is only for practicing purpose.\nGood luck!")
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(Color("grey"))
+                    .padding(.horizontal, 4)
+            }
             Spacer()
             
                 
-            Button("Collect points", action: viewModel.cashOut)
-                .primaryButtonStyle()
-                .disabled(!viewModel.canPlay)
-                .padding()
+            if game.practice && !game.isActive  {
+                Button("Try again", action: viewModel.createPracticeGame)
+                        .secondaryButtonStyle()
+                        .padding(.horizontal)
+                    Button("Connect to wallet", action: {})
+                        .primaryButtonStyle()
+                        .padding()
+            }
+            
+            if !game.practice {
+                Button("Collect points", action: viewModel.cashOut)
+                    .primaryButtonStyle()
+                    .disabled(!viewModel.canPlay)
+                    .padding()
+            }
         }
         .font(.carbon())
         .textCase(.uppercase)
@@ -128,11 +156,17 @@ struct GameDetailScene_Previews: PreviewProvider {
         NavigationView {
             GameScene(viewModel: .init(container: .preview))
         }
+        
         NavigationView {
             GameScene(viewModel: .init(container: .preview, game: .loaded(Game.mockedData[0])))
         }
+        
         NavigationView {
             GameScene(viewModel: .init(container: .preview, game: .loaded(Game.mockedData[1])))
+        }
+        
+        NavigationView {
+            GameScene(viewModel: .init(container: .preview, game: .loaded(Game.mockedData[2])))
         }
     }
 }

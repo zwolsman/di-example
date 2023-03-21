@@ -25,15 +25,16 @@ struct GamesResponse: Decodable {
 protocol BaseGameResponse: Decodable {
     var id: String { get }
     var tiles: [String] { get }
-    var stake: Int { get }
+    var stake: Int? { get }
     var next: Int? { get }
     var multiplier: Double { get }
     var state: State { get }
     var secret: String { get }
-    var colorId: Int { get }
+    var colorId: Int? { get }
     var plain: String? { get }
-    var initialBet: Int { get }
+    var initialBet: Int? { get }
     var bombs: Int { get }
+    var practice: Bool? { get }
 }
 
 enum State: String, Codable {
@@ -45,15 +46,16 @@ enum State: String, Codable {
 struct GameProfileResponse: BaseGameResponse {
     var id: String
     var tiles: [String]
-    var stake: Int
+    var stake: Int?
     var next: Int?
     var multiplier: Double
     var state: State
     var secret: String
-    var colorId: Int
+    var colorId: Int?
     var plain: String?
-    var initialBet: Int
+    var initialBet: Int?
     var bombs: Int
+    var practice: Bool?
 
     var profile: Profile?
 }
@@ -61,15 +63,16 @@ struct GameProfileResponse: BaseGameResponse {
 struct GameResponse: BaseGameResponse {
     var id: String
     var tiles: [String]
-    var stake: Int
+    var stake: Int?
     var next: Int?
     var multiplier: Double
     var state: State
     var secret: String
-    var colorId: Int
+    var colorId: Int?
     var plain: String?
-    var initialBet: Int
+    var initialBet: Int?
     var bombs: Int
+    var practice: Bool?
 
     static func toDomain(response: BaseGameResponse) -> Game {
         let orderedTiles = response.tiles.compactMap(Tile.from(string:))
@@ -78,19 +81,21 @@ struct GameResponse: BaseGameResponse {
             $0[$1.tileId] = $1.tile
         }
 
+        // TODO: remove nullable response code -- It's a hack.. but yeah, mvp stuff.
         return Game(id: response.id,
                 tiles: tiles,
                 secret: response.secret,
-                stake: response.stake,
+                stake: response.stake ?? 0,
                 next: response.next,
                 multiplier: response.multiplier,
-                color: Game.colors[response.colorId],
+                color: Game.colors[response.colorId ?? 0],
                 isActive: response.state == .inGame,
                 isCashedOut: response.state == .cashedOut,
-                initialBet: response.initialBet,
+                initialBet: response.initialBet ?? 0,
                 bombs: response.bombs,
                 plain: response.plain,
-                lastTile: orderedTiles.last?.tile
+                lastTile: orderedTiles.last?.tile,
+                practice: response.practice ?? false
         )
     }
 }

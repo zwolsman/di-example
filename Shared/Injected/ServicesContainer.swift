@@ -8,13 +8,15 @@ extension DIContainer {
         let profileService: ProfileService
         let authService: AuthService
         let storeService: StoreService
+        let practiceService: PracticeService
 
         static var stub: Self {
             .init(
                     gameService: StubGameService(),
                     profileService: StubProfileService(),
                     authService: StubAuthService(),
-                    storeService: StubStoreService())
+                    storeService: StubStoreService(),
+                    practiceService: StubPracticeService())
         }
     }
 }

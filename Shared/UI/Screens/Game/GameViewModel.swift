@@ -31,6 +31,14 @@ extension GameScene {
             }
             return game.isActive
         }
+        
+        var header: String {
+            if game.value?.practice ?? false {
+                return "Practice game"
+            } else {
+                return "Game"
+            }
+        }
 
         // Misc
         let container: DIContainer
@@ -92,10 +100,13 @@ extension GameScene {
             }
 
             guard let gameId = game.value?.id else { return }
-            container
-                    .services
-                    .gameService
-                    .guess(game: gameSubject, gameId: gameId, tileId: tileId)
+            var guess = container.services.gameService.guess
+            
+            if game.value?.practice == true {
+                guess = container.services.practiceService.guess
+            }
+            
+            guess(gameSubject, gameId, tileId)
         }
 
         private func createTileButtonConfig(tileId: Int) -> TileButton.Configuration {
@@ -132,6 +143,15 @@ extension GameScene {
                 return
             }
             UINotificationFeedbackGenerator().notificationOccurred(.success)
+        }
+        
+        // MARK: Practice game side effects
+        
+        func createPracticeGame() {
+            container
+                .services
+                .practiceService
+                .create(game: loadableSubject(\.game))
         }
     }
 }

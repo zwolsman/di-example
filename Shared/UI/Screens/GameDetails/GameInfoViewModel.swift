@@ -21,6 +21,7 @@ extension GameInfoScene {
         @Published var game: Game
         @Published var showPlain: Bool = false
         @Published var abbreviatePoints: Bool = true
+        @Published var selectedSegment = 0
 
         var secret: String {
             return game.secret.chunked(into: 4).joined(separator: " ")
@@ -51,6 +52,14 @@ extension GameInfoScene {
                 return game.stake.abbr()
             } else {
                 return game.stake.formatted()
+            }
+        }
+        
+        var header: String {
+            if game.practice {
+                return "Practice game info"
+            } else {
+                return "Game info"
             }
         }
 
